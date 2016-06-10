@@ -1,0 +1,46 @@
+Data Analysis Brainstorm:
+
+So..... what is it that a user might want?
+
+(1) specific result: need date, zip code or address, type of result
+(2) specific result between dates
+(3) all of a specific result
+(4) all water test
+(5) all air test
+(6) all water test result for specific date
+(2) to be able to see a specific result between specific dates
+(3) to be able to see specific results at a specific time at a specific date
+
+
+
+See:
+
+Location:
+      - address
+      -zip code
+___________________
+
+Date:
+     - start date
+     - end date
+
+__________________
+
+Air or Water:
+         air or water
+
+Air:
+        - all
+        - particulates
+        - carbon Monoxide
+        - lead
+__________________
+Water:
+
+        - all
+        - turbidity
+        - total coliforms
+        - arsenic
+        - copper
+
+

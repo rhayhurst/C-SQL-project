@@ -1,0 +1,1490 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace AAWQT_TheSequel
+{
+    public partial class FormDataAnalysis : Form
+    {
+        String   connectionInfo   = "";
+        String   currUser         = "";
+        String   message          = "";
+        String   userEnteredData  = "";
+        String   sql              = "";
+        bool     addressOrZipFlag = true;  // address = true, zip       = false
+        bool     typeOfTest       = true;  // airTest = true, waterTest = false
+        int      typeOfAirTest    = -999;  // particulates = 1, carbon monoxide = 2, lead      = 3
+        int      typeOfWaterTest  = -999;  // turbidity    = 1, colforms        = 2, arsenic   = 3, copper = 4
+        int      typeOfDateTest   = -999;  // single date  = 0, multiple dates  = 1, all dates = 2
+        int      userID           = 0;
+        int      printCase        = -999;
+        DateTime startDate        = new DateTime();
+        DateTime endDate          = new DateTime();
+
+        public FormDataAnalysis(String passedCurrUser)
+        {
+            InitializeComponent();
+            currUser        = passedCurrUser;
+            String filename = "AAWQT_db_spr2.mdf";
+            connectionInfo  = String.Format(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\{0};Integrated Security=True;", filename);
+        }
+
+        private void FormDataAnalysis_Load(object sender, EventArgs e){}
+
+        private void button_get_results_Click(object sender, EventArgs e)
+        {
+            //
+            // assign values to the variables
+            //
+            getVariableValues();
+
+            //
+            // a metric TON of error checking
+            //
+            if (errorCheckUserInput())
+            {
+                //
+                // print the header in the listbox
+                //
+                printHeader();
+
+                //
+                // set up the sql
+                //
+                SqlConnection database = open_database();
+                SqlTransaction transaction = create_transaction(database);
+
+                try
+                {
+                    //
+                    // setup the sql statement, and get the case number (for printing)
+                    //
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = database;
+                    sql                = getSQL(ref printCase);
+
+                    // fill the container
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataSet dataset        = new DataSet();
+                    command.Transaction    = transaction;
+                    command.CommandText    = sql;
+
+                    // run the command!
+                    adapter.Fill(dataset);
+
+                    // display the results
+                    DataTable datatable = dataset.Tables["TABLE"];
+
+                    foreach (DataRow row in datatable.Rows)
+                    {
+                        string particulates = "";
+                        string CO2          = "";
+                        string lead         = "";
+                        string turbidity    = "";
+                        string coliforms    = "";
+                        string arsenic      = "";
+                        string copper       = "";
+
+                        //
+                        // print the date that the test took place
+                        //
+                        listBox1.Items.Add("");
+                        listBox1.Items.Add(Convert.ToDateTime(row["_date"]).ToString("MM/dd/yy"));
+
+                        //
+                        // if it's an air test, gather all of the air test variables into a big pile
+                        //
+                        if (typeOfTest)
+                        {
+                            particulates = String.Format("particulates:\t{0}\tppm", row["particulates"]);
+                            CO2 = String.Format("carbon monoxide:\t{0}\tppm", row["carbonMonoxide"]);
+                            lead = String.Format("lead:\t\t{0}\tppm", row["lead"]);
+                        }
+
+                        //
+                        // else it's a water test, gather all of the water test variables
+                        //
+                        else
+                        {
+                            turbidity = String.Format("turbidity:\t{0}\tppm", row["turbidity"]);
+                            arsenic   = String.Format("arsenic:\t{0}\tppm", row["arsenic"]);
+                            copper    = String.Format("copper:\t{0}\tppm", row["copper"]);
+                            if (0 == Convert.ToInt32(row["coliforms"]))
+                                coliforms = "coliforms:\tnegative";
+                            else coliforms = "coliforms:\tpositive";
+                        }
+
+                        //
+                        // print the results to the test, whichever tests were chosen
+                        //
+                        if (typeOfTest)
+                        {
+                            // particulates
+                            if (1  == printCase ||  2 == printCase ||  3 == printCase ||
+                                4  == printCase ||  5 == printCase ||  6 == printCase ||
+                                28 == printCase || 29 == printCase || 30 == printCase ||
+                                31 == printCase || 32 == printCase || 33 == printCase)
+                            {
+                                listBox1.Items.Add(particulates);
+                            }
+
+                            // CO2
+                            if (1  == printCase || 2  == printCase || 3  == printCase || 
+                                7  == printCase || 8  == printCase || 9  == printCase ||
+                                28 == printCase || 29 == printCase || 30 == printCase ||
+                                34 == printCase || 35 == printCase || 36 == printCase)
+                            {
+                                listBox1.Items.Add(CO2);
+                            }
+                            
+                            // lead
+                            if (1  == printCase || 2  == printCase || 3  == printCase ||
+                                10 == printCase || 11 == printCase || 12 == printCase ||
+                                28 == printCase || 29 == printCase || 30 == printCase ||
+                                37 == printCase || 38 == printCase || 39 == printCase)
+                            {
+                                listBox1.Items.Add(lead);
+                            }
+                        }
+                        else
+                        {
+                            // turbidity
+                            if (13 == printCase || 14 == printCase || 15 == printCase ||
+                                16 == printCase || 17 == printCase || 18 == printCase ||
+                                40 == printCase || 41 == printCase || 42 == printCase ||
+                                43 == printCase || 44 == printCase || 45 == printCase)
+                            {
+                                listBox1.Items.Add(turbidity);
+                            }
+
+                            // coliforms
+                            if (13 == printCase || 14 == printCase || 15 == printCase ||
+                                19 == printCase || 20 == printCase || 21 == printCase ||
+                                40 == printCase || 41 == printCase || 42 == printCase ||
+                                46 == printCase || 47 == printCase || 48 == printCase)
+                            {
+                                listBox1.Items.Add(coliforms);
+                            }
+
+                            // arsenic
+                            if (13 == printCase || 14 == printCase || 15 == printCase ||
+                                22 == printCase || 23 == printCase || 24 == printCase ||
+                                40 == printCase || 41 == printCase || 42 == printCase ||
+                                49 == printCase || 50 == printCase || 51 == printCase)
+                            {
+                                listBox1.Items.Add(arsenic);
+                            }
+
+                            if (13 == printCase || 14 == printCase || 15 == printCase ||
+                                25 == printCase || 26 == printCase || 27 == printCase ||
+                                40 == printCase || 41 == printCase || 42 == printCase ||
+                                52 == printCase || 53 == printCase || 54 == printCase)
+                            {
+                                listBox1.Items.Add(copper);
+                            }
+                        }
+                        listBox1.Items.Add("--------------------------------------------------------------------------------");
+                    }
+                }
+                catch (SqlException sqlexception)
+                {
+                    message = string.Format(@"SQLException: {0}", sqlexception);
+                    MessageBox.Show(message);
+                    exit();
+                }
+                catch (Exception exception)
+                {
+                    message = string.Format(@"exception: {0}", exception);
+                    MessageBox.Show(message);
+                    exit();
+                }
+                transaction.Rollback();
+                database.Close();
+            }
+        }
+
+        private void printHeader()
+        {
+            listBox1.Items.Add("--------------------------------------------------------------------------------");
+            //
+            // print the username
+            //
+            listBox1.Items.Add(string.Format(@"User:" + "\t" + "{0}", currUser));
+
+            //
+            // print the zip code or address
+            //
+            if (addressOrZipFlag)
+                listBox1.Items.Add(string.Format(@"address:" + "\t" + "{0}", userEnteredData));
+            else
+                listBox1.Items.Add(string.Format(@"zip code:" + "\t" + "{0}", Convert.ToUInt32(userEnteredData)));
+            
+
+            //
+            // print the tests that the results will be shown for
+            //
+            string m1 = "";
+            string m2 = "";
+            if (typeOfTest)
+            {
+                m1 = "air test results for: ";
+                if      (0 == typeOfAirTest) m2 = "all air tests";
+                else if (1 == typeOfAirTest) m2 = "particulates";
+                else if (2 == typeOfAirTest) m2 = "carbon monoxide";
+                else if (3 == typeOfAirTest) m2 = "lead";
+            }
+            else
+            {
+                m1 = "water test results for: ";
+                if      (0 == typeOfWaterTest) m2 = "all water tests";
+                else if (1 == typeOfWaterTest) m2 = "turbidity";
+                else if (2 == typeOfWaterTest) m2 = "coliforms";
+                else if (3 == typeOfWaterTest) m2 = "arsenic";
+                else if (4 == typeOfWaterTest) m2 = "copper";
+            }
+            listBox1.Items.Add(string.Format(m1 + m2));
+
+            //
+            // print the dates, if any
+            //
+            string d1 = string.Format(startDate.ToString("MMM dd, yyyy"));
+            string d2 = string.Format(endDate.ToString("MMM dd, yyyy"));
+            if (0 == typeOfDateTest)
+            {
+                listBox1.Items.Add(string.Format("result for single test: {0}", d1));
+            }
+            else if (1 == typeOfDateTest)
+            {
+                listBox1.Items.Add("results for tests between:");
+                listBox1.Items.Add(string.Format(@"{0} -> {1}", d1, d2));
+            }
+
+            listBox1.Items.Add("--------------------------------------------------------------------------------");
+        }
+
+        private string getSQL(ref int printCase)
+        {
+            String SQL = "";
+
+            // addressOrZipFlag = true = address
+            if (addressOrZipFlag)
+            {
+                // typeOFTest = true = address / air
+                if (typeOfTest)
+                {
+                    // typeOfAirTest == 0 = address / air / all
+                    if (0 == typeOfAirTest)
+                    {
+                        // CASE 1: typeOfTestDate = 0 = address / air / all / one date
+                        if (0 == typeOfDateTest) 
+                        {
+                            printCase = 1; 
+                            SQL = address_air_one_date();
+                        }
+
+                        // CASE 2: typeOfTestDate = 1 = address / air / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 2;
+                            SQL = address_air_two_dates();
+                        }
+
+                        // CASE 3: typeOfTestDate = 2 = address / air / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 3;
+                            SQL = address_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest == 1 = address / air / particulates
+                    else if (1 == typeOfAirTest)
+                    {
+                        // CASE 4: typeOfTestDate = 0 = address / air / particulates / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 4;
+                            SQL = address_air_one_date();
+                        }
+
+                        // CASE 5: typeOfTestDate = 1 = address / air / particulates / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 5;
+                            SQL = address_air_two_dates();
+                        }
+
+                        // CASE 6: typeOfTestDate = 2 = address / air / particulates / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 6;
+                            SQL = address_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest == 2 = address / air / CO2
+                    else if (2 == typeOfAirTest)
+                    {
+                        // CASE 7: typeOfTestDate = 0 = address / air / CO2 / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 7;
+                            SQL = address_air_one_date();
+                        }
+
+                        // CASE 8: typeOfTestDate = 1 = address / air / CO2 / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 8;
+                            SQL = address_air_two_dates();
+                        }
+
+                        // CASE 9: typeOfTestDate = 2 = address / air / CO2 / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 9;
+                            SQL = address_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest == 3 = address / air / lead
+                    else if (3 == typeOfAirTest)
+                    {
+                        // CASE 10: typeOfTestDate = 0 = address / air / lead / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 10;
+                            SQL = address_air_one_date();
+                        }
+
+                        // CASE 11: typeOfTestDate = 1 = address / air / lead / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 11;
+                            SQL = address_air_two_dates();
+                        }
+
+                        // CASE 12: typeOfTestDate = 2 = address / air / lead / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 12;
+                            SQL = address_air_no_dates();
+                        }
+                    }
+                }
+                
+                // typeOFTest = false = address / water
+                else if (!typeOfTest)
+                {
+                    // typeOfWaterTest == 0 = address / water / all
+                    if (0 == typeOfWaterTest)
+                    {
+                        // CASE 13: typeOfTestDate == 0 = address / water / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 13;
+                            SQL = address_water_one_date();
+                        }
+
+                        // CASE 14: typeOfTestDate == 1 = address / water / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 14;
+                            SQL = address_water_two_dates();
+                        }
+
+                        // CASE 15: typeOfTestDate == 2 = address / water / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 15;
+                            SQL = address_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 1 = address / water / turbidity
+                    else if (1 == typeOfWaterTest)
+                    {
+                        // CASE 16: typeOfTestDate == 0 = address / water / turbidity / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 16;
+                            SQL = address_water_one_date();
+                        }
+
+                        // CASE 17: typeOfTestDate == 1 = address / water / turbidity / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 17;
+                            SQL = address_water_two_dates();
+                        }
+
+                        // CASE 18: typeOfTestDate == 2 = address / water / turbidity / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 18;
+                            SQL = address_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 2 = address / water / coliforms
+                    else if (2 == typeOfWaterTest)
+                    {
+                        // CASE 19: typeOfTestDate == 0 = address / water / coliforms / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 19;
+                            SQL = address_water_one_date();
+                        }
+
+                        // CASE 20: typeOfTestDate == 1 = address / water / coliforms / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 20;
+                            SQL = address_water_two_dates();
+                        }
+
+                        // CASE 21: typeOfTestDate == 2 = address / water / coliforms / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 21;
+                            SQL = address_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 3 = address / water / arsenic
+                    else if (3 == typeOfWaterTest)
+                    {
+                        // CASE 22: typeOfTestDate == 0 = address / water / arsenic / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 22;
+                            SQL = address_water_one_date();
+                        }
+
+                        // CASE 23: typeOfTestDate == 1 = address / water / arsenic / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 23;
+                            SQL = address_water_two_dates();
+                        }
+
+
+                        // CASE 24: typeOfTestDate == 2 = address / water / arsenic / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 24;
+                            SQL = address_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 4 = address / water / copper
+                    else if (4 == typeOfWaterTest)
+                    {
+                        // CASE 25: typeOfTestDate == 0 = address / water / copper / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 25;
+                            SQL = address_water_one_date();
+                        }
+
+                        // CASE 26: typeOfTestDate == 1 = address / water / copper / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 26;
+                            SQL = address_water_two_dates();
+                        }
+
+                        // CASE 27: typeOfTestDate == 2 = address / water / copper / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 27;
+                            SQL = address_water_no_dates();
+                        }
+                    }
+                }
+            }
+
+            // addressOrZipFlag = false = zip
+            else if (!addressOrZipFlag)
+            {
+                // typeOFTest = true = zip / air
+                if (typeOfTest)
+                {
+                    // typeOfAirTest = 0 = zip / air / all
+                    if (0 == typeOfAirTest)
+                    {
+                        // CASE 28: typeOfTestDate == 0 = zip / air / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 28;
+                            SQL = zip_air_one_date();
+                        }
+
+                        // CASE 29: typeOfTestDate == 1 = zip / air / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 29;
+                            SQL = zip_air_two_dates();
+                        }
+
+                        // CASE 30: typeOfTestDate == 2 = zip / air / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 30;
+                            SQL = zip_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest = 1 = zip / air / particulates
+                    else if (1 == typeOfAirTest)
+                    {
+                        // CASE 31: typeOfTestDate == 0 = zip / air / particulates / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 31;
+                            SQL = zip_air_one_date();
+                        }
+
+                        // CASE 32: typeOfTestDate == 1 = zip / air / particulates / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 32;
+                            SQL = zip_air_two_dates();
+                        }
+
+                        // CASE 33: typeOfTestDate == 2 = zip / air / particulates / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 33;
+                            SQL = zip_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest = 2 = zip / air / CO2
+                    else if (2 == typeOfAirTest)
+                    {
+                        // CASE 34: typeOfTestDate == 0 = zip / air / CO2 / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 34;
+                            SQL = zip_air_one_date();
+                        }
+
+                        // CASE 35: typeOfTestDate == 1 = zip / air / CO2 / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 35;
+                            SQL = zip_air_two_dates();
+                        }
+
+                        // CASE 36: typeOfTestDate == 2 = zip / air / CO2 / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 36;
+                            SQL = zip_air_no_dates();
+                        }
+                    }
+
+                    // typeOfAirTest = 3 = zip / air / lead
+                    else if (3 == typeOfAirTest)
+                    {
+                        // CASE 37: typeOfTestDate == 0 = zip / air / lead / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 37;
+                            SQL = zip_air_one_date();
+                        }
+
+                        // CASE 38: typeOfTestDate == 1 = zip / air / lead / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 38;
+                            SQL = zip_air_two_dates();
+                        }
+
+                        // CASE 39:typeOfTestDate == 2 = zip / air / lead / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 39;
+                            SQL = zip_air_no_dates();
+                        }
+                    }
+                }
+
+                // typeOFTest = false = zip / water
+                else if (!typeOfTest)
+                {
+                    // typeOfWaterTest == 0 = zip / water / all
+                    if (0 == typeOfWaterTest)
+                    {
+                        // CASE 40: typeOfTestDate == 0 = zip / water / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 40;
+                            SQL = zip_water_one_date();
+                        }
+
+                        // CASE 41: typeOfTestDate == 0 = zip / water / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 41;
+                            SQL = zip_water_two_dates();
+                        }
+
+                        // CASE 42: typeOfTestDate == 0 = zip / water / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 42;
+                            SQL = zip_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 1 = zip / water / turbidity
+                    else if (1 == typeOfWaterTest)
+                    {
+                        // CASE 43: typeOfTestDate == 0 = zip / water / turbidity / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 43;
+                            SQL = zip_water_one_date();
+                        }
+
+                        // CASE 44: typeOfTestDate == 0 = zip / water / turbidity / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 44;
+                            SQL = zip_water_two_dates();
+                        }
+
+                        // CASE 45: typeOfTestDate == 0 = zip / water / turbidity / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 45;
+                            SQL = zip_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 2 = zip / water / coliforms
+                    else if (2 == typeOfWaterTest)
+                    {
+                        // CASE 46: typeOfTestDate == 0 = zip / water / coliforms / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 46;
+                            SQL = zip_water_one_date();
+                        }
+
+                        // CASE 47: typeOfTestDate == 0 = zip / water / coliforms / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 47;
+                            SQL = zip_water_two_dates();
+                        }
+
+                        // CASE 48: typeOfTestDate == 0 = zip / water / coliforms / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 48;
+                            SQL = zip_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 3 = zip / water / arsenic
+                    else if (3 == typeOfWaterTest)
+                    {
+                        // CASE 49: typeOfTestDate == 0 = zip / water / arsenic / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 49;
+                            SQL = zip_water_one_date();
+                        }
+
+                        // CASE 50: typeOfTestDate == 0 = zip / water / arsenic / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 50;
+                            SQL = zip_water_two_dates();
+                        }
+
+                        // CASE 51: typeOfTestDate == 0 = zip / water / arsenic / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 51;
+                            SQL = zip_water_no_dates();
+                        }
+                    }
+
+                    // typeOfWaterTest == 4 = zip / water / copper
+                    else if (4 == typeOfWaterTest)
+                    {
+                        // CASE 52: typeOfTestDate == 0 = zip / water / copper / one date
+                        if (0 == typeOfDateTest)
+                        {
+                            printCase = 52;
+                            SQL = zip_water_one_date();
+                        }
+
+                        // CASE 53: typeOfTestDate == 0 = zip / water / copper / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                            printCase = 53;
+                            SQL = zip_water_two_dates();
+                        }
+
+                        // CASE 54: typeOfTestDate == 0 = zip / water / copper / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                            printCase = 54;
+                            SQL = zip_water_no_dates();
+                        }
+                    }
+                }
+            }
+            return SQL;
+        }
+
+        private string zip_water_no_dates()
+        {
+            string SQL = string.Format(@"
+             select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.zipCode = {0} and T.userID = {1};",
+            Convert.ToUInt32(userEnteredData), userID);
+            return SQL;
+        }
+
+        private string zip_water_two_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation._date between '{0}' and '{1}'
+            and TestDateAndLocation.zipCode = {2} and
+            userID = {3};",
+            startDate, endDate,
+            Convert.ToUInt32(userEnteredData), userID);
+            return SQL;
+        }
+
+        private string zip_water_one_date()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.zipCode = {0} and
+            TestDateAndLocation._date = '{1}' and
+            T.userID = {2};",
+            Convert.ToUInt32(userEnteredData), startDate, userID);
+            return SQL;
+        }
+
+        private string zip_air_no_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.zipCode = {0} and T.userID = {1};",
+            Convert.ToUInt32(userEnteredData), userID);
+            return SQL;
+        }
+
+        private string zip_air_two_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation._date between '{0}' and '{1}'
+            and TestDateAndLocation.zipCode = {2} and
+            userID = {3};",
+            startDate, endDate, Convert.ToUInt32(userEnteredData), userID);
+            return SQL;
+        }
+
+        private string zip_air_one_date()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.zipCode = {0} and
+            TestDateAndLocation._date = '{1}' and
+            T.userID = {2};",
+            Convert.ToInt32(userEnteredData), startDate, userID);
+            return SQL;
+        }
+
+        private string address_water_no_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.streetAddress = '{0}' and
+            T.userID = {1};", userEnteredData, userID);
+            return SQL;
+        }
+
+        private string address_water_two_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation._date between '{0}' and '{1}'
+            and TestDateAndLocation.streetAddress = '{2}' and
+            userID = {3};",
+            startDate, endDate, userEnteredData, userID);
+            return SQL;
+        }
+
+        private string address_water_one_date()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from WaterTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.streetAddress = '{0}' and
+            TestDateAndLocation._date = '{1}' and
+            T.userID = {2};",
+            userEnteredData, startDate, userID);
+            return SQL;
+        }
+
+        private string address_air_no_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.streetAddress = '{0}' and
+            T.userID = {1};", userEnteredData, userID);
+            return SQL;
+        }
+
+        private string address_air_two_dates()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation._date between '{0}' and '{1}'
+            and TestDateAndLocation.streetAddress = '{2}' and
+            userID = {3};",
+            startDate, endDate, userEnteredData, userID);
+            return SQL;
+        }
+
+        private string address_air_one_date()
+        {
+            string SQL = string.Format(@"
+            select * from TestDateAndLocation
+            inner join
+            (
+	            select * from AirTestResult
+            )T
+            on TestDateAndLocation.locationDateID = T.locationDateID
+            where TestDateAndLocation.streetAddress = '{0}' and
+            TestDateAndLocation._date = '{1}' and
+            T.userID = {2};",
+            userEnteredData, startDate, userID);
+            return SQL;
+        }
+
+        private bool errorCheckUserInput()
+        {
+            //
+            // check that there is data in the address / zip field
+            //
+            if ("" == userEnteredData)
+            {
+                if (addressOrZipFlag)
+                    MessageBox.Show("Please enter an address into the provided field in Location.");
+                else
+                    MessageBox.Show("Please enter a zip code into the provided field in Location.");
+                return false;
+            }
+
+            //
+            // Next check that the "type of test" radio buttons have been filled out
+            //
+            if (!radioButton_choose_air_test.Checked && !radioButton_choose_water_test.Checked)
+            {
+                MessageBox.Show("Please choose either and Air or Water test to examine.");
+                return false;
+            }
+
+            //
+            // check that the user entered address or zip code is in the database for that user
+            //
+            if (!addressOrZipIsInDatabase())
+            {
+                if (addressOrZipFlag)
+                    message = string.Format(@"'{0}' is not a valid address for {1}.  Please use another address.", userEnteredData, currUser);
+                else
+                    message = string.Format(@"'{0}' is not a valid zip code for {1}.  Please use another zip code.", userEnteredData, currUser);
+                MessageBox.Show(message);
+                textBox_address_or_zip_code.Clear();
+                return false;
+            }
+
+            //
+            // Next check that the Date (single or multiple) radio button has been clicked.  It defaults to -999
+            //
+            if (-999 == typeOfDateTest)
+            {
+                MessageBox.Show("PLease choose an item in the 'Dates' box.");
+                return false;
+            }
+
+            //
+            // next check that the date(s) are in the database for that user
+            //
+            bool dateErrorMessage = true; // true for missing first date, false for missing second date
+            if ((0 == typeOfDateTest || 1 == typeOfDateTest) &&
+                !datesAreInDatabase(ref dateErrorMessage))
+            {
+                MessageBox.Show(getDateErrorMessage(dateErrorMessage));
+                return false;
+            }
+
+            //
+            // check that, if the air test is chosen, then a specific air test is chosen,
+            // and vice versa (no "chose air test and tubidity", for example)
+            //
+            /*
+            if (typeOfTest)
+            {
+                if (radioButton_choose_all_air_tests.Checked ||
+                 radioButton_choose_turbidity.      Checked ||
+                 radioButton_choose_coliforms.      Checked ||
+                 radioButton_choose_arsenic.        Checked ||
+                 radioButton_choose_copper.         Checked)
+                {
+                    if (!radioButton_choose_all_water_tests.Checked ||
+                         !radioButton_choose_particulates.Checked ||
+                         !radioButton_choose_lead.Checked ||
+                         !radioButton_choose_CO2.Checked)
+                    {
+                        MessageBox.Show("Please choose a specific air test (all air tests, particulates, CO2, or lead).");
+                        return false;
+                    }
+                }
+            }
+            else if (!typeOfTest)
+            {
+                if (radioButton_choose_all_water_tests.Checked ||
+                 radioButton_choose_particulates.Checked ||
+                 radioButton_choose_lead.Checked ||
+                 radioButton_choose_CO2.Checked)
+                {
+                    if (!radioButton_choose_all_air_tests.Checked ||
+                         !radioButton_choose_turbidity.Checked ||
+                         !radioButton_choose_coliforms.Checked ||
+                         !radioButton_choose_arsenic.Checked ||
+                         !radioButton_choose_copper.Checked)
+                    {
+                        MessageBox.Show("Please choose a specific water test (all water tests, turbidity, coliforms, arsenic, or copper).");
+                        return false;
+                    }
+                }
+            }
+             * */
+            
+            if ((typeOfTest) &&
+                                (radioButton_choose_all_water_tests.Checked ||
+                 radioButton_choose_particulates.   Checked ||
+                 radioButton_choose_lead.           Checked ||
+                 radioButton_choose_CO2.            Checked))
+            {
+                MessageBox.Show("Please choose a specific air test (all air tests, particulates, CO2, or lead).");
+                return false;
+            }
+            else if ((!typeOfTest) &&
+                (radioButton_choose_all_air_tests.Checked ||
+                 radioButton_choose_turbidity.Checked ||
+                 radioButton_choose_coliforms.Checked ||
+                 radioButton_choose_arsenic.Checked ||
+                 radioButton_choose_copper.Checked))
+            {
+                MessageBox.Show("Please choose a specific water test (all water tests, turbidity, coliforms, arsenic, or copper).");
+                return false;
+            }
+            
+            
+            //
+            // if we get here, then the user entered data is accurate
+            //
+            return true;
+        }
+
+        private string getDateErrorMessage(bool dateErrorMessage)
+        {
+            string pleaseNote = "";
+            string d1 = startDate.ToString("MMM, dd, yyyy");
+            string d2 = endDate.ToString("MMM, dd, yyyy");
+            if (addressOrZipFlag)
+            {
+                if (dateErrorMessage)
+                    pleaseNote = string.Format(@"There is no record at the address '{0}' for the date {1}.", userEnteredData, d1);
+                else
+                    pleaseNote = string.Format(@"There is no record at the address '{0}' for the ending date {1}.", userEnteredData, d2);
+            }
+            else
+            {
+                if (dateErrorMessage)
+                    pleaseNote = string.Format(@"There is no record at the zip code '{0}' for the date {1}.", Convert.ToInt32(userEnteredData), d1);
+                else
+                    pleaseNote = string.Format(@"There is no record at the zip code '{0}' for the ending date {1}.", Convert.ToInt32(userEnteredData), d2);
+            }
+            return string.Format(@"" + pleaseNote + " Please note that you can select 'show all results' to see all of the dates for a specfic test.");
+        }
+
+        private bool datesAreInDatabase(ref bool dateErrorMessage)
+        {
+            DateTime date = new DateTime();
+            date = startDate;
+
+            //
+            // first check the first date -- we'll do this regardless
+            //
+            if (!checkDate(date)) return false;
+
+            //
+            // if the user has entered a series of dates, we'll check the end date
+            //
+            date = endDate;
+            if (1 == typeOfDateTest && !checkDate(date))
+            {
+                dateErrorMessage = false;
+                return false;
+            }
+            return true;
+        }
+
+        private bool checkDate(DateTime date)
+        {
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = checkDateIsInDatabaseSQL(date);
+
+                //
+                // run it.  If the result is an empty string, then the username 
+                // isn't in the db, and we return false....
+                //
+                command.CommandText = sql;
+                command.Transaction = transaction;
+                object _result = command.ExecuteScalar();
+                if (null == _result) return false;
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error checking if the user entered date is in the database: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error checking if the user entered date is in the database: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Rollback();
+            database.Close();
+            return true;
+        }
+        
+        private bool addressOrZipIsInDatabase()
+        {
+            //
+            // check if zip code is even a number
+            //
+            if (!addressOrZipFlag && zipCodeIsNotAnumber())
+            {
+                message = string.Format("{0} is not a valid zip code", userEnteredData);
+                MessageBox.Show(message);
+                return false;
+            }
+
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+            
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = addressOrZipIsInDatabaseGetSQL();
+                //
+                // run it.  If the result is an empty string, then the username 
+                // isn't in the db, and we return false....
+                //
+                command.CommandText = sql;
+                command.Transaction = transaction;
+                object _result = command.ExecuteScalar();
+                if (null == _result) return false;
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error checking if the user entered string (either zip code or address) is in the database: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error checking if the user entered string (either zip code or address) is in the database: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Rollback();
+            database.Close();
+            return true;
+        }        
+
+        private bool zipCodeIsNotAnumber()
+        {
+            for (int i = 0; i < userEnteredData.Length; i++)
+                if (!Char.IsNumber(userEnteredData[i])) return true;
+            return false;
+        }
+
+        private void getVariableValues()
+        {
+            if      (radioButton_choose_address.        Checked) addressOrZipFlag     = true; 
+            else if (radioButton_choose_zip.            Checked) addressOrZipFlag     = false;
+            if      (radioButton_choose_air_test.       Checked) typeOfTest           = true;
+            else if (radioButton_choose_water_test.     Checked) typeOfTest           = false;
+            if      (radioButton_choose_all_air_tests.  Checked) typeOfAirTest        = 0;
+            else if (radioButton_choose_particulates.   Checked) typeOfAirTest        = 1;
+            else if (radioButton_choose_CO2.            Checked) typeOfAirTest        = 2;
+            else if (radioButton_choose_lead.           Checked) typeOfAirTest        = 3;
+            if      (radioButton_choose_all_water_tests.Checked) typeOfWaterTest      = 0;
+            else if (radioButton_choose_turbidity.      Checked) typeOfWaterTest      = 1;
+            else if (radioButton_choose_coliforms.      Checked) typeOfWaterTest      = 2;
+            else if (radioButton_choose_arsenic.        Checked) typeOfWaterTest      = 3;
+            else if (radioButton_choose_copper.         Checked) typeOfWaterTest      = 4;
+            if      (radioButton_single_date.           Checked) typeOfDateTest       = 0;
+            else if (radioButton_multiple_results.      Checked) typeOfDateTest       = 1;
+            else if (radioButton_no_date_constraints.   Checked) typeOfDateTest       = 2;
+
+            userEnteredData = textBox_address_or_zip_code.Text;
+            startDate       = dateTimePicker_start_date.Value;
+            endDate         = dateTimePicker_end_date.Value;
+            userID          = getUserID();
+        }
+
+        private int getUserID()
+        {
+            int userID = 0;
+
+            //
+            // open the database
+            //
+            SqlConnection database = open_database();
+            try
+            {
+                // setup the sql statement
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select userID from UserTable where userName = '{0}';", currUser);
+
+                // execute command, check result
+                command.CommandText = sql;
+                object _userID = command.ExecuteScalar();
+                userID = System.Convert.ToInt32(_userID);
+                if (0 == userID)
+                {
+                    MessageBox.Show("Error with password check -- returned no string");
+                    exit();
+                }
+            }
+
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error looking up userID: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error looking up userID: {0}", exception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            database.Close();
+            return userID;
+        }
+
+        private string addressOrZipIsInDatabaseGetSQL()
+        {
+            String SQL = "";
+            // addressOrZipFlag = true = use address
+            if (addressOrZipFlag)
+            {
+                // testFlag = true = use address and AirTestResult table
+                if (typeOfTest)
+                {
+                    SQL = string.Format(@"
+                        select * from AirTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                        userID, userEnteredData);
+                }
+
+                // testFlag = 1 or 2, use address and WaterTestResult
+                else
+                {
+                    SQL = string.Format(@"
+                        select * from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                       userID, userEnteredData);
+                }
+            }
+
+            // !addressOrZipFlag = false = use zip code
+            else
+            {
+                // testFlag = true = use zip code and AirTestResult table
+                if (typeOfTest)
+                {
+                    SQL = string.Format(@"
+                        select * from AirTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.zipCode = '{1}';",
+                        userID, Convert.ToInt32(userEnteredData));
+                }
+
+                // testFlag = 1 or 2, use zicodep and WaterTestResult
+                else
+                {
+                    SQL = string.Format(@"
+                        select * from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.zipCode = '{1}';",
+                        userID, Convert.ToInt32(userEnteredData));
+                }
+            }
+            return SQL;
+        }
+
+        private string checkDateIsInDatabaseSQL(DateTime date)
+        {
+            String SQL = "";
+
+            // addressOrZipFlag = true = use address
+            if (addressOrZipFlag)
+            {
+                // typeOfTest = true = use address and AirResult table
+                if (typeOfTest)
+                {
+                    SQL = string.Format(@"
+                    select * from AirTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on AirTestResult.locationDateID = T.locationDateID
+                    where AirTestResult.userID = {0} and
+                    T.streetAddress = '{1}' and
+                    T._date = '{2}';",
+                    userID, userEnteredData, date);
+                }
+
+                // typeOfTest = false = use address and WaterResult table
+                else
+                {
+                    SQL = string.Format(@"
+                    select * from WaterTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on WaterTestResult.locationDateID = T.locationDateID
+                    where WaterTestResult.userID = {0} and
+                    T.streetAddress = '{1}' and
+                    T._date = '{2}';",
+                    userID, userEnteredData, date);
+                }
+            }
+
+            // addressOrZipFlag = false = use zip code
+            else
+            {
+                // typeOfTest = true = use zip code and AirResult table
+                if (typeOfTest)
+                {
+                    SQL = string.Format(@"
+                    select * from AirTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on AirTestResult.locationDateID = T.locationDateID
+                    where AirTestResult.userID = {0} and
+                    T.zipCode = {1} and
+                    T._date = '{2}';",
+                    userID, Convert.ToInt32(userEnteredData), date);
+                }
+
+                // typeOfTest = false = use zip code and WaterResult table
+                else
+                {
+                    SQL = string.Format(@"
+                    select * from WaterTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on WaterTestResult.locationDateID = T.locationDateID
+                    where WaterTestResult.userID = {0} and
+                    T.zipCode = {1} and
+                    T._date = '{2}';",
+                    userID, Convert.ToInt32(userEnteredData), date);
+                }
+            }
+            return SQL;
+        }
+
+        private SqlConnection open_database()
+        {
+            SqlConnection database = new SqlConnection(connectionInfo);
+            try
+            {
+                database = new SqlConnection(connectionInfo);
+                database.Open();
+            }
+            catch (Exception exception)
+            {
+                string errorMessage = string.Format("Error opening the database: '{0}'", exception.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return database;
+        }
+
+        private SqlTransaction create_transaction(SqlConnection database)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                transaction = database.BeginTransaction(IsolationLevel.Serializable);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("Problem beginning the transaction: {0}'", ex.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return transaction;
+        }
+
+        private void exit()
+        {
+            MessageBox.Show("Exiting program...");
+            Environment.Exit(0);
+        }
+
+        private void button_clear_boxes_Click(object sender, EventArgs e)
+        {
+            radioButton_choose_air_test.       Checked = false;
+            radioButton_choose_all_air_tests.  Checked = false;
+            radioButton_choose_all_water_tests.Checked = false;
+            radioButton_choose_arsenic.        Checked = false;
+            radioButton_choose_CO2.            Checked = false;
+            radioButton_choose_coliforms.      Checked = false;
+            radioButton_choose_copper.         Checked = false;
+            radioButton_choose_lead.           Checked = false;
+            radioButton_choose_particulates.   Checked = false;
+            radioButton_choose_turbidity.      Checked = false;
+            radioButton_choose_water_test.     Checked = false;
+            radioButton_multiple_results.      Checked = false;
+            radioButton_no_date_constraints.   Checked = false;
+            radioButton_single_date.           Checked = false;
+            textBox_address_or_zip_code.          Text = "";
+            listBox1.Items.Clear();
+        }
+    }
+}

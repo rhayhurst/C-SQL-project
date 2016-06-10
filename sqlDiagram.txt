@@ -1,0 +1,78 @@
+             // addressOrZipFlag = true = address
+                    // typeOFTest = true = address / air
+                            // typeOfAirTest == 0 = address / air / all
+                                    // typeOfTestDate = 0 = address / air / all / one date
+                                    // typeOfTestDate = 1 = address / air / all / two dates
+                                    // typeOfTestDate = 2 = address / air / all / no dates
+                            // typeOfAirTest == 1 = address / air / particulates
+                                    // typeOfTestDate = 0 = address / air / particulates / one date
+                                    // typeOfTestDate = 1 = address / air / particulates / two dates
+                                    // typeOfTestDate = 2 = address / air / particulates / no dates
+                            // typeOfAirTest == 2 = address / air / CO2
+                                    // typeOfTestDate = 0 = address / air / CO2 / one date
+                                    // typeOfTestDate = 1 = address / air / CO2 / two dates
+                                    // typeOfTestDate = 2 = address / air / CO2 / no dates
+                            // typeOfAirTest == 3 = address / air / lead
+                                    // typeOfTestDate = 0 = address / air / lead / one date
+                                    // typeOfTestDate = 1 = address / air / lead / two dates
+                                    // typeOfTestDate = 2 = address / air / lead / no dates
+                    // typeOFTest = true = address / water
+                            // typeOfWaterTest == 0 = address / water / all
+                                    // typeOfTestDate == 0 = address / water / all / one date
+                                    // typeOfTestDate == 1 = address / water / all / two dates
+                                    // typeOfTestDate == 2 = address / water / all / no dates
+                            // typeOfWaterTest == 1 = address / water / turbidity
+                                    // typeOfTestDate == 0 = address / water / turbidity / one date
+                                    // typeOfTestDate == 1 = address / water / turbidity / two dates
+                                    // typeOfTestDate == 2 = address / water / turbidity / no dates
+                            // typeOfWaterTest == 2 = address / water / coliforms
+                                    // typeOfTestDate == 0 = address / water / coliforms / one date
+                                    // typeOfTestDate == 1 = address / water / coliforms / two dates
+                                    // typeOfTestDate == 2 = address / water / coliforms / no dates
+                            // typeOfWaterTest == 3 = address / water / arsenic
+                                    // typeOfTestDate == 0 = address / water / arsenic / one date
+                                    // typeOfTestDate == 1 = address / water / arsenic / two dates
+                                    // typeOfTestDate == 2 = address / water / arsenic / no dates
+                            // typeOfWaterTest == 4 = address / water / copper
+                                    // typeOfTestDate == 0 = address / water / copper / one date
+                                    // typeOfTestDate == 1 = address / water / copper / two dates
+                                    // typeOfTestDate == 2 = address / water / copper / no dates
+            // addressOrZipFlag = false = zip
+                    // typeOFTest = true = zip / air
+                            // typeOfAirTest = 0 = zip / air / all
+                                    // typeOfTestDate == 0 = zip / air / all / one date
+                                    // typeOfTestDate == 1 = zip / air / all / two dates
+                                    // typeOfTestDate == 2 = zip / air / all / no dates
+                            // typeOfAirTest = 1 = zip / air / particulates
+                                    // typeOfTestDate == 0 = zip / air / particulates / one date
+                                    // typeOfTestDate == 1 = zip / air / particulates / two dates
+                                    // typeOfTestDate == 2 = zip / air / particulates / no dates
+                            // typeOfAirTest = 2 = zip / air / CO2
+                                    // typeOfTestDate == 0 = zip / air / CO2 / one date
+                                    // typeOfTestDate == 1 = zip / air / CO2 / two dates
+                                    // typeOfTestDate == 2 = zip / air / CO2 / no dates
+                            // typeOfAirTest = 3 = zip / air / lead
+                                    // typeOfTestDate == 0 = zip / air / lead / one date
+                                    // typeOfTestDate == 1 = zip / air / lead / two dates
+                                    // typeOfTestDate == 2 = zip / air / lead / no dates
+                    // typeOFTest = true = zip / water
+                            // typeOfWaterTest == 0 = zip / water / all
+                                    // typeOfTestDate == 0 = zip / water / all / one date
+                                    // typeOfTestDate == 0 = zip / water / all / two dates
+                                    // typeOfTestDate == 0 = zip / water / all / no dates
+                            // typeOfWaterTest == 1 = zip / water / turbidity
+                                    // typeOfTestDate == 0 = zip / water / turbidity / one date
+                                    // typeOfTestDate == 0 = zip / water / turbidity / two dates
+                                    // typeOfTestDate == 0 = zip / water / turbidity / no dates
+                            // typeOfWaterTest == 2 = zip / water / coliforms
+                                    // typeOfTestDate == 0 = zip / water / coliforms / one date
+                                    // typeOfTestDate == 0 = zip / water / coliforms / two dates
+                                    // typeOfTestDate == 0 = zip / water / coliforms / no dates
+                            // typeOfWaterTest == 3 = zip / water / arsenic
+                                    // typeOfTestDate == 0 = zip / water / arsenic / one date
+                                    // typeOfTestDate == 0 = zip / water / arsenic / two dates
+                                    // typeOfTestDate == 0 = zip / water / arsenic / no dates
+                            // typeOfWaterTest == 4 = zip / water / copper
+                                    // typeOfTestDate == 0 = zip / water / copper / one date
+                                    // typeOfTestDate == 0 = zip / water / copper / two dates
+                                    // typeOfTestDate == 0 = zip / water / copper / no dates

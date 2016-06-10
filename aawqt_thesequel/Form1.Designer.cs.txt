@@ -1,0 +1,235 @@
+﻿namespace AAWQT_TheSequel
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.label_title = new System.Windows.Forms.Label();
+            this.label_intro = new System.Windows.Forms.Label();
+            this.groupBox_login_box = new System.Windows.Forms.GroupBox();
+            this.button_create_new_user = new System.Windows.Forms.Button();
+            this.button_login = new System.Windows.Forms.Button();
+            this.textBox_password = new System.Windows.Forms.TextBox();
+            this.label_pw = new System.Windows.Forms.Label();
+            this.label_enter_username = new System.Windows.Forms.Label();
+            this.textBox_username = new System.Windows.Forms.TextBox();
+            this.label_create_user_directions = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.takeTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.temporalTestResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox_login_box.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // label_title
+            // 
+            this.label_title.AutoSize = true;
+            this.label_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_title.Location = new System.Drawing.Point(65, 27);
+            this.label_title.Name = "label_title";
+            this.label_title.Size = new System.Drawing.Size(272, 24);
+            this.label_title.TabIndex = 2;
+            this.label_title.Text = "Air and Water Quality Tester";
+            // 
+            // label_intro
+            // 
+            this.label_intro.AutoSize = true;
+            this.label_intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_intro.Location = new System.Drawing.Point(148, 51);
+            this.label_intro.Name = "label_intro";
+            this.label_intro.Size = new System.Drawing.Size(119, 13);
+            this.label_intro.TabIndex = 3;
+            this.label_intro.Text = "giving you a sixth sense";
+            // 
+            // groupBox_login_box
+            // 
+            this.groupBox_login_box.Controls.Add(this.button_create_new_user);
+            this.groupBox_login_box.Controls.Add(this.button_login);
+            this.groupBox_login_box.Controls.Add(this.textBox_password);
+            this.groupBox_login_box.Controls.Add(this.label_pw);
+            this.groupBox_login_box.Controls.Add(this.label_enter_username);
+            this.groupBox_login_box.Controls.Add(this.textBox_username);
+            this.groupBox_login_box.Location = new System.Drawing.Point(75, 93);
+            this.groupBox_login_box.Name = "groupBox_login_box";
+            this.groupBox_login_box.Size = new System.Drawing.Size(268, 102);
+            this.groupBox_login_box.TabIndex = 8;
+            this.groupBox_login_box.TabStop = false;
+            // 
+            // button_create_new_user
+            // 
+            this.button_create_new_user.Location = new System.Drawing.Point(135, 73);
+            this.button_create_new_user.Name = "button_create_new_user";
+            this.button_create_new_user.Size = new System.Drawing.Size(126, 23);
+            this.button_create_new_user.TabIndex = 9;
+            this.button_create_new_user.Text = "Create New User";
+            this.button_create_new_user.UseVisualStyleBackColor = true;
+            this.button_create_new_user.Click += new System.EventHandler(this.button_create_new_user_Click);
+            // 
+            // button_login
+            // 
+            this.button_login.Location = new System.Drawing.Point(12, 73);
+            this.button_login.Name = "button_login";
+            this.button_login.Size = new System.Drawing.Size(117, 23);
+            this.button_login.TabIndex = 8;
+            this.button_login.Text = "Login";
+            this.button_login.UseVisualStyleBackColor = true;
+            this.button_login.Click += new System.EventHandler(this.button_login_Click);
+            // 
+            // textBox_password
+            // 
+            this.textBox_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_password.Location = new System.Drawing.Point(108, 41);
+            this.textBox_password.Name = "textBox_password";
+            this.textBox_password.PasswordChar = '*';
+            this.textBox_password.Size = new System.Drawing.Size(153, 24);
+            this.textBox_password.TabIndex = 7;
+            // 
+            // label_pw
+            // 
+            this.label_pw.AutoSize = true;
+            this.label_pw.Location = new System.Drawing.Point(9, 49);
+            this.label_pw.Name = "label_pw";
+            this.label_pw.Size = new System.Drawing.Size(91, 13);
+            this.label_pw.TabIndex = 6;
+            this.label_pw.Text = "enter password ->";
+            // 
+            // label_enter_username
+            // 
+            this.label_enter_username.AutoSize = true;
+            this.label_enter_username.Location = new System.Drawing.Point(9, 16);
+            this.label_enter_username.Name = "label_enter_username";
+            this.label_enter_username.Size = new System.Drawing.Size(92, 13);
+            this.label_enter_username.TabIndex = 2;
+            this.label_enter_username.Text = "enter username ->";
+            // 
+            // textBox_username
+            // 
+            this.textBox_username.Location = new System.Drawing.Point(109, 15);
+            this.textBox_username.Name = "textBox_username";
+            this.textBox_username.Size = new System.Drawing.Size(153, 20);
+            this.textBox_username.TabIndex = 3;
+            // 
+            // label_create_user_directions
+            // 
+            this.label_create_user_directions.AutoSize = true;
+            this.label_create_user_directions.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_create_user_directions.Location = new System.Drawing.Point(72, 216);
+            this.label_create_user_directions.Name = "label_create_user_directions";
+            this.label_create_user_directions.Size = new System.Drawing.Size(260, 24);
+            this.label_create_user_directions.TabIndex = 10;
+            this.label_create_user_directions.Text = "        username must be greater than 8 characters,  fewer \r\n   than 21 character" +
+    "s, contain no spaces, and begin with a letter";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.menuStrip1.Size = new System.Drawing.Size(419, 24);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.takeTestToolStripMenuItem,
+            this.dataAnalysisToolStripMenuItem,
+            this.temporalTestResultsToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.aboutToolStripMenuItem.Text = "Menu";
+            // 
+            // takeTestToolStripMenuItem
+            // 
+            this.takeTestToolStripMenuItem.Name = "takeTestToolStripMenuItem";
+            this.takeTestToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.takeTestToolStripMenuItem.Text = "Take Test";
+            this.takeTestToolStripMenuItem.Click += new System.EventHandler(this.takeTestToolStripMenuItem_Click);
+            // 
+            // dataAnalysisToolStripMenuItem
+            // 
+            this.dataAnalysisToolStripMenuItem.Name = "dataAnalysisToolStripMenuItem";
+            this.dataAnalysisToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.dataAnalysisToolStripMenuItem.Text = "View Test Results";
+            this.dataAnalysisToolStripMenuItem.Click += new System.EventHandler(this.dataAnalysisToolStripMenuItem_Click);
+            // 
+            // temporalTestResultsToolStripMenuItem
+            // 
+            this.temporalTestResultsToolStripMenuItem.Name = "temporalTestResultsToolStripMenuItem";
+            this.temporalTestResultsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.temporalTestResultsToolStripMenuItem.Text = "View Long Term Test Results";
+            this.temporalTestResultsToolStripMenuItem.Click += new System.EventHandler(this.temporalTestResultsToolStripMenuItem_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(419, 281);
+            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.label_create_user_directions);
+            this.Controls.Add(this.groupBox_login_box);
+            this.Controls.Add(this.label_intro);
+            this.Controls.Add(this.label_title);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox_login_box.ResumeLayout(false);
+            this.groupBox_login_box.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label_title;
+        private System.Windows.Forms.Label label_intro;
+        private System.Windows.Forms.GroupBox groupBox_login_box;
+        private System.Windows.Forms.Button button_create_new_user;
+        private System.Windows.Forms.Button button_login;
+        private System.Windows.Forms.TextBox textBox_password;
+        private System.Windows.Forms.Label label_pw;
+        private System.Windows.Forms.Label label_enter_username;
+        private System.Windows.Forms.TextBox textBox_username;
+        private System.Windows.Forms.Label label_create_user_directions;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem takeTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataAnalysisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem temporalTestResultsToolStripMenuItem;
+    }
+}
+

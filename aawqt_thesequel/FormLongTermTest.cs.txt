@@ -1,0 +1,1246 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace AAWQT_TheSequel
+{
+    public partial class FormLongTermTest : Form
+    {
+        String   connectionInfo        = "";
+        String   currUser              = "";
+        String   userEnteredData       = "";
+        String   message               = "";
+        String   sql                   = "";
+        int      numTestsTaken         = 0;
+        int      userID                = 0;
+        int      testFlag              = 0;      // airtest = 0, coliforms = 1, turbidity = 2 
+        bool     addressOrZipFlag       = true;   // address = true, zip  = false
+        bool     getMinMax             = true;   // max     = true, min  = false
+        double   average               = 0;
+        DateTime firstTest             = new DateTime();
+        DateTime lastTest              = new DateTime();
+
+
+        public FormLongTermTest(String passedCurrUser)
+        {
+            InitializeComponent();
+            currUser        = passedCurrUser;
+            String filename = "AAWQT_db_spr2.mdf";
+            connectionInfo  = String.Format(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\{0};Integrated Security=True;", filename);
+        }
+
+        private void FormLongTermTest_Load(object sender, EventArgs e){}
+
+        private void button_particulates_Click(object sender, EventArgs e)
+        {
+            // set the test flag so we know what test we're going to examine
+            testFlag = 0;
+
+            // then go to the rest of the code -- that's all we have to do here
+            anyButtonPress(testFlag);
+        }
+
+        private void button_coliforms_Click(object sender, EventArgs e)
+        {
+            // set the test flag so we know what test we're going to examine
+            testFlag = 1;
+
+            // then go to the rest of the code -- that's all we have to do here
+            anyButtonPress(testFlag);
+        }
+
+        private void button_turbidity_Click(object sender, EventArgs e)
+        {
+            // set the test flag so we know what test we're going to examine
+            testFlag = 2;
+
+            // then go to the rest of the code -- that's all we have to do here
+            anyButtonPress(testFlag);
+        }
+
+        private void anyButtonPress(int testFlag)
+        {
+            // 
+            // erase what's in the listbox (if anything)
+            //
+            listBox1.Items.Clear();
+
+            //
+            // is the radio button even pressed?
+            //
+            if (radioButton_choose_zip.Checked == false && radioButton_choose_address.Checked == false)
+            {
+                message = string.Format(@"
+                Please choose either the zip code or the address, 
+                then provide that data in the text field.");
+                MessageBox.Show(message);
+            }
+
+            //
+            // we can continue as one of the radio buttons has been chosen
+            //
+            else
+            {
+                //
+                // which radio button did the user choose?
+                //
+                addressOrZipFlag = whichRadioButton();
+                userEnteredData = textBox_user_entered_address_zip_code.Text;
+
+                //
+                // is the user entered data in the database (address or zip code)?
+                //
+                if (!addressOrZipIsInDatabase(addressOrZipFlag, testFlag))
+                {
+                    if (addressOrZipFlag)
+                        message = string.Format(@"'{0}' is not in your records.  Please try another address", userEnteredData);
+                    else
+                        message = string.Format(@"'{0}' is not in your records.  Please try another zip code", userEnteredData);
+                    MessageBox.Show(message);
+                }
+                
+                //
+                // the zip code or address is in the database and we can continue
+                //
+                else 
+                {
+                    //
+                    // get and display the first and last date of the chosen test
+                    //
+                    getMinMax = true;
+                    lastTest = getFirstLastTestDate(testFlag, addressOrZipFlag, getMinMax);
+                    getMinMax = false;
+                    firstTest = getFirstLastTestDate(testFlag, addressOrZipFlag, getMinMax);
+                    displayDates(firstTest, lastTest);
+
+                    //
+                    // display the tests in the listbox (and get number of tests run as an added bonus)
+                    //
+                    numTestsTaken = getTestResults(firstTest, lastTest, testFlag, addressOrZipFlag);
+                    textBox_num_tests_taken.Text = Convert.ToString(numTestsTaken);
+
+                    //
+                    // determine if the results fall within the EPA parameters
+                    //
+                    if (0 == testFlag || 1 == testFlag)
+                        average = getParticulateOrColiformAverage(testFlag, addressOrZipFlag);
+                    else average = getTurbidityAverage(addressOrZipFlag);
+
+                    //
+                    // put in pass or fail
+                    //
+                    displayPassOrFailData(average, testFlag);
+                }
+            }
+        }
+
+        private void button_understand_results_Click(object sender, EventArgs e)
+        {
+            if ("" == textBox_pass_fail_result.Text)
+            {
+                MessageBox.Show("Please choose a test to examine.");
+            }
+            else
+            {
+                if (0 == testFlag)
+                {
+                    FormParticulatesExplanation formParticulatesExplanation = new FormParticulatesExplanation();
+                    formParticulatesExplanation.Show();
+                }
+                else if (1 == testFlag) 
+                {
+                    FormColiformExplanation formColiformsExplanation = new FormColiformExplanation();
+                    formColiformsExplanation.Show();
+                }
+                else 
+                {
+                    FormTurbidityExplanation formTurbidityExplanation = new FormTurbidityExplanation();
+                    formTurbidityExplanation.Show();
+                }
+            }
+        }
+
+        private void displayPassOrFailData(double average, int testFlag)
+        {
+            average = Math.Round(average, 2);
+
+            // particulates test
+            if (0 == testFlag)
+            {
+                if (average < 12)
+                {
+                    textBox_within_parameters.Text = "YES";
+                    message = string.Format(@"{0}%, < 12.0% to pass", average);
+                }
+                else
+                {
+                    
+                    message = string.Format(@"{0}, > 12.0% to pass", average);
+                }
+            }
+
+            // coliforms test
+            else if (1 == testFlag)
+            {
+                if (average <= 5)
+                {
+                    textBox_within_parameters.Text = "YES";
+                    message = string.Format(@"{0}%, <= 5% to pass", average);
+                }
+                else
+                {
+                    textBox_within_parameters.Text = "NO";
+                    message = string.Format(@"{0}, > 5% to pass", average);
+                }
+            }
+
+            // turbidity test
+            else
+            {
+                if (average < 5)
+                {
+                    textBox_within_parameters.Text = "YES";
+                    message = string.Format(@"{0}%, < 5% to pass", average);
+                }
+                else
+                {
+                    textBox_within_parameters.Text = "NO";
+                    message = string.Format(@"{0}%, >= 5%", average);
+                }
+            }
+
+            //
+            // display the result
+            //
+            textBox_pass_fail_result.Text = message;
+        }
+
+        private double getTurbidityAverage(bool radioButtonFlag)
+        {
+            int numTurbidityResults = getNumberOfTurbidityResults(radioButtonFlag);
+            double[] turbidityResultArray = new double[numTurbidityResults];
+
+            userID = getUserID();
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+          
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = getTurbidityResultsSQL(radioButtonFlag);
+
+                // fill the container
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataSet dataset = new DataSet();
+                command.Transaction = transaction;
+                command.CommandText = sql;
+
+                // run the command
+                adapter.Fill(dataset);
+
+                // go through the table and put the results into the array
+                DataTable datatable = dataset.Tables["TABLE"];
+                turbidityResultArray = fillTurbidityResultArrayWithResults(datatable, numTurbidityResults);
+
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error: getting turbidity result: {0}", 
+                sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error: getting turbidity result: {0}", 
+                exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            
+            //
+            // close the sql down
+            //
+            transaction.Commit();
+            database.Close();
+
+            //
+            // now that we have the turbidity results ion an array, we need to figure out what percentage
+            // of the results are > 0.3
+            //
+            return determineTurbidityAverage(turbidityResultArray, numTurbidityResults);
+        }
+
+        private double determineTurbidityAverage(double[] turbidityResultArray, int numTurbidityResults)
+        {
+            //
+            // NOTE: >  0.3 = fail = 0
+            //       <= 0.3 = pass = 1
+            //
+            int[] passOrFailArray = new int[numTurbidityResults];
+            for (int i = 0; i < numTurbidityResults; i++)
+            {
+                if (turbidityResultArray[i] > 0.3) passOrFailArray[i] = 1;
+                else                               passOrFailArray[i] = 0;
+            }
+
+            int total = 0;
+            for (int i = 0; i < numTurbidityResults; i++)
+                total += passOrFailArray[i]; 
+            
+            return (double)total/numTurbidityResults;
+        }
+
+        private double[] fillTurbidityResultArrayWithResults(DataTable datatable, int numResults)
+        {
+            double[] arr = new double[numResults];
+            int i = 0;
+
+            //
+            // go through the table and put each result into the array
+            //
+            foreach (DataRow row in datatable.Rows)
+            {
+                string _result = string.Format(@"{0}", row["turbidity"]);
+                double result = Convert.ToDouble(_result);
+                arr[i++] = result;
+            }
+            return arr;
+        }
+
+        private int getNumberOfTurbidityResults(bool radioButtonFlag)
+        {
+            int numTurbidityResults = 0;
+            userID = getUserID();
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = getNumberOfTurbidityResultsSql(radioButtonFlag);
+
+
+                // run the query, check that the result is legit
+                command.CommandText = sql;
+                command.Transaction = transaction;
+                object _numTurbidityResults = command.ExecuteScalar();
+                string tmp = System.Convert.ToString(_numTurbidityResults);
+                if ("" == tmp) nullAverageError();
+                numTurbidityResults = Convert.ToInt32(_numTurbidityResults);
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error: getting number of air test results: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error: getting number of air test results: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Commit();
+            database.Close();
+            return numTurbidityResults;
+        }
+
+        private double getParticulateOrColiformAverage(int testFlag, bool radioButtonFlag)
+        {
+            userID = getUserID();
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = getParticulateOrColiformAverageSql(testFlag, radioButtonFlag);
+
+                // run the query, check that the result is legit
+                command.CommandText = sql;
+                command.Transaction = transaction;
+                object _resultAverage = command.ExecuteScalar();
+                string tmp = System.Convert.ToString(_resultAverage);
+                if ("" == tmp) nullAverageError();
+                average = Convert.ToDouble(_resultAverage);
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error: getting for part or col avg: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error: getting for part or col avg: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Commit();
+            database.Close();
+            return average;
+        }
+       
+        private int getTestResults(DateTime firstTest, DateTime lastTest, 
+                                        int testFlag, bool radioButtonFlag)
+        {
+            userID = getUserID();
+            int numberOfTests = 0;
+
+            // open database, start transaction
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+
+            try
+            {
+                // setup the sql statement
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = getResultsListSql(testFlag, radioButtonFlag);
+
+                // fill the container
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataSet dataset = new DataSet();
+                command.Transaction = transaction;
+                command.CommandText = sql;
+
+                // run the command
+                adapter.Fill(dataset);
+
+                // now display the results in the listbox
+                DataTable datatable = dataset.Tables["TABLE"];
+                numberOfTests = displayTestsInListbox(datatable, testFlag); 
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error displaying result list: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error displaying result list: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Rollback();
+            database.Close();
+            return numberOfTests;
+        }
+
+        private int displayTestsInListbox(DataTable datatable, int testFlag)
+        {
+            int numberOfTests = 0;
+            
+            displayHeader(testFlag);
+
+            if (0 == testFlag)
+            {
+                foreach (DataRow row in datatable.Rows)
+                {
+                    DateTime tmp = new DateTime();
+                    tmp = Convert.ToDateTime(row["_date"]);
+                    string tmp2 = string.Format(tmp.ToString("MM/dd/yy"));
+                    message = String.Format("({0})  {1} PPM\t{2}",
+                              ++numberOfTests, row["particulates"], tmp2);
+                    listBox1.Items.Add(message);
+                }
+            }
+
+            else if (1 == testFlag)
+            {
+                foreach (DataRow row in datatable.Rows)
+                {
+                    string containsBacteria = "";
+                    if (0 == Convert.ToInt32(row["coliforms"]))
+                        containsBacteria = "negative";
+                    else containsBacteria = "positive";
+
+                    DateTime tmp = new DateTime();
+                    tmp = Convert.ToDateTime(row["_date"]);
+                    string tmp2 = string.Format(tmp.ToString("MM/dd/yy"));
+
+                    message = String.Format("({0})  {1}\t{2}",
+                              ++numberOfTests, containsBacteria, tmp2);
+                    listBox1.Items.Add(message);
+                }
+            }
+
+            else // testFlag = 2
+            {
+                foreach (DataRow row in datatable.Rows)
+                {
+                    DateTime tmp = new DateTime();
+                    tmp = Convert.ToDateTime(row["_date"]);
+                    string tmp2 = string.Format(tmp.ToString("MM/dd/yy"));
+                    message = String.Format("({0})  {1} NTU\t{2}",
+                              ++numberOfTests, row["turbidity"], tmp2);
+                    listBox1.Items.Add(message);
+                }
+            }
+            return numberOfTests;
+        }
+
+        private DateTime getFirstLastTestDate(int testFlag, bool radioButtonFlag, bool getMinMax)
+        {
+            DateTime resultDate = new DateTime();
+
+            // get the userID we need for the sql
+            userID = getUserID();
+
+            // open database, start transaction
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+
+            try
+            {                
+                // setup the sql statement
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = getMinMaxDateSql(testFlag, radioButtonFlag, getMinMax);
+               
+                // setup the insertion into the database
+                command.CommandText = sql;
+                command.Transaction = transaction;
+
+                // run the sql, check the result
+                object _resultDate = command.ExecuteScalar();
+                if ("" == Convert.ToString(_resultDate))
+                {
+                    MessageBox.Show("Error getting min/max date -- no result");
+                    exit();
+                }
+                resultDate = Convert.ToDateTime(_resultDate);
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error getting min date: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error getting min date: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            transaction.Commit();
+            database.Close();
+            return resultDate; 
+        }
+
+        private int getUserID()
+        {
+            int userID = 0;
+
+            //
+            // open the database
+            //
+            SqlConnection database = open_database();
+            try
+            {
+                // setup the sql statement
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select userID from UserTable where userName = '{0}';", currUser);
+
+                // execute command, check result
+                command.CommandText = sql;
+                object _userID = command.ExecuteScalar();
+                userID = System.Convert.ToInt32(_userID);
+                if (0 == userID)
+                {
+                    MessageBox.Show("Error with password check -- returned no string");
+                    exit();
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error looking up userID: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error looking up userID: {0}", exception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            database.Close();
+            return userID;
+        }
+
+        private bool addressOrZipIsInDatabase(bool addressOrZipFlag, int testFlag)
+        {
+            //
+            // check if zip code is even a number
+            //
+            if (!addressOrZipFlag && zipCodeIsNotAnumber())
+            {
+                message = string.Format("{0} is not a valid zip code", userEnteredData);
+                MessageBox.Show(message);
+                return false;
+            }
+
+            userID = getUserID();
+
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = addressOrZipIsInDatabaseGetSQL(testFlag, addressOrZipFlag);
+
+                //
+                // run it.  If the result is an empty string, then the username 
+                // isn't in the db, and we return false....
+                //
+                command.CommandText = sql;
+                command.Transaction = transaction;
+                object _result = command.ExecuteScalar();
+                if (null == _result) return false;
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error checking if the user entered string (either zip code or address) is in the database: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error checking if the user entered string (either zip code or address) is in the database: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            
+            //
+            // if we get here, then the address / zip IS in the database
+            //
+            transaction.Commit();
+            database.Close();
+            return true;
+        }
+        
+        private bool zipCodeIsNotAnumber()
+        {
+            for (int i = 0; i < userEnteredData.Length; i++)
+                if (!Char.IsNumber(userEnteredData[i])) return true;
+            return false;
+        }
+
+        private void displayDates(DateTime firstTest, DateTime lastTest)
+        {
+            // display the dates in textboxes
+            string firstTestDate = string.Format(firstTest.ToString("MMMM dd, yyyy"));
+            string lastTestDate = string.Format(lastTest.ToString("MMMM dd, yyyy"));
+            textBox_min_date.Text = firstTestDate;
+            textBox_max_date.Text = lastTestDate;
+        }
+
+        private bool whichRadioButton()
+        {
+            if (radioButton_choose_address.Checked) return true;
+            return false;
+        }
+
+        private string getMinMaxDateSql(int testFlag, bool radioButtonFlag, bool getMinMax)
+        {
+            String SQL;
+            // 0 = testFlag = air Test
+            if (0 == testFlag)
+            {
+                // radioButtonFlag = true = [air test, address]
+                if (radioButtonFlag)
+                {
+                    // getMinMax = true = [air test, address, max]
+                    if (getMinMax)
+                    {
+                        SQL = String.Format(@"
+                        select max(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.streetAddress = '{0}'
+                        and T.userID = {1};", userEnteredData, userID);
+                    }
+
+                    // getMinMax = false = [air test, address, min]
+                    else
+                    {
+                        SQL = String.Format(@"
+                        select min(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.streetAddress = '{0}'
+                        and T.userID = {1};", userEnteredData, userID);
+                    }
+                }
+
+                // radioButtonFlag = false = [air test, zip code]
+                else
+                {
+                    // getMinMax = true = [air test, zip code, max]
+                    if (getMinMax)
+                    {
+                        SQL = String.Format(@"
+                        select max(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.zipCode = '{0}'
+                        and T.userID = {1};",
+                        Convert.ToInt32(userEnteredData), userID);
+                    }
+
+                    // getMinMax = false = [air test, zip code, min]
+                    else
+                    {
+                        SQL = String.Format(@"
+                        select min(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.zipCode = '{0}'
+                        and T.userID = {1};",
+                        Convert.ToInt32(userEnteredData), userID);
+                    }
+                }
+            }
+
+            // 1 or 2 = test flag = water test
+            else
+            {
+                // radioButtonFlag = true = [water test, address]
+                if (radioButtonFlag)
+                {
+                    // getMinMax = true = [water test, address, max]
+                    if (getMinMax)
+                    {
+                        SQL = String.Format(@"
+                        select max(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.streetAddress = '{0}'
+                        and T.userID = {1};", userEnteredData, userID);
+                    }
+
+                    // getMinMax = false = [water test, address, min]
+                    else
+                    {
+                        SQL = String.Format(@"
+                        select min(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.streetAddress = '{0}'
+                        and T.userID = {1};", userEnteredData, userID);
+                    }
+                }
+
+                // radioButtonFlag = false = [water test, zip]
+                else
+                {
+                    // getMinMax = true = [water test, zip, max]
+                    if (getMinMax)
+                    {
+                        SQL = String.Format(@"
+                        select max(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.zipCode = '{0}'
+                        and T.userID = {1};",
+                        Convert.ToInt32(userEnteredData), userID);
+                    }
+
+                    // getMinMax = false = [water test, zip, min]
+                    else
+                    {
+                        SQL = String.Format(@"
+                        select min(_date) from TestDateAndLocation
+                        inner join
+                        (
+                            select * from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID
+                        where TestDateAndLocation.zipCode = '{0}'
+                        and T.userID = {1};",
+                        Convert.ToInt32(userEnteredData), userID);
+                    }
+                }
+            }
+            return SQL;
+        }
+
+        private string getResultsListSql(int testFlag, bool radioButtonFlag)
+        {
+            // testFlag = 0 = particulates
+            if (0 == testFlag)
+            {
+                // radioButtonFlag = true = particulates/address
+                if (radioButtonFlag)
+                {
+                    sql = string.Format(@"
+                        select T.particulates, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select AirTestResult.particulates, 
+                                  AirTestResult.locationDateID, 
+                                  AirTestResult.userID from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.streetAddress = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, userEnteredData, firstTest, lastTest);
+                }
+
+                // radioButtonFlag = false = particulates/zipcode
+                else
+                {
+                    sql = string.Format(@"
+                        select T.particulates, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select AirTestResult.particulates, 
+                                  AirTestResult.locationDateID, 
+                                  AirTestResult.userID from AirTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.zipCode = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, Convert.ToString(userEnteredData), firstTest, lastTest);
+                }
+            }
+
+            // testFlag = 1 = coliforms
+            else if (1 == testFlag)
+            {
+                // radioButtonFlag = true = coliforms/address
+                if (radioButtonFlag)
+                {
+                    sql = string.Format(@"
+                        select T.coliforms, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select WaterTestResult.coliforms, 
+                                  WaterTestResult.locationDateID, 
+                                  WaterTestResult.userID from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.streetAddress = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, userEnteredData, firstTest, lastTest);
+                }
+
+                // radioButtonFlag = false = coliforms/zip code
+                else
+                {
+                    sql = string.Format(@"
+                        select T.coliforms, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select WaterTestResult.coliforms, 
+                                  WaterTestResult.locationDateID, 
+                                  WaterTestResult.userID from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.zipCode = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, Convert.ToString(userEnteredData), firstTest, lastTest);
+                }
+            }
+
+            // testFlag = 2 = turbidity
+            else
+            {
+                // radioButtonFlag = true = turbidity/address
+                if (radioButtonFlag)
+                {
+                    sql = string.Format(@"
+                        select T.turbidity, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select WaterTestResult.turbidity, 
+                                  WaterTestResult.locationDateID, 
+                                  WaterTestResult.userID from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.streetAddress = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, userEnteredData, firstTest, lastTest);
+                }
+
+                // radioButtonFlag = false = turbidity/zip code
+                else
+                {
+                    sql = string.Format(@"
+                        select T.turbidity, TestDateAndLocation._date from TestDateAndLocation
+                        inner join
+                        (
+	                       select WaterTestResult.turbidity, 
+                                  WaterTestResult.locationDateID, 
+                                  WaterTestResult.userID from WaterTestResult
+                        )T
+                        on TestDateAndLocation.locationDateID = T.locationDateID 
+                        where 
+                        T.userID = {0} and
+                        TestDateAndLocation.zipCode = '{1}' and
+                        TestDateAndLocation._date between '{2}' and '{3}';",
+                    userID, Convert.ToString(userEnteredData), firstTest, lastTest);
+                }
+            }
+            return sql;
+        }
+
+        private string getParticulateOrColiformAverageSql(int testFlag, bool radioButtonFlag)
+        {
+            string SQL;
+            // testFlag = 0 = particulate
+            if (0 == testFlag)
+            {
+                // radioButtonFlag = true = particulate address 
+                if (radioButtonFlag)
+                {
+                    SQL = string.Format(@"
+                        select avg(particulates) from AirTestResult
+                        inner join
+                        (
+                            select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                    userID, userEnteredData);
+                }
+
+                // radioButtonFlag = false = particulate zipCode
+                else
+                {
+                    SQL = string.Format(@"
+                        select avg(particulates) from AirTestResult
+                        inner join
+                        (
+                            select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.zipCode = {1};",
+                    userID, Convert.ToInt32(userEnteredData));
+                }
+            }
+
+            // testFlag = 1 = coliform
+            else
+            {
+                // radioButtonFlag = true = colfiorm address
+                if (radioButtonFlag)
+                {
+                    SQL = string.Format(@"
+                        select avg(cast(coliforms as float)) from WaterTestResult
+                        inner join
+                        (
+                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                    userID, userEnteredData);
+                }
+
+                // radioButtonFlag = false = coliform zipCode
+                else
+                {
+                    SQL = string.Format(@"
+                        select avg(cast(coliforms as float)) from WaterTestResult
+                        inner join
+                        (
+                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.zipCode = {1};",
+                    userID, Convert.ToInt32(userEnteredData));
+                }
+            }
+            return SQL;
+        }
+
+        private string getNumberOfTurbidityResultsSql(bool radioButtonFlag)
+        {
+            String SQL;
+
+            // if radioButtonFlag = true = address
+            if (radioButtonFlag)
+            {
+                SQL = string.Format(@"
+                    select count(*) from WaterTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on WaterTestResult.locationDateID = T.locationDateID
+                    where WaterTestResult.userID = {0}
+                    and T.streetAddress = '{1}';",
+                    userID, userEnteredData);
+            }
+
+            // radioButtonFlag = false = zipCode
+            else
+            {
+                SQL = string.Format(@"
+                    select count(*) from WaterTestResult
+                    inner join
+                    (
+	                    select * from TestDateAndLocation
+                    )T
+                    on WaterTestResult.locationDateID = T.locationDateID
+                    where WaterTestResult.userID = {0}
+                    and T.zipCode = {1};",
+                    userID, Convert.ToInt32(userEnteredData));
+            }
+            return SQL;
+        }
+
+        private string getTurbidityResultsSQL(bool radioButtonFlag)
+        {
+            String SQL = "";
+            // radioButtonFlag = true = use address
+            if (radioButtonFlag)
+            {
+                SQL = string.Format(@"
+                        select WaterTestResult.turbidity from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0}
+                        and T.streetAddress = '{1}';",
+                        userID, userEnteredData);
+            }
+
+            // radioButtonFlag = false = use zip
+            else
+            {
+                SQL = string.Format(@"
+                        select WaterTestResult.turbidity from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0}
+                        and T.streetAddress = '{1}';",
+                        userID, Convert.ToInt32(userEnteredData));
+            }
+            return SQL;
+        }
+
+        private string addressOrZipIsInDatabaseGetSQL(int testFlag, bool addressOrZipFlag)
+        {
+            String SQL = "";
+            // addressOrZipFlag = true = use address
+            if (addressOrZipFlag)
+            {
+                // testFlag = 0 = use address and AirTestResult table
+                if (0 == testFlag)
+                {
+                    SQL = string.Format(@"
+                        select * from AirTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                        userID, userEnteredData);
+                }
+
+                // testFlag = 1 or 2, use address and WaterTestResult
+                else
+                {
+                    SQL = string.Format(@"
+                        select * from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.streetAddress = '{1}';",
+                       userID, userEnteredData);
+                }
+            }
+
+            // !addressOrZipFlag = false = use zip code
+            else
+            {
+                // testFlag = 0 = use zip code and AirTestResult table
+                if (0 == testFlag)
+                {
+                    SQL = string.Format(@"
+                        select * from AirTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on AirTestResult.locationDateID = T.locationDateID
+                        where AirTestResult.userID = {0} and
+                        T.zipCode = '{1}';",
+                        userID, Convert.ToInt32(userEnteredData));
+                }
+
+                // testFlag = 1 or 2, use zicodep and WaterTestResult
+                else
+                {
+                    SQL = string.Format(@"
+                        select * from WaterTestResult
+                        inner join
+                        (
+	                        select * from TestDateAndLocation
+                        )T
+                        on WaterTestResult.locationDateID = T.locationDateID
+                        where WaterTestResult.userID = {0} and
+                        T.zipCode = '{1}';",
+                        userID, Convert.ToInt32(userEnteredData));
+                }
+            }
+            return SQL;
+        }
+
+        private void displayHeader(int testFlag)
+        {
+            message = string.Format(@"");
+            listBox1.Items.Add(message);
+            if (0 == testFlag)
+            {
+                message = string.Format(@"      *** Particulate Results ***");
+                listBox1.Items.Add(message);
+            }
+            else if (1 == testFlag)
+            {
+                message = string.Format(@"        *** Coliforms Results ***");
+                listBox1.Items.Add(message);
+            }
+            else
+            {
+                message = string.Format(@"        *** Turbidity Results ***");
+                listBox1.Items.Add(message);
+            }
+            message = string.Format(@"");
+            listBox1.Items.Add(message);
+
+            message = string.Format("      test result             date taken");
+            listBox1.Items.Add(message);
+        }
+
+        private void nullAverageError()
+        {
+            MessageBox.Show("Error getting the average -- it returned NULL, which is impossible.  To enter either a zip code or an address, you have to perform a test, which HAS to return a number (including zero).");
+            exit();
+        }
+
+        private SqlTransaction create_transaction(SqlConnection database)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                transaction = database.BeginTransaction(IsolationLevel.Serializable);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("Problem beginning the transaction: {0}'", ex.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return transaction;
+        }
+
+        private SqlConnection open_database()
+        {
+            SqlConnection database = new SqlConnection(connectionInfo);
+            try
+            {
+                database = new SqlConnection(connectionInfo);
+                database.Open();
+            }
+            catch (Exception exception)
+            {
+                string errorMessage = string.Format("Error opening the database: '{0}'", exception.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return database;
+        }
+
+        private void exit()
+        {
+            MessageBox.Show("Exiting program...");
+            Environment.Exit(0);
+        }
+    }
+}

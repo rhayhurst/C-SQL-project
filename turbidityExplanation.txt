@@ -1,0 +1,16 @@
+     Turbidity is a measurement of the "cloudiness" of whater, which is analogous to its purity.  
+The unit of measurement used to describe turbidity is the NTU: Nephelometric Turbidity 
+Unit.  Simply put, it quantifies the amount of light that can pass though a body of standing 
+water.
+
+     High turbidity can be indicative of a number of things: the quality of a water filtration 
+system, the possibility of a leak in residential plumbing pipes, or soil runoff in a water 
+table.  High turbidity can also indicate organic problems, such as the presence of of 
+disease-causing microorganisms such as viruses, parasites and some bacteria.
+
+     The EPA has determined drinking water to be safe if 95% of the samples taken per month 
+are less than or equal to 0.3 NTUs.  We realize that our users may not have data samples 
+greater than a month, so this device measures all of the samples taken, and considers the 
+purity of the water to be safe if 95% of the samples taken are less than or equal to 0.3 NTU.  
+The AAWQT also provides the date of the first test, the date of the last test, and the number 
+of tests taken, so that the user can come to their own conclusions.

@@ -1,0 +1,498 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+
+namespace AAWQT_TheSequel
+{
+    public partial class Form1 : Form
+    {
+        String currUser       = "";
+        String userName       = "";
+        String password       = "";
+        String connectionInfo = "";
+        String sql            = "";
+        String message        = "";
+        int numRowsModified   = 0;
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            //
+            // contruct the connection info
+            //
+            string filename = "AAWQT_db_spr2.mdf";
+            connectionInfo = String.Format(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\{0};Integrated Security=True;", filename);
+        }
+
+        private void Form1_Load(object sender, EventArgs e){}
+
+        private void button_login_Click(object sender, EventArgs e)
+        {
+            //
+            // get user entered pw and username
+            //
+            userName = Convert.ToString(textBox_username.Text);
+            password = Convert.ToString(textBox_password.Text);
+
+            //
+            // error-check the username and pw: 
+            //
+            if (errorCheckUserNameOrPassword(0, userName) && errorCheckUserNameOrPassword(1, password))
+            {
+                //
+                // check that the user entered username is in the db
+                //
+                if (!userNameIsInDataBase())
+                {
+                    message = string.Format(@"'{0}' is not in the database.  To create a new user, click on 'Create New User'", userName);
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    //
+                    // check that the password that's associated with the user entered username 
+                    // is the same as the password that's associated with the username in the db.  
+                    //
+                    string tempPassword = getPassword(getUserID());
+                    if (password == tempPassword)
+                    {
+                        currUser = userName;
+                        message = string.Format(@"You are now logged in as '{0}'.", currUser);
+                        MessageBox.Show(message);
+                    }
+                }
+            }
+        }
+
+        private void button_create_new_user_Click(object sender, EventArgs e)
+        {
+            //
+            // get user entered pw and username
+            //
+            userName = Convert.ToString(textBox_username.Text);
+            password = Convert.ToString(textBox_password.Text);
+
+            //
+            // error-check the username and pw: 
+            //
+            if (errorCheckUserNameOrPassword(0, userName) &&
+                errorCheckUserNameOrPassword(1, password))
+            {
+                //
+                // Check if user entered pw and username are in db.
+                // If they are not, then go ahead and create
+                //
+                if (userNameIsInDataBase())
+                {
+                    message = String.Format(@"'{0}' is already a username.  Please try another.", userName);
+                    MessageBox.Show(message);
+                    textBox_username.Clear(); // clear username field so they can try again
+                }
+                else if (passwordIsInDataBase())
+                {
+                    MessageBox.Show("That password is already taken... sorry, please try another.");
+                    textBox_password.Clear(); // clear password field so that they can try again
+                }
+
+                //
+                // if we get here, then both the username and password pass 
+                // the error checks and can be inserted into the db
+                //
+                else
+                {
+                    insertNewUserIntoDataBase();
+                    message = string.Format(@"New user '{0}' created.", userName);
+                    MessageBox.Show(message);
+                }
+            }
+        }
+
+        private void insertNewUserIntoDataBase()
+        {
+            //
+            // open the database, start a transaction
+            //
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"insert into UserTable(userName, password)
+                                      values('{0}','{1}');", userName, password);
+
+
+                // 
+                // setup the insertion into the database
+                //
+                command.CommandText = sql;
+                command.Transaction = transaction;
+
+                //
+                // run it!
+                //
+                numRowsModified = command.ExecuteNonQuery();
+
+                //
+                // check that a row has, in fact, been changed
+                //
+                if (1 != numRowsModified)
+                {
+                    message = string.Format("Error: there should have been a row modified.  There were {0} rows mofified.", numRowsModified);
+                    MessageBox.Show(message);
+                    transaction.Rollback();
+                    database.Close();
+                    exit();
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = String.Format("sql error in insertion of username and pw into the db: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format("Some kind of overarching error in the insertion of the username and pw into the db: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+
+            //
+            // if we've gotten to this line, then the username and pw were success-
+            // fully inserted into the db, and we can commit the tr and close the db
+            //
+            finally
+            {
+                transaction.Commit();
+                database.Close();
+            }
+        }
+
+        private bool passwordIsInDataBase()
+        {
+            SqlConnection database = open_database();
+
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select userName from UserTable where password = '{0}';", password);
+
+                //
+                // run it.  If the result is an empty string, then the username isn't in the db,
+                // and we return false....
+                //
+                command.CommandText = sql;
+                object _result = command.ExecuteScalar();
+                string result = System.Convert.ToString(_result);
+                if ("" == result)
+                {
+                    database.Close();
+                    return false;
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error: {0}", exception.Message);
+                MessageBox.Show(message);
+                database.Close();
+                exit();
+            }
+            database.Close();
+            return true;
+        }
+
+        private bool userNameIsInDataBase()
+        {
+            SqlConnection database = open_database();
+
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select password from UserTable where userName = '{0}';", userName);
+
+
+                //
+                // run it.  If the result is an empty string, then the username 
+                // isn't in the db, and we return false....
+                //
+                command.CommandText = sql;
+                object _result = command.ExecuteScalar();
+                string result = System.Convert.ToString(_result);
+                if ("" == result) return false;
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error: {0}", exception.Message);
+                MessageBox.Show(message);
+                database.Close();
+                exit();
+            }
+
+            //
+            // if we get here, then the username IS in the database
+            //
+            database.Close();
+            return true;
+        }
+
+        private bool errorCheckUserNameOrPassword(int nameOrPW, string str)
+        {
+            string tmp = "";
+            int len = str.Length;
+
+            //
+            // check that there is actually something in the fields 
+            //
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                if (0 == nameOrPW) tmp = "username ";
+                else               tmp = "password ";
+                message = string.Format("The " + tmp + " field is empty");
+                MessageBox.Show(message);
+                return false;
+            }
+
+            //
+            // check the size of the string
+            //
+            if (len < 9 || len > 20)
+            {
+                if (0 == nameOrPW) { tmp = "Username "; textBox_username.Clear(); }
+                else               { tmp = "Password "; textBox_password.Clear(); }
+                message = string.Format(@tmp + "must be less than 21 characters and greater than 8 characters.  You entered {0} characters.", len);
+                MessageBox.Show(message);
+                return false;
+            }
+
+            //
+            // check that the string both begins with a letter
+            // and that it contains no whitespace
+            //
+            for (int i = 0; i < len; i++)
+            {
+                if (0 == i && !Char.IsLetter(str[0]))
+                {
+                    if (0 == nameOrPW) { tmp = "Username "; textBox_username.Clear(); }
+                    else               { tmp = "Password "; textBox_password.Clear(); }
+                    message = string.Format(@tmp + "must begin with a letter, not a '{0}'", str[0]);
+                    MessageBox.Show(message);
+                    return false;
+                }
+                if (Char.IsWhiteSpace(str[i]))
+                {
+                    if (0 == nameOrPW) { tmp = "Username "; textBox_username.Clear(); }
+                    else               { tmp = "Password "; textBox_password.Clear(); }
+                    message = string.Format(@tmp + "must contain no spaces whatsoever");
+                    MessageBox.Show(message);
+                    return false;
+                }
+            }
+
+            //
+            // if we get here, then the username or password passes our rigourous standards
+            //
+            return true;
+        }
+
+        private int getUserID()
+        {
+            int result = 0;
+
+            //
+            // open the database
+            //
+            SqlConnection database = open_database();
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select userID from UserTable where userName = '{0}';", userName);
+
+                //
+                // execute command, check result
+                //
+                command.CommandText = sql;
+                object _result = command.ExecuteScalar();
+                result = System.Convert.ToInt32(_result);
+                if (0 == result)
+                {
+                    MessageBox.Show("Error with password check -- returned no string");
+                    exit();
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error looking up userID: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error looking up userID: {0}", exception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            database.Close();
+            return result;
+        }
+
+        private string getPassword(int userID)
+        {
+            string tmpPassword = "";
+
+            //
+            // open the database
+            //
+            SqlConnection database = open_database();
+
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select password from UserTable where userID = {0};", userID);
+
+                //
+                // execute command, check result
+                //
+                command.CommandText = sql;
+                object _tmpPassword = command.ExecuteScalar();
+                tmpPassword = System.Convert.ToString(_tmpPassword);
+                if ("" == tmpPassword)
+                {
+                    MessageBox.Show("Error -- null password returned when checking user entered pw against db");
+                    exit();
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error looking up password: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error looking up password: {0}", exception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            database.Close();
+            return tmpPassword;
+        }
+
+        private SqlConnection open_database()
+        {
+            SqlConnection database = new SqlConnection(connectionInfo);
+            try
+            {
+                database = new SqlConnection(connectionInfo);
+                database.Open();
+            }
+            catch (Exception exception)
+            {
+                string errorMessage = string.Format("Error opening the database: '{0}'", exception.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return database;
+        }
+
+        private SqlTransaction create_transaction(SqlConnection database)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                transaction = database.BeginTransaction(IsolationLevel.Serializable);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("Problem beginning the transaction: {0}'", ex.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return transaction;
+        }
+
+        private void exit()
+        {
+            MessageBox.Show("Exiting program...");
+            Environment.Exit(0);
+        }
+
+        private void takeTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+                if ("" == currUser) MessageBox.Show("Please log in first.");
+                else
+                {
+                    FormTest formTest = new FormTest(currUser);
+                    formTest.Show();
+                }
+        }
+
+        private void dataAnalysisToolStripMenuItem_Click(object sender, EventArgs e) 
+        {
+            if ("" == currUser) MessageBox.Show("Please log in first.");
+            else
+            {
+                FormDataAnalysis formDataAnalysis = new FormDataAnalysis(currUser);
+                formDataAnalysis.Show();
+            }
+        }
+
+        private void temporalTestResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ("" == currUser) MessageBox.Show("Please log in first.");
+            else
+            {
+                FormLongTermTest formLongTermTest = new FormLongTermTest(currUser);
+                formLongTermTest.Show();
+            }
+        }
+    }
+}
+

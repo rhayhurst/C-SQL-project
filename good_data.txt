@@ -1,0 +1,157 @@
+User Date:
+
+aaronSanchez password1 123 Main Street 60630 userID = 1
+bobHarris     password2 123 Main Street 60630 userID = 2
+cliveBarker   password3                           60630 userID = 3
+danelLewis    password4  2410 Asdf Drive 60601 userID = 4
+evalynCarter password5  2410 Asdf Drive 60601 userID = 5
+fBoticelli      password6                            60601 userID = 6
+
+
+____________________________________________
+aaronSanchez 
+
+test 1 10/30/2015 AIR
+ particulates:        6.4   ppm/um/m3
+Carbon Monoxide: 4      ppm
+Lead:                    0.07 ppm
+
+test 2 10/31/2015 AIR
+ particulates:        8.3  ppm/um/m3
+Carbon Monoxide: 0     ppm
+Lead:                    0     ppm
+
+test 3 11/01/2020 AIR
+ particulates:        14.2  ppm/um/m
+Carbon Monoxide: 0      ppm
+Lead:                    0      ppm
+
+test 1 10/30/2015 WATER
+Turbidity:         0.33   NTU
+Total Coliforms: 1        POSITIVE
+Arsenic:            0.001  mg/L 
+Copper:             0.1      mg/L
+
+test 2 10/31/2015 WATER
+Turbidity:         0.17  NTU
+Total Coliforms: 1       POSITIVE
+Arsenic:             0       mg/L
+Copper:              0       mg/L
+
+test 3 11/01/2020 WATER
+Turbidity:         0.14  NTU
+Total Coliforms: 1        POSITIVE
+Arsenic:             0       mg/L
+Copper:              0      mg/L
+
+RESULTS:
+avg particulate: 9.63
+avg Turbidity:   0.22
+avg coliforms:    0.66
+
+_____________________________________________________
+
+bobHarris
+test 4 10/30/2015 AIR
+particulates:        8.4  ppm/um/m3
+Carbon Monoxide: 0    ppm
+Lead: 0                       ppm
+
+test 5 10/31/2015 AIR
+particulates:        14.6  ppm/um/m3
+Carbon Monoxide: 0      ppm
+Lead: 0                         ppm
+
+test 6 11/01/2015 AIR
+particulates:        19.2  ppm/um/m3
+Carbon Monoxide: 1      ppm
+Lead:                   0.01  ppm
+
+
+test 7 01/05/2050 AIR
+particulates:        11.7  ppm/um/m3
+Carbon Monoxide: 0      ppm
+Lead:                   0.      ppm
+
+test 4 10/30/2015 WATER
+Turbidity:         0.29 NTU
+Total Coliforms: 0      NEGATIVE
+Arsenic:             0      mg/L
+Copper:              0      mg/L
+
+test 5 10/31/2015 WATER
+Turbidity:         0.23 NTU
+Total Coliforms: 0      NEGATIVE
+Arsenic:             0      mg/L
+Copper:              0      mg/L
+
+test 6 11/01/2015 WATER
+Turbidity:         0.21 NTU
+Total Coliforms: 0      NEGATIVE
+Arsenic:             0      mg/L
+Copper:              0      mg/L
+
+test 7 01/05/2050 WATER
+Turbidity:         0.23 NTU
+Total Coliforms: 0      NEGATIVE
+Arsenic:             0      mg/L
+Copper:              0      mg/L
+
+results:
+avg particulate: 13.46
+avg Turbidity:   0.24
+avg coliforms:    0.66
+
+_____________________________________
+
+cliveBarker 
+
+test 8 10/30/2015 AIR
+particulates:        27.4 ppm/um/m3
+Carbon Monoxide: 1      ppm
+Lead:                    0.01 ppm
+
+test 9 10/31/2015 AIR
+particulates:         3.8    ppm/um/m3
+Carbon Monoxide:  3      ppm
+Lead:                     0.04 ppm
+
+
+test 10 01/01/2050 AIR
+particulates:        8.8 ppm/um/m3
+Carbon Monoxide: 0   ppm
+Lead:                    0   ppm
+
+test 8 10/30/2015 WATER
+Turbidity:         0.38  NTU
+Total Coliforms: 1       POSITIVE
+Arsenic:            0.002 mg/L
+Copper:             0.1     mg/L
+
+test 9 10/31/2015 WATER
+Turbidity:         0.16 NTU
+Total Coliforms: 0     NEGATIVE
+Arsenic:             0    mg/L
+Copper:              0    mg/L
+
+
+test 10 01/01/2050 WATER
+Turbidity:         0.07   NTU
+Total Coliforms: 1        POSITIVE 
+Arsenic:            0.005 mg/L
+Copper:             0.4     mg/L
+
+results:
+avg particulate: 13.33
+avg Turbidity:   0.24
+avg coliforms:    0.66
+_______________________________________
+test AIR
+particulates:    ppm/um/m3
+Carbon Monoxide: 0.2 ppm
+Lead: ppm
+
+Turbidity:  NTU
+Total Coliforms: 
+Arsenic:  mg/L
+Copper:  mg/L

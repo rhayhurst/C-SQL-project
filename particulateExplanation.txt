@@ -1,0 +1,20 @@
+     Air pollution (smog), is measured in particulates, literally matter suspended in the 
+air. Particulates come in two size measurements, large (between 2.5 and 10 micrometers,
+called PM 10 for), and small (up to 2.5 micrometers, called PM 2.5).
+
+     The larger particulates come from smoke, dirt and dust from factories, mold, spores, 
+and pollen, whereas the smaller particulates (and more dangerous) are made of toxic organic
+compounds and various heavy metals.
+
+     The EPA has two separate measures for the PM 10 and PM 2.5 particulates.  To determine 
+an accurate measurement for PM 2.5, an arithemetic mean is to be taken over a three year 
+period.  If it registers as greater than 12.0 µm/m3, then it is considered to be dangerous
+(and illegal, for that matter).
+
+     We realize that our users may not have three years to conduct tests, so the results that 
+you see is the arithemtic mean for the number of tests taken, which is also shown.
+
+     Additionally, note that PM 10, it is considered unsafe for any reading to be over 
+150 µm/m3 for more that once per year.  Please examine the displayed test results to determine 
+if that parameter has been passed.
+ 

@@ -1,0 +1,20 @@
+     Coliform bacteria are commonly used as an indicator of the sanitary quality of water.  The
+bacteria is universally found in the fecal matter of warm-blooded mammals, and and such is
+used to determine if there is fecal matter in water.
+
+     Not all coliform bacteria is pathogenic, and this particular test does not differentiate
+between disease-causing bacteria such as E Coli or innocuous protozoa.  The next iteration
+of the AAWQT will have a test that can spot the difference between the two types of
+bacteria, so please keep aware of updates.
+
+    The test that we perform returns either a postive (bacteria is present in the water) or
+a negative (bacteria is not present in the water).  It does not test for amount of bacteria.
+This is in line with the EPA, who has determined water to be safe for drinking if the tests
+return negative in 95% of tests, per month.
+
+     Of course, we realize that our users may not have data samples greater than a month.
+Therefore, the AAWQT provides the percentage for all tests, regardless of the the 
+number of tests taken.  However, we also provide additional data that allows for further
+conclusions: the date of the first and last test and the number of tests taken in total.
+
+ 

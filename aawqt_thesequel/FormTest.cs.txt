@@ -1,0 +1,549 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace AAWQT_TheSequel
+{
+    public partial class FormTest : Form
+    {
+        //
+        // make the connection string and currUser "global"
+        //
+        String connectionInfo = "";
+        String currUser       = "";
+        String message        = "";
+        String sql            = "";
+
+        public FormTest(String passedCurrUser)
+        {
+            InitializeComponent();
+            currUser = passedCurrUser;
+
+            //
+            // set up the connection info -- allows the variable "connectioInfo" 
+            // to be used instead of a bunch of unreadable code
+            //
+            String filename = "AAWQT_db_spr2.mdf";
+            connectionInfo = String.Format(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\{0};Integrated Security=True;", filename);
+        }
+
+        private void FormTest_Load(object sender, EventArgs e)
+        {
+            //
+            // Set the zip code combo box to display the first zip code in the list
+            //
+            comboBox_zip_code.SelectedIndex = 0;
+        }
+
+        private void button_run_test_Click(object sender, EventArgs e)
+        {
+            //
+            // test data variables
+            //
+            double particulates          = 0.0;
+            int    CO2                   = 0;
+            double lead                  = 0.0;
+            double turbidity             = 0.0;
+            int    coliforms             = 0;
+            double arsenic               = 0.0;
+            double copper                = 0.0;
+            int    particulateDescriptor = 0;
+            int    leadDescriptor        = 0;
+            int    CO2Descriptor         = 0;
+            int    turbidityDescriptor   = 0;
+            int    coliformsDescriptor   = 0;
+            int    arsenicDescriptor     = 0;
+            int    copperDescriptor      = 0;
+
+            //
+            // sql variables
+            //
+            int    userID           = 0;
+            int    numRowsModified  = 0;
+            String dateString       = "";
+            String streetAddress    = Convert.ToString(textBox_address_user_input.Text);
+            int    zip              = Convert.ToInt32(comboBox_zip_code.Text);
+            String sql              = "";
+
+            //
+            // get the userID for the currUser, as we need that 
+            // to insert into the result tables
+            //
+            userID = getUserID();
+
+            //
+            // clear the test result text boxes
+            //
+            clearTestResults();
+
+            //
+            // create the string that will be used to insert the 
+            // date into the database
+            //
+            dateString = createDateString();
+
+
+            //
+            // get the (random) values for the test
+            //
+            if (radioButton_choose_test_air.Checked)
+                getResultsForAirTest(ref particulates, 
+                                     ref CO2, 
+                                     ref lead);
+            else
+                getResultsForWaterTest(ref turbidity, 
+                                       ref coliforms, 
+                                       ref arsenic, 
+                                       ref copper);
+
+            //
+            // now that we have the values for the test, determine 
+            // what the descriptors will be
+            //
+            if (radioButton_choose_test_air.Checked)
+                getAirDescriptors(particulates,
+                                     lead,
+                                     CO2,
+                                 ref particulateDescriptor,
+                                 ref leadDescriptor,
+                                 ref CO2Descriptor);
+            else getWaterDescriptors(turbidity,
+                                     coliforms,
+                                     arsenic,
+                                     copper,
+                                 ref turbidityDescriptor,
+                                 ref coliformsDescriptor,
+                                 ref arsenicDescriptor,
+                                 ref copperDescriptor);
+
+            //
+            // We've gathered ALL of the data to go into the database.
+            // All we need to do now is put it in.
+            //
+            SqlConnection database = open_database();
+            SqlTransaction transaction = create_transaction(database);
+
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+
+                //
+                // create the sql insert statement
+                //
+                if (radioButton_choose_test_air.Checked)
+                {
+                    sql = string.Format(@"
+
+                    declare @locationDateID int;
+
+                    insert into TestDateAndLocation(streetAddress, zipCode, _date)
+                    values('{0}',{1},'{2}')
+                    set @locationDateID = SCOPE_IDENTITY();
+
+                    insert into AirTestResult
+                    (
+	                    userID,                 /* variable */
+	                    locationDateID,         /* variable */
+	                    particulateDescriptor,  /* int      */
+	                    CO2Descriptor,          /* int      */
+	                    leadDescriptor,         /* int      */
+	                    particulates,           /* double   */
+	                    carbonMonoxide,         /* int      */
+	                    lead                    /* double   */
+                    )
+                    values({3}, @locationDateID,(4),{5},{6},{7},{8},{9});",
+                    streetAddress, zip, dateString, userID, particulateDescriptor,
+                    CO2Descriptor, leadDescriptor, particulates, CO2, lead);
+                }
+                else // the water test was chosen
+                {
+                    sql = string.Format(@"
+                    
+                    declare @locationDateID int;
+
+                    insert into TestDateAndLocation(streetAddress, zipCode, _date)
+                    values('{0}',{1},'{2}')
+                    set @locationDateID = SCOPE_IDENTITY();
+
+                    insert into WaterTestResult
+                    (
+	                    userID,                 /* variable */
+	                    locationDateID,         /* variable */
+	                    turbidityDescriptor,    /* int      */
+	                    coliformsDescriptor,    /* int      */
+	                    arsenicDescriptor,      /* int      */
+	                    copperDescriptor,       /* int      */
+	                    turbidity,              /* double   */
+	                    coliforms,              /* int      */
+	                    arsenic,                /* double   */
+	                    copper                  /* double   */
+                    )
+                    values({3}, @locationDateID,(4),{5},{6},{7},{8},{9},{10},{11});",
+                    streetAddress, zip, dateString, userID, turbidityDescriptor,
+                    coliformsDescriptor, arsenicDescriptor, copperDescriptor,
+                    turbidity, coliforms, arsenic, copper);
+                }
+
+                //
+                // setup the insertion
+                //
+                command.CommandText = sql;
+                command.Transaction = transaction;
+
+                //
+                // run the sql query
+                //
+                numRowsModified = command.ExecuteNonQuery();
+
+                //
+                // check that the correct number of rows have been changed
+                //
+                if (2 != (numRowsModified))
+                {
+                    message = string.Format("Error: there should have been 3 rows modified.  There were {0}.", numRowsModified);
+                    MessageBox.Show(message);
+                    transaction.Rollback();
+                    database.Close();
+                    exit();
+                }   
+            }
+            catch (SqlException sqlexception)
+            {
+                message = String.Format("sql error in test insertion: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format("Some kind of overarching error in test insertion: {0}", exception.Message);
+                MessageBox.Show(message);
+                transaction.Rollback();
+                database.Close();
+                exit();
+            }
+
+            //
+            // if we get here, then the test result insertion worked
+            //
+            finally
+            {
+                //
+                // display the results in the appropriate text fields
+                //
+                displayResults(particulates,
+                               CO2,
+                               lead,
+                               turbidity,
+                               coliforms,
+                               arsenic,
+                               copper);
+
+                //
+                // commit the transaction and close the database
+                //
+                transaction.Commit();
+                database.Close();
+            }
+        }
+
+        private string createDateString()
+        {
+            //
+            // In case you're interested, the problem is when a month
+            // or day doesn't have two integers.... the format needs
+            // YYYY MM DD, and if the day is, say, 1, then we
+            // get YYYY MM D
+            // So we need to add a leading zero when that happens.
+            //
+            String day, month, year;
+
+            int _day = dateTimePicker1.Value.Day;
+            int _month = dateTimePicker1.Value.Month;
+            int _year = dateTimePicker1.Value.Year;
+
+            String dayTmp = Convert.ToString(_day);
+            String monthTmp = Convert.ToString(_month);
+            String yearTmp = Convert.ToString(_year);
+
+            if (_day < 10) day = string.Format(@"0" + "{0}", dayTmp);
+            else day = dayTmp;
+
+            if (_month < 10) month = string.Format(@"0" + "{0}", monthTmp);
+            else month = monthTmp;
+
+            year = string.Format(@"{0}", _year);
+
+            return string.Format(@"{0}" + "/" + "{1}" + "/" + "{2}",
+                year, month, day);
+
+        }
+
+        private void getWaterDescriptors(double turbidity,
+                                 int coliforms,
+                                 double arsenic,
+                                 double copper,
+                             ref int turbidityDescriptor,
+                             ref int coliformsDescriptor,
+                             ref int arsenicDescriptor,
+                             ref int copperDescriptor)
+        {
+            //
+            // turbidity
+            //
+            if      (0 <= turbidity && turbidity <= 0.3) turbidityDescriptor = 1;
+            else if (0 <= turbidity && turbidity <= 1.0) turbidityDescriptor = 2;
+            else                                         turbidityDescriptor = 3;
+
+            //
+            // total coliforms
+            //
+            if (0 == coliforms) coliformsDescriptor = 0;
+            else                coliformsDescriptor = 1;
+
+            //
+            // arsenic
+            //
+            if      (0.00 == arsenic) arsenicDescriptor = 1;
+            else if (0.01 == arsenic) arsenicDescriptor = 2;
+            else                      arsenicDescriptor = 3;
+
+            //
+            // copper
+            //
+            if      (0.0 == copper)                 copperDescriptor = 1;
+            else if (0.1 == copper && copper < 1.3) copperDescriptor = 2;
+            else                                    copperDescriptor = 3;
+        }
+
+        private void getAirDescriptors(double particulates,
+                                       double lead,
+                                       int CO2,
+                                   ref int particulateDescriptor,
+                                   ref int leadDescriptor,
+                                   ref int CO2Descriptor)
+        {
+            //
+            // particulates
+            //
+            if      (  0.0 <= particulates && particulates <=  15.4) particulateDescriptor = 1;
+            else if ( 15.5 <= particulates && particulates <= 100.0) particulateDescriptor = 2;
+            else if (101.0 <= particulates && particulates <= 150.0) particulateDescriptor = 3;
+            else if (151.1 <= particulates && particulates <= 209.9) particulateDescriptor = 4;
+            else                                                     particulateDescriptor = 5;
+
+            //
+            // lead
+            //
+            if      (0.00 == lead)                 leadDescriptor = 1;
+            else if (0.01 <= lead && lead <= 0.14) leadDescriptor = 2;
+            else                                   leadDescriptor = 3;
+
+            //
+            // CO2
+            //
+            if      (0 == CO2)             CO2Descriptor = 1;
+            else if (1 <= CO2 && CO2 <= 9) CO2Descriptor = 2;
+            else                           CO2Descriptor = 3;
+        }
+
+        private void getResultsForAirTest(ref double particulates,
+                                  ref int CO2,
+                                  ref double lead)
+        {
+            int skew = 0;
+
+            //
+            // get results for particulates
+            //
+            if (0 == (skew = getRandomNumber(0, 4)))
+                particulates = (double)getRandomNumber(155, 2100) / 10;
+            else particulates = (double)getRandomNumber(0, 154) / 10;
+
+            //
+            // get results for CO2
+            //
+            if (0 == (skew = getRandomNumber(0, 2)))
+                CO2 = getRandomNumber(1, 10);
+            else CO2 = 0;
+
+            //
+            // get results for lead
+            //
+            if (0 == (skew = getRandomNumber(0, 2)))
+                lead = (double)getRandomNumber(1, 16) / 100;
+            else lead = 0.0;
+        }
+
+        private void getResultsForWaterTest(ref double turbidity,
+                                            ref int coliforms,
+                                            ref double arsenic,
+                                            ref double copper)
+        {
+            int skew = 0;
+
+            //
+            // get results for turbidity
+            //
+            if (0 == (skew = getRandomNumber(0, 4)))
+                turbidity = (double)getRandomNumber(32, 120) / 100;
+            else turbidity = (double)getRandomNumber(0, 31) / 100;
+
+            //
+            // get results for coliforms
+            //
+            if (0 == (skew = getRandomNumber(0, 2)))
+                coliforms = 1;
+            else coliforms = 0;
+
+            //
+            // get results for arsenic
+            //
+            if (0 == (skew = getRandomNumber(0, 3)))
+                arsenic = (double)getRandomNumber(1, 18) / 1000;
+            else arsenic = 0.00;
+
+            //
+            // get results for copper
+            //
+            if (0 == (skew = getRandomNumber(0, 3)))
+                copper = (double)getRandomNumber(1, 15) / 10;
+            else copper = 0.0;
+        }
+
+        private int getUserID()
+        {
+            int userID = 0;
+
+            //
+            // open the database
+            //
+            SqlConnection database = open_database();
+            try
+            {
+                //
+                // setup the sql statement
+                //
+                SqlCommand command = new SqlCommand();
+                command.Connection = database;
+                sql = String.Format(@"select userID from UserTable where userName = '{0}';", currUser);
+
+                //
+                // execute command, check result
+                //
+                command.CommandText = sql;
+                object _userID = command.ExecuteScalar();
+                userID = System.Convert.ToInt32(_userID);
+                if (0 == userID)
+                {
+                    MessageBox.Show("Error with password check -- returned no string");
+                    exit();
+                }
+            }
+            catch (SqlException sqlexception)
+            {
+                message = string.Format(@"sql error looking up userID: {0}", sqlexception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            catch (Exception exception)
+            {
+                message = string.Format(@"non-sql error looking up userID: {0}", exception.Message);
+                MessageBox.Show(message);
+                exit();
+            }
+            database.Close();
+            return userID;
+        }
+
+        private void displayResults(double particulates,
+                                    int CO2,
+                                    double lead,
+                                    double turbidity,
+                                    int coliforms,
+                                    double arsenic,
+                                    double copper)
+        {
+            if (radioButton_choose_test_air.Checked)
+            {
+                textBox_particulates_result.Text    = Convert.ToString(particulates);
+                textBox_carbon_monixide_result.Text = Convert.ToString(CO2);
+                textBox_lead_result.Text            = Convert.ToString(lead);
+            }
+            else // water test was chosen
+            {
+                textBox_turbidity_test_results.Text = Convert.ToString(turbidity);
+                textBox_coliforms_test_results.Text = Convert.ToString(coliforms);
+                textBox_arsenic_test_results.Text   = Convert.ToString(arsenic);
+                textBox_copper_test_results.Text    = Convert.ToString(copper);
+            }
+        }
+
+        private void clearTestResults()
+        {
+            textBox_arsenic_test_results.  Clear();
+            textBox_coliforms_test_results.Clear();
+            textBox_copper_test_results.   Clear();
+            textBox_turbidity_test_results.Clear();
+            textBox_particulates_result.   Clear();
+            textBox_carbon_monixide_result.Clear();
+            textBox_lead_result.           Clear();
+        }
+
+        private SqlConnection open_database()
+        {
+            SqlConnection database = new SqlConnection(connectionInfo);
+            try
+            {
+                database = new SqlConnection(connectionInfo);
+                database.Open();
+            }
+            catch (Exception exception)
+            {
+                string errorMessage = string.Format("Error opening the database: '{0}'", exception.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return database;
+        }
+
+        private SqlTransaction create_transaction(SqlConnection database)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                transaction = database.BeginTransaction(IsolationLevel.Serializable);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("Problem beginning the transaction: {0}'", ex.Message);
+                MessageBox.Show(errorMessage);
+                exit();
+            }
+            return transaction;
+        }
+
+        private int getRandomNumber(int lowerParam, int upperParam)
+        {
+            Random random = new Random();
+            return (random.Next(lowerParam, upperParam));
+        }
+
+        private void exit()
+        {
+            MessageBox.Show("Exiting program...");
+            Environment.Exit(0);
+        }
+
+        private void FormTest_Load_1(object sender, EventArgs e){}
+    }
+}

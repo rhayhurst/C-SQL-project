@@ -1,0 +1,372 @@
+        private string getSQL()
+        {
+            String SQL = "";
+
+            // addressOrZipFlag = true = address
+            if (addressOrZipFlag)
+            {
+                // typeOFTest = true = address / air
+                if (typeOfTest)
+                {
+                    // typeOfAirTest == 0 = address / air / all
+                    if (0 == typeOfAirTest)
+                    {
+                        // typeOfTestDate = 0 = address / air / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 1 = address / air / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 2 = address / air / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest == 1 = address / air / particulates
+                    else if (1 == typeOfAirTest)
+                    {
+                        // typeOfTestDate = 0 = address / air / particulates / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 1 = address / air / particulates / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 2 = address / air / particulates / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest == 2 = address / air / CO2
+                    else if (2 == typeOfAirTest)
+                    {
+                        // typeOfTestDate = 0 = address / air / CO2 / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 1 = address / air / CO2 / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 2 = address / air / CO2 / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest == 3 = address / air / lead
+                    else if (3 == typeOfAirTest)
+                    {
+                        // typeOfTestDate = 0 = address / air / lead / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 1 = address / air / lead / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate = 2 = address / air / lead / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+                }
+                
+                // typeOFTest = false = address / water
+                else if (!typeOfTest)
+                {
+                    // typeOfWaterTest == 0 = address / water / all
+                    if (0 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = address / water / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = address / water / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = address / water / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 1 = address / water / turbidity
+                    else if (1 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = address / water / turbidity / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = address / water / turbidity / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = address / water / turbidity / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 2 = address / water / coliforms
+                    else if (2 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = address / water / coliforms / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = address / water / coliforms / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = address / water / coliforms / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 3 = address / water / arsenic
+                    else if (3 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = address / water / arsenic / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = address / water / arsenic / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = address / water / arsenic / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+
+                    }
+
+                    // typeOfWaterTest == 4 = address / water / copper
+                    else if (4 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = address / water / copper / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = address / water / copper / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = address / water / copper / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+                }
+            }
+
+            // addressOrZipFlag = false = zip
+            else if (!addressOrZipFlag)
+            {
+                // typeOFTest = true = zip / air
+                if (typeOfTest)
+                {
+                    // typeOfAirTest = 0 = zip / air / all
+                    if (0 == typeOfAirTest)
+                    {
+                        // typeOfTestDate == 0 = zip / air / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = zip / air / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = zip / air / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest = 1 = zip / air / particulates
+                    else if (1 == typeOfAirTest)
+                    {
+                        // typeOfTestDate == 0 = zip / air / particulates / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = zip / air / particulates / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = zip / air / particulates / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest = 2 = zip / air / CO2
+                    else if (2 == typeOfAirTest)
+                    {
+                        // typeOfTestDate == 0 = zip / air / CO2 / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = zip / air / CO2 / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = zip / air / CO2 / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfAirTest = 3 = zip / air / lead
+                    else if (3 == typeOfAirTest)
+                    {
+                        // typeOfTestDate == 0 = zip / air / lead / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 1 = zip / air / lead / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 2 = zip / air / lead / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+                }
+
+                // typeOFTest = false = zip / water
+                else if (!typeOfTest)
+                {
+                    // typeOfWaterTest == 0 = zip / water / all
+                    if (0 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = zip / water / all / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / all / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / all / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 1 = zip / water / turbidity
+                    else if (1 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = zip / water / turbidity / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / turbidity / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / turbidity / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 2 = zip / water / coliforms
+                    else if (2 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = zip / water / coliforms / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / coliforms / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / coliforms / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 3 = zip / water / arsenic
+                    else if (3 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = zip / water / arsenic / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / arsenic / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / arsenic / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+
+                    // typeOfWaterTest == 4 = zip / water / copper
+                    else if (4 == typeOfWaterTest)
+                    {
+                        // typeOfTestDate == 0 = zip / water / copper / one date
+                        if (0 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / copper / two dates
+                        else if (1 == typeOfDateTest)
+                        {
+                        }
+
+                        // typeOfTestDate == 0 = zip / water / copper / no dates
+                        else if (2 == typeOfDateTest)
+                        {
+                        }
+                    }
+                }
+            }
+            return SQL;
+        }

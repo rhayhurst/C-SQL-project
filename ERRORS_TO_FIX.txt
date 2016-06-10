@@ -1,0 +1,41 @@
+New User:
+
+BobHayhurst
+asdfjkl;ASDF
+
+Ran Tests for 4978 North Menard, 60630
+for both air and water
+between Nov 10, 2015 and Nov 24, 2015
+
+
+
+ERRORS:
+
+- when running Long Term Test, particulates, the "are
+  the results within the EPA parameters" field not given.
+
+- PArticulate understanding has typo:  first paragrapgh end 
+  of parens has the word "for" that needs to be erased
+  DONE
+
+- clear fields needs to clear the listbox as well in View Test Results
+   DONE
+
+- should the list box be cleared for each new test?
+
+- "ABOUT" needs to be filled out
+
+HEADING
+- in "results for multipiple dates", the dates run off the screen
+  So we need to have it look like this:
+  results for tests between:
+  date -> date
+  DONE
+
+HEADING
+- make Air Test be lower case (air test), same with Water Test
+   DONE
+
+
+
+

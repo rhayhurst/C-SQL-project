@@ -1,0 +1,407 @@
+﻿namespace AAWQT_TheSequel
+{
+    partial class FormLongTermTest
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLongTermTest));
+            this.label_title = new System.Windows.Forms.Label();
+            this.label_intro = new System.Windows.Forms.Label();
+            this.groupBox_choose_address_or_zip = new System.Windows.Forms.GroupBox();
+            this.textBox_user_entered_address_zip_code = new System.Windows.Forms.TextBox();
+            this.radioButton_choose_zip = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_address = new System.Windows.Forms.RadioButton();
+            this.groupBox_test_choice = new System.Windows.Forms.GroupBox();
+            this.button_turbidity = new System.Windows.Forms.Button();
+            this.button_coliforms = new System.Windows.Forms.Button();
+            this.button_particulates = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.groupBox_display_time_period = new System.Windows.Forms.GroupBox();
+            this.label_date_first_test = new System.Windows.Forms.Label();
+            this.textBox_num_tests_taken = new System.Windows.Forms.TextBox();
+            this.label_number_of_days_period = new System.Windows.Forms.Label();
+            this.label_days = new System.Windows.Forms.Label();
+            this.textBox_max_date = new System.Windows.Forms.TextBox();
+            this.label_date_of_last_test = new System.Windows.Forms.Label();
+            this.textBox_min_date = new System.Windows.Forms.TextBox();
+            this.groupBox_temporal_test_results = new System.Windows.Forms.GroupBox();
+            this.button_understand_results = new System.Windows.Forms.Button();
+            this.textBox_within_parameters = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_pass_fail_result = new System.Windows.Forms.TextBox();
+            this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.groupBox_choose_test_type = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_choose_address_or_zip.SuspendLayout();
+            this.groupBox_test_choice.SuspendLayout();
+            this.groupBox_display_time_period.SuspendLayout();
+            this.groupBox_temporal_test_results.SuspendLayout();
+            this.groupBox_choose_test_type.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // label_title
+            // 
+            this.label_title.AutoSize = true;
+            this.label_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_title.Location = new System.Drawing.Point(207, 19);
+            this.label_title.Name = "label_title";
+            this.label_title.Size = new System.Drawing.Size(272, 24);
+            this.label_title.TabIndex = 3;
+            this.label_title.Text = "Air and Water Quality Tester";
+            // 
+            // label_intro
+            // 
+            this.label_intro.AutoSize = true;
+            this.label_intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_intro.Location = new System.Drawing.Point(261, 43);
+            this.label_intro.Name = "label_intro";
+            this.label_intro.Size = new System.Drawing.Size(119, 13);
+            this.label_intro.TabIndex = 4;
+            this.label_intro.Text = "giving you a sixth sense";
+            // 
+            // groupBox_choose_address_or_zip
+            // 
+            this.groupBox_choose_address_or_zip.Controls.Add(this.textBox_user_entered_address_zip_code);
+            this.groupBox_choose_address_or_zip.Controls.Add(this.radioButton_choose_zip);
+            this.groupBox_choose_address_or_zip.Controls.Add(this.radioButton_choose_address);
+            this.groupBox_choose_address_or_zip.Location = new System.Drawing.Point(21, 32);
+            this.groupBox_choose_address_or_zip.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_choose_address_or_zip.Name = "groupBox_choose_address_or_zip";
+            this.groupBox_choose_address_or_zip.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_choose_address_or_zip.Size = new System.Drawing.Size(170, 84);
+            this.groupBox_choose_address_or_zip.TabIndex = 20;
+            this.groupBox_choose_address_or_zip.TabStop = false;
+            this.groupBox_choose_address_or_zip.Text = "enter address or zip code";
+            // 
+            // textBox_user_entered_address_zip_code
+            // 
+            this.textBox_user_entered_address_zip_code.Location = new System.Drawing.Point(10, 62);
+            this.textBox_user_entered_address_zip_code.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_user_entered_address_zip_code.Name = "textBox_user_entered_address_zip_code";
+            this.textBox_user_entered_address_zip_code.Size = new System.Drawing.Size(143, 20);
+            this.textBox_user_entered_address_zip_code.TabIndex = 19;
+            // 
+            // radioButton_choose_zip
+            // 
+            this.radioButton_choose_zip.AutoSize = true;
+            this.radioButton_choose_zip.Location = new System.Drawing.Point(19, 17);
+            this.radioButton_choose_zip.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_choose_zip.Name = "radioButton_choose_zip";
+            this.radioButton_choose_zip.Size = new System.Drawing.Size(65, 17);
+            this.radioButton_choose_zip.TabIndex = 17;
+            this.radioButton_choose_zip.TabStop = true;
+            this.radioButton_choose_zip.Text = "zip code";
+            this.radioButton_choose_zip.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_address
+            // 
+            this.radioButton_choose_address.AutoSize = true;
+            this.radioButton_choose_address.Location = new System.Drawing.Point(19, 39);
+            this.radioButton_choose_address.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_choose_address.Name = "radioButton_choose_address";
+            this.radioButton_choose_address.Size = new System.Drawing.Size(62, 17);
+            this.radioButton_choose_address.TabIndex = 18;
+            this.radioButton_choose_address.TabStop = true;
+            this.radioButton_choose_address.Text = "address";
+            this.radioButton_choose_address.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_test_choice
+            // 
+            this.groupBox_test_choice.Controls.Add(this.button_turbidity);
+            this.groupBox_test_choice.Controls.Add(this.button_coliforms);
+            this.groupBox_test_choice.Controls.Add(this.button_particulates);
+            this.groupBox_test_choice.Location = new System.Drawing.Point(21, 131);
+            this.groupBox_test_choice.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_test_choice.Name = "groupBox_test_choice";
+            this.groupBox_test_choice.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_test_choice.Size = new System.Drawing.Size(174, 121);
+            this.groupBox_test_choice.TabIndex = 21;
+            this.groupBox_test_choice.TabStop = false;
+            // 
+            // button_turbidity
+            // 
+            this.button_turbidity.Location = new System.Drawing.Point(5, 85);
+            this.button_turbidity.Margin = new System.Windows.Forms.Padding(2);
+            this.button_turbidity.Name = "button_turbidity";
+            this.button_turbidity.Size = new System.Drawing.Size(162, 30);
+            this.button_turbidity.TabIndex = 18;
+            this.button_turbidity.Text = "Turbidity (water cloudiness)";
+            this.button_turbidity.UseVisualStyleBackColor = true;
+            this.button_turbidity.Click += new System.EventHandler(this.button_turbidity_Click);
+            // 
+            // button_coliforms
+            // 
+            this.button_coliforms.Location = new System.Drawing.Point(5, 51);
+            this.button_coliforms.Margin = new System.Windows.Forms.Padding(2);
+            this.button_coliforms.Name = "button_coliforms";
+            this.button_coliforms.Size = new System.Drawing.Size(162, 30);
+            this.button_coliforms.TabIndex = 19;
+            this.button_coliforms.Text = "Coliforms (bacteria)";
+            this.button_coliforms.UseVisualStyleBackColor = true;
+            this.button_coliforms.Click += new System.EventHandler(this.button_coliforms_Click);
+            // 
+            // button_particulates
+            // 
+            this.button_particulates.Location = new System.Drawing.Point(5, 17);
+            this.button_particulates.Margin = new System.Windows.Forms.Padding(2);
+            this.button_particulates.Name = "button_particulates";
+            this.button_particulates.Size = new System.Drawing.Size(162, 30);
+            this.button_particulates.TabIndex = 17;
+            this.button_particulates.Text = "Particulates (smog)";
+            this.button_particulates.UseVisualStyleBackColor = true;
+            this.button_particulates.Click += new System.EventHandler(this.button_particulates_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(237, 100);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(189, 274);
+            this.listBox1.TabIndex = 22;
+            // 
+            // groupBox_display_time_period
+            // 
+            this.groupBox_display_time_period.Controls.Add(this.label_date_first_test);
+            this.groupBox_display_time_period.Controls.Add(this.textBox_num_tests_taken);
+            this.groupBox_display_time_period.Controls.Add(this.label_number_of_days_period);
+            this.groupBox_display_time_period.Controls.Add(this.label_days);
+            this.groupBox_display_time_period.Controls.Add(this.textBox_max_date);
+            this.groupBox_display_time_period.Controls.Add(this.label_date_of_last_test);
+            this.groupBox_display_time_period.Controls.Add(this.textBox_min_date);
+            this.groupBox_display_time_period.Location = new System.Drawing.Point(16, 32);
+            this.groupBox_display_time_period.Name = "groupBox_display_time_period";
+            this.groupBox_display_time_period.Size = new System.Drawing.Size(232, 104);
+            this.groupBox_display_time_period.TabIndex = 25;
+            this.groupBox_display_time_period.TabStop = false;
+            this.groupBox_display_time_period.Text = "temporal data";
+            // 
+            // label_date_first_test
+            // 
+            this.label_date_first_test.AutoSize = true;
+            this.label_date_first_test.Location = new System.Drawing.Point(45, 30);
+            this.label_date_first_test.Name = "label_date_first_test";
+            this.label_date_first_test.Size = new System.Drawing.Size(55, 13);
+            this.label_date_first_test.TabIndex = 20;
+            this.label_date_first_test.Text = "first test ->";
+            // 
+            // textBox_num_tests_taken
+            // 
+            this.textBox_num_tests_taken.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_num_tests_taken.Location = new System.Drawing.Point(193, 77);
+            this.textBox_num_tests_taken.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_num_tests_taken.Name = "textBox_num_tests_taken";
+            this.textBox_num_tests_taken.ReadOnly = true;
+            this.textBox_num_tests_taken.Size = new System.Drawing.Size(34, 20);
+            this.textBox_num_tests_taken.TabIndex = 13;
+            this.textBox_num_tests_taken.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label_number_of_days_period
+            // 
+            this.label_number_of_days_period.AutoSize = true;
+            this.label_number_of_days_period.Location = new System.Drawing.Point(30, 80);
+            this.label_number_of_days_period.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_number_of_days_period.Name = "label_number_of_days_period";
+            this.label_number_of_days_period.Size = new System.Drawing.Size(147, 13);
+            this.label_number_of_days_period.TabIndex = 12;
+            this.label_number_of_days_period.Text = "total number of tests taken  ->";
+            // 
+            // label_days
+            // 
+            this.label_days.AutoSize = true;
+            this.label_days.Location = new System.Drawing.Point(133, 80);
+            this.label_days.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_days.Name = "label_days";
+            this.label_days.Size = new System.Drawing.Size(29, 13);
+            this.label_days.TabIndex = 14;
+            this.label_days.Text = "days";
+            // 
+            // textBox_max_date
+            // 
+            this.textBox_max_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_max_date.Location = new System.Drawing.Point(106, 52);
+            this.textBox_max_date.Name = "textBox_max_date";
+            this.textBox_max_date.ReadOnly = true;
+            this.textBox_max_date.Size = new System.Drawing.Size(120, 20);
+            this.textBox_max_date.TabIndex = 23;
+            this.textBox_max_date.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label_date_of_last_test
+            // 
+            this.label_date_of_last_test.AutoSize = true;
+            this.label_date_of_last_test.Location = new System.Drawing.Point(6, 55);
+            this.label_date_of_last_test.Name = "label_date_of_last_test";
+            this.label_date_of_last_test.Size = new System.Drawing.Size(94, 13);
+            this.label_date_of_last_test.TabIndex = 21;
+            this.label_date_of_last_test.Text = "most recent test ->";
+            // 
+            // textBox_min_date
+            // 
+            this.textBox_min_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_min_date.Location = new System.Drawing.Point(106, 27);
+            this.textBox_min_date.Name = "textBox_min_date";
+            this.textBox_min_date.ReadOnly = true;
+            this.textBox_min_date.Size = new System.Drawing.Size(120, 20);
+            this.textBox_min_date.TabIndex = 22;
+            this.textBox_min_date.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox_temporal_test_results
+            // 
+            this.groupBox_temporal_test_results.Controls.Add(this.button_understand_results);
+            this.groupBox_temporal_test_results.Controls.Add(this.textBox_within_parameters);
+            this.groupBox_temporal_test_results.Controls.Add(this.label1);
+            this.groupBox_temporal_test_results.Controls.Add(this.textBox_pass_fail_result);
+            this.groupBox_temporal_test_results.Location = new System.Drawing.Point(16, 148);
+            this.groupBox_temporal_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_temporal_test_results.Name = "groupBox_temporal_test_results";
+            this.groupBox_temporal_test_results.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_temporal_test_results.Size = new System.Drawing.Size(232, 126);
+            this.groupBox_temporal_test_results.TabIndex = 26;
+            this.groupBox_temporal_test_results.TabStop = false;
+            // 
+            // button_understand_results
+            // 
+            this.button_understand_results.Location = new System.Drawing.Point(12, 81);
+            this.button_understand_results.Name = "button_understand_results";
+            this.button_understand_results.Size = new System.Drawing.Size(214, 40);
+            this.button_understand_results.TabIndex = 14;
+            this.button_understand_results.Text = "Help me understand these results!";
+            this.button_understand_results.UseVisualStyleBackColor = true;
+            this.button_understand_results.Click += new System.EventHandler(this.button_understand_results_Click);
+            // 
+            // textBox_within_parameters
+            // 
+            this.textBox_within_parameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_within_parameters.Location = new System.Drawing.Point(191, 18);
+            this.textBox_within_parameters.Name = "textBox_within_parameters";
+            this.textBox_within_parameters.ReadOnly = true;
+            this.textBox_within_parameters.Size = new System.Drawing.Size(35, 20);
+            this.textBox_within_parameters.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(162, 26);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Are the results within AAWQT  ->\r\nparameters?";
+            // 
+            // textBox_pass_fail_result
+            // 
+            this.textBox_pass_fail_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_pass_fail_result.Location = new System.Drawing.Point(7, 56);
+            this.textBox_pass_fail_result.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_pass_fail_result.Name = "textBox_pass_fail_result";
+            this.textBox_pass_fail_result.ReadOnly = true;
+            this.textBox_pass_fail_result.Size = new System.Drawing.Size(222, 20);
+            this.textBox_pass_fail_result.TabIndex = 11;
+            this.textBox_pass_fail_result.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox_choose_test_type
+            // 
+            this.groupBox_choose_test_type.Controls.Add(this.groupBox_choose_address_or_zip);
+            this.groupBox_choose_test_type.Controls.Add(this.groupBox_test_choice);
+            this.groupBox_choose_test_type.Location = new System.Drawing.Point(12, 95);
+            this.groupBox_choose_test_type.Name = "groupBox_choose_test_type";
+            this.groupBox_choose_test_type.Size = new System.Drawing.Size(209, 279);
+            this.groupBox_choose_test_type.TabIndex = 27;
+            this.groupBox_choose_test_type.TabStop = false;
+            this.groupBox_choose_test_type.Text = "CHOOSE LONG TERM TEST ";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.groupBox_display_time_period);
+            this.groupBox1.Controls.Add(this.groupBox_temporal_test_results);
+            this.groupBox1.Location = new System.Drawing.Point(440, 95);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(267, 279);
+            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "LONG TERM TEST RESULTS";
+            // 
+            // FormLongTermTest
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(719, 389);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_choose_test_type);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.label_intro);
+            this.Controls.Add(this.label_title);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormLongTermTest";
+            this.Load += new System.EventHandler(this.FormLongTermTest_Load);
+            this.groupBox_choose_address_or_zip.ResumeLayout(false);
+            this.groupBox_choose_address_or_zip.PerformLayout();
+            this.groupBox_test_choice.ResumeLayout(false);
+            this.groupBox_display_time_period.ResumeLayout(false);
+            this.groupBox_display_time_period.PerformLayout();
+            this.groupBox_temporal_test_results.ResumeLayout(false);
+            this.groupBox_temporal_test_results.PerformLayout();
+            this.groupBox_choose_test_type.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label_title;
+        private System.Windows.Forms.Label label_intro;
+        private System.Windows.Forms.GroupBox groupBox_choose_address_or_zip;
+        private System.Windows.Forms.TextBox textBox_user_entered_address_zip_code;
+        private System.Windows.Forms.RadioButton radioButton_choose_zip;
+        private System.Windows.Forms.RadioButton radioButton_choose_address;
+        private System.Windows.Forms.GroupBox groupBox_test_choice;
+        private System.Windows.Forms.Button button_coliforms;
+        private System.Windows.Forms.Button button_particulates;
+        private System.Windows.Forms.Button button_turbidity;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.GroupBox groupBox_display_time_period;
+        private System.Windows.Forms.Label label_date_first_test;
+        private System.Windows.Forms.TextBox textBox_num_tests_taken;
+        private System.Windows.Forms.Label label_number_of_days_period;
+        private System.Windows.Forms.Label label_days;
+        private System.Windows.Forms.TextBox textBox_max_date;
+        private System.Windows.Forms.Label label_date_of_last_test;
+        private System.Windows.Forms.TextBox textBox_min_date;
+        private System.Windows.Forms.GroupBox groupBox_temporal_test_results;
+        private System.Windows.Forms.TextBox textBox_pass_fail_result;
+        private System.DirectoryServices.DirectoryEntry directoryEntry1;
+        private System.Windows.Forms.GroupBox groupBox_choose_test_type;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBox_within_parameters;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button_understand_results;
+    }
+}

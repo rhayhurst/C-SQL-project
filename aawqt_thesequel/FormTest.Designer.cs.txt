@@ -1,0 +1,969 @@
+﻿namespace AAWQT_TheSequel
+{
+    partial class FormTest
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTest));
+            this.groupBox_enter_test_data = new System.Windows.Forms.GroupBox();
+            this.groupBox_choose_test = new System.Windows.Forms.GroupBox();
+            this.radioButton_choose_test_water = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_test_air = new System.Windows.Forms.RadioButton();
+            this.groupBox_date_of_test = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.button_run_test = new System.Windows.Forms.Button();
+            this.groupBox_addr_zip_code = new System.Windows.Forms.GroupBox();
+            this.textBox_address_user_input = new System.Windows.Forms.TextBox();
+            this.label_zip = new System.Windows.Forms.Label();
+            this.comboBox_zip_code = new System.Windows.Forms.ComboBox();
+            this.label_address = new System.Windows.Forms.Label();
+            this.Title_Label = new System.Windows.Forms.Label();
+            this.label_intro = new System.Windows.Forms.Label();
+            this.groupBox_child_air = new System.Windows.Forms.GroupBox();
+            this.groupBox_lead_qual_air_descriptor = new System.Windows.Forms.GroupBox();
+            this.richTextBox_lead_air_qaul_descriptor = new System.Windows.Forms.RichTextBox();
+            this.groupBox_particulate_air_quality_descriptor = new System.Windows.Forms.GroupBox();
+            this.richTextBox_particulate_result_table = new System.Windows.Forms.RichTextBox();
+            this.groupBox_CO2_air_qual_desc = new System.Windows.Forms.GroupBox();
+            this.richTextBox_Car_mon_air_qual_descriptor = new System.Windows.Forms.RichTextBox();
+            this.groupBox_air_test_results = new System.Windows.Forms.GroupBox();
+            this.textBox_particulates_result = new System.Windows.Forms.TextBox();
+            this.label_particulate_measurement = new System.Windows.Forms.Label();
+            this.label_CO_measurement = new System.Windows.Forms.Label();
+            this.label_particulate_test_result = new System.Windows.Forms.Label();
+            this.label_carbon_monixide_test_result = new System.Windows.Forms.Label();
+            this.label_lead_test_result = new System.Windows.Forms.Label();
+            this.textBox_carbon_monixide_result = new System.Windows.Forms.TextBox();
+            this.textBox_lead_result = new System.Windows.Forms.TextBox();
+            this.label_lead_measurement = new System.Windows.Forms.Label();
+            this.groupBox_child_water = new System.Windows.Forms.GroupBox();
+            this.groupBox_copper_water_qual_desc = new System.Windows.Forms.GroupBox();
+            this.richTextBox_copper_result_table = new System.Windows.Forms.RichTextBox();
+            this.groupBox_coliforms_water_qual_desc = new System.Windows.Forms.GroupBox();
+            this.richTextBox_coliforms_result_table = new System.Windows.Forms.RichTextBox();
+            this.groupBox_arsenic_water_qual_desc = new System.Windows.Forms.GroupBox();
+            this.richTextBox_arsenic_result_table = new System.Windows.Forms.RichTextBox();
+            this.groupBox_turbidity_water_qual_desc = new System.Windows.Forms.GroupBox();
+            this.richTextBox_turbidity_result_table = new System.Windows.Forms.RichTextBox();
+            this.groupBox_water_test_results = new System.Windows.Forms.GroupBox();
+            this.textBox_turbidity_test_results = new System.Windows.Forms.TextBox();
+            this.label_copper_measurement = new System.Windows.Forms.Label();
+            this.label_turbidity_test_result = new System.Windows.Forms.Label();
+            this.label_copper_test_result = new System.Windows.Forms.Label();
+            this.textBox_copper_test_results = new System.Windows.Forms.TextBox();
+            this.label_arsenic_measurement = new System.Windows.Forms.Label();
+            this.label_turbidy_meaurement = new System.Windows.Forms.Label();
+            this.label_arsenic_test_result = new System.Windows.Forms.Label();
+            this.textBox_coliforms_test_results = new System.Windows.Forms.TextBox();
+            this.label_coliform_measurement = new System.Windows.Forms.Label();
+            this.textBox_arsenic_test_results = new System.Windows.Forms.TextBox();
+            this.label_coliforms_test_result = new System.Windows.Forms.Label();
+            this.groupBox_enter_test_data.SuspendLayout();
+            this.groupBox_choose_test.SuspendLayout();
+            this.groupBox_date_of_test.SuspendLayout();
+            this.groupBox_addr_zip_code.SuspendLayout();
+            this.groupBox_child_air.SuspendLayout();
+            this.groupBox_lead_qual_air_descriptor.SuspendLayout();
+            this.groupBox_particulate_air_quality_descriptor.SuspendLayout();
+            this.groupBox_CO2_air_qual_desc.SuspendLayout();
+            this.groupBox_air_test_results.SuspendLayout();
+            this.groupBox_child_water.SuspendLayout();
+            this.groupBox_copper_water_qual_desc.SuspendLayout();
+            this.groupBox_coliforms_water_qual_desc.SuspendLayout();
+            this.groupBox_arsenic_water_qual_desc.SuspendLayout();
+            this.groupBox_turbidity_water_qual_desc.SuspendLayout();
+            this.groupBox_water_test_results.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBox_enter_test_data
+            // 
+            this.groupBox_enter_test_data.Controls.Add(this.groupBox_choose_test);
+            this.groupBox_enter_test_data.Controls.Add(this.groupBox_date_of_test);
+            this.groupBox_enter_test_data.Controls.Add(this.button_run_test);
+            this.groupBox_enter_test_data.Controls.Add(this.groupBox_addr_zip_code);
+            this.groupBox_enter_test_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_enter_test_data.Location = new System.Drawing.Point(32, 89);
+            this.groupBox_enter_test_data.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_enter_test_data.Name = "groupBox_enter_test_data";
+            this.groupBox_enter_test_data.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_enter_test_data.Size = new System.Drawing.Size(184, 390);
+            this.groupBox_enter_test_data.TabIndex = 67;
+            this.groupBox_enter_test_data.TabStop = false;
+            this.groupBox_enter_test_data.Text = "ENTER TEST DATA";
+            // 
+            // groupBox_choose_test
+            // 
+            this.groupBox_choose_test.Controls.Add(this.radioButton_choose_test_water);
+            this.groupBox_choose_test.Controls.Add(this.radioButton_choose_test_air);
+            this.groupBox_choose_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_choose_test.Location = new System.Drawing.Point(8, 26);
+            this.groupBox_choose_test.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_choose_test.Name = "groupBox_choose_test";
+            this.groupBox_choose_test.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_choose_test.Size = new System.Drawing.Size(99, 58);
+            this.groupBox_choose_test.TabIndex = 2;
+            this.groupBox_choose_test.TabStop = false;
+            this.groupBox_choose_test.Text = "air or water test?";
+            // 
+            // radioButton_choose_test_water
+            // 
+            this.radioButton_choose_test_water.AutoSize = true;
+            this.radioButton_choose_test_water.Location = new System.Drawing.Point(30, 32);
+            this.radioButton_choose_test_water.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_choose_test_water.Name = "radioButton_choose_test_water";
+            this.radioButton_choose_test_water.Size = new System.Drawing.Size(51, 17);
+            this.radioButton_choose_test_water.TabIndex = 1;
+            this.radioButton_choose_test_water.TabStop = true;
+            this.radioButton_choose_test_water.Text = "water";
+            this.radioButton_choose_test_water.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_test_air
+            // 
+            this.radioButton_choose_test_air.AutoSize = true;
+            this.radioButton_choose_test_air.Location = new System.Drawing.Point(30, 15);
+            this.radioButton_choose_test_air.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButton_choose_test_air.Name = "radioButton_choose_test_air";
+            this.radioButton_choose_test_air.Size = new System.Drawing.Size(36, 17);
+            this.radioButton_choose_test_air.TabIndex = 0;
+            this.radioButton_choose_test_air.TabStop = true;
+            this.radioButton_choose_test_air.Text = "air";
+            this.radioButton_choose_test_air.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_date_of_test
+            // 
+            this.groupBox_date_of_test.Controls.Add(this.dateTimePicker1);
+            this.groupBox_date_of_test.Location = new System.Drawing.Point(12, 203);
+            this.groupBox_date_of_test.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_date_of_test.Name = "groupBox_date_of_test";
+            this.groupBox_date_of_test.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_date_of_test.Size = new System.Drawing.Size(161, 72);
+            this.groupBox_date_of_test.TabIndex = 9;
+            this.groupBox_date_of_test.TabStop = false;
+            this.groupBox_date_of_test.Text = "enter date of test";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "MMM dd, yyyy MM/dd/yy";
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(17, 27);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(133, 20);
+            this.dateTimePicker1.TabIndex = 8;
+            // 
+            // button_run_test
+            // 
+            this.button_run_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_run_test.Location = new System.Drawing.Point(12, 290);
+            this.button_run_test.Margin = new System.Windows.Forms.Padding(2);
+            this.button_run_test.Name = "button_run_test";
+            this.button_run_test.Size = new System.Drawing.Size(158, 26);
+            this.button_run_test.TabIndex = 58;
+            this.button_run_test.Text = "Run Test";
+            this.button_run_test.UseVisualStyleBackColor = true;
+            this.button_run_test.Click += new System.EventHandler(this.button_run_test_Click);
+            // 
+            // groupBox_addr_zip_code
+            // 
+            this.groupBox_addr_zip_code.Controls.Add(this.textBox_address_user_input);
+            this.groupBox_addr_zip_code.Controls.Add(this.label_zip);
+            this.groupBox_addr_zip_code.Controls.Add(this.comboBox_zip_code);
+            this.groupBox_addr_zip_code.Controls.Add(this.label_address);
+            this.groupBox_addr_zip_code.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_addr_zip_code.Location = new System.Drawing.Point(8, 98);
+            this.groupBox_addr_zip_code.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_addr_zip_code.Name = "groupBox_addr_zip_code";
+            this.groupBox_addr_zip_code.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_addr_zip_code.Size = new System.Drawing.Size(165, 93);
+            this.groupBox_addr_zip_code.TabIndex = 7;
+            this.groupBox_addr_zip_code.TabStop = false;
+            this.groupBox_addr_zip_code.Text = "enter address and zip code";
+            // 
+            // textBox_address_user_input
+            // 
+            this.textBox_address_user_input.Location = new System.Drawing.Point(63, 19);
+            this.textBox_address_user_input.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_address_user_input.Name = "textBox_address_user_input";
+            this.textBox_address_user_input.Size = new System.Drawing.Size(91, 20);
+            this.textBox_address_user_input.TabIndex = 5;
+            // 
+            // label_zip
+            // 
+            this.label_zip.AutoSize = true;
+            this.label_zip.Location = new System.Drawing.Point(1, 54);
+            this.label_zip.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_zip.Name = "label_zip";
+            this.label_zip.Size = new System.Drawing.Size(59, 13);
+            this.label_zip.TabIndex = 4;
+            this.label_zip.Text = "zip code ->";
+            // 
+            // comboBox_zip_code
+            // 
+            this.comboBox_zip_code.FormattingEnabled = true;
+            this.comboBox_zip_code.IntegralHeight = false;
+            this.comboBox_zip_code.Items.AddRange(new object[] {
+            "60201",
+            "60202",
+            "60301",
+            "60302",
+            "60304",
+            "60305",
+            "60601",
+            "60602",
+            "60603",
+            "60604",
+            "60605",
+            "60606",
+            "60607",
+            "60608",
+            "60609",
+            "60610",
+            "60611",
+            "60612",
+            "60613",
+            "60614",
+            "60615",
+            "60616",
+            "60617",
+            "60618",
+            "60619",
+            "60620",
+            "60621",
+            "60622",
+            "60623",
+            "60624",
+            "60625",
+            "60626",
+            "60627",
+            "60628",
+            "60629",
+            "60630",
+            "60631",
+            "60632",
+            "60633",
+            "60634",
+            "60635",
+            "60636",
+            "60637",
+            "60638",
+            "60639",
+            "60640",
+            "60641",
+            "60642",
+            "60643",
+            "60644",
+            "60645",
+            "60646",
+            "60647",
+            "60649",
+            "60651",
+            "60652",
+            "60653",
+            "60655",
+            "60656",
+            "60657",
+            "60659",
+            "60660",
+            "60661",
+            "60666",
+            "60827"});
+            this.comboBox_zip_code.Location = new System.Drawing.Point(63, 51);
+            this.comboBox_zip_code.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox_zip_code.Name = "comboBox_zip_code";
+            this.comboBox_zip_code.Size = new System.Drawing.Size(57, 21);
+            this.comboBox_zip_code.TabIndex = 6;
+            // 
+            // label_address
+            // 
+            this.label_address.AutoSize = true;
+            this.label_address.Location = new System.Drawing.Point(3, 22);
+            this.label_address.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_address.Name = "label_address";
+            this.label_address.Size = new System.Drawing.Size(56, 13);
+            this.label_address.TabIndex = 3;
+            this.label_address.Text = "address ->";
+            // 
+            // Title_Label
+            // 
+            this.Title_Label.AutoSize = true;
+            this.Title_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Title_Label.Location = new System.Drawing.Point(292, 9);
+            this.Title_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Title_Label.Name = "Title_Label";
+            this.Title_Label.Size = new System.Drawing.Size(272, 24);
+            this.Title_Label.TabIndex = 68;
+            this.Title_Label.Text = "Air and Water Quality Tester";
+            // 
+            // label_intro
+            // 
+            this.label_intro.AutoSize = true;
+            this.label_intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_intro.Location = new System.Drawing.Point(262, 42);
+            this.label_intro.Name = "label_intro";
+            this.label_intro.Size = new System.Drawing.Size(336, 13);
+            this.label_intro.TabIndex = 69;
+            this.label_intro.Text = "giving you the senses that God did not provide when She created you";
+            // 
+            // groupBox_child_air
+            // 
+            this.groupBox_child_air.Controls.Add(this.groupBox_lead_qual_air_descriptor);
+            this.groupBox_child_air.Controls.Add(this.groupBox_particulate_air_quality_descriptor);
+            this.groupBox_child_air.Controls.Add(this.groupBox_CO2_air_qual_desc);
+            this.groupBox_child_air.Controls.Add(this.groupBox_air_test_results);
+            this.groupBox_child_air.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_child_air.Location = new System.Drawing.Point(237, 89);
+            this.groupBox_child_air.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_child_air.Name = "groupBox_child_air";
+            this.groupBox_child_air.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_child_air.Size = new System.Drawing.Size(232, 394);
+            this.groupBox_child_air.TabIndex = 70;
+            this.groupBox_child_air.TabStop = false;
+            this.groupBox_child_air.Text = "AIR TEST RESULTS";
+            // 
+            // groupBox_lead_qual_air_descriptor
+            // 
+            this.groupBox_lead_qual_air_descriptor.Controls.Add(this.richTextBox_lead_air_qaul_descriptor);
+            this.groupBox_lead_qual_air_descriptor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_lead_qual_air_descriptor.Location = new System.Drawing.Point(4, 316);
+            this.groupBox_lead_qual_air_descriptor.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_lead_qual_air_descriptor.Name = "groupBox_lead_qual_air_descriptor";
+            this.groupBox_lead_qual_air_descriptor.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_lead_qual_air_descriptor.Size = new System.Drawing.Size(189, 74);
+            this.groupBox_lead_qual_air_descriptor.TabIndex = 33;
+            this.groupBox_lead_qual_air_descriptor.TabStop = false;
+            this.groupBox_lead_qual_air_descriptor.Text = "Lead  Air Quality Descriptor";
+            // 
+            // richTextBox_lead_air_qaul_descriptor
+            // 
+            this.richTextBox_lead_air_qaul_descriptor.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_lead_air_qaul_descriptor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_lead_air_qaul_descriptor.CausesValidation = false;
+            this.richTextBox_lead_air_qaul_descriptor.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_lead_air_qaul_descriptor.DetectUrls = false;
+            this.richTextBox_lead_air_qaul_descriptor.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_lead_air_qaul_descriptor.Location = new System.Drawing.Point(14, 17);
+            this.richTextBox_lead_air_qaul_descriptor.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_lead_air_qaul_descriptor.Name = "richTextBox_lead_air_qaul_descriptor";
+            this.richTextBox_lead_air_qaul_descriptor.ReadOnly = true;
+            this.richTextBox_lead_air_qaul_descriptor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_lead_air_qaul_descriptor.ShortcutsEnabled = false;
+            this.richTextBox_lead_air_qaul_descriptor.Size = new System.Drawing.Size(157, 42);
+            this.richTextBox_lead_air_qaul_descriptor.TabIndex = 32;
+            this.richTextBox_lead_air_qaul_descriptor.TabStop = false;
+            this.richTextBox_lead_air_qaul_descriptor.Text = "0.00                   Good\n0.01 -  0.14     Unhealthy\n0.15 +               Very " +
+    "Unhealthy\n";
+            this.richTextBox_lead_air_qaul_descriptor.WordWrap = false;
+            // 
+            // groupBox_particulate_air_quality_descriptor
+            // 
+            this.groupBox_particulate_air_quality_descriptor.Controls.Add(this.richTextBox_particulate_result_table);
+            this.groupBox_particulate_air_quality_descriptor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_particulate_air_quality_descriptor.Location = new System.Drawing.Point(4, 105);
+            this.groupBox_particulate_air_quality_descriptor.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_particulate_air_quality_descriptor.Name = "groupBox_particulate_air_quality_descriptor";
+            this.groupBox_particulate_air_quality_descriptor.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_particulate_air_quality_descriptor.Size = new System.Drawing.Size(223, 108);
+            this.groupBox_particulate_air_quality_descriptor.TabIndex = 31;
+            this.groupBox_particulate_air_quality_descriptor.TabStop = false;
+            this.groupBox_particulate_air_quality_descriptor.Text = "Particulate Air Quality Descriptor";
+            // 
+            // richTextBox_particulate_result_table
+            // 
+            this.richTextBox_particulate_result_table.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_particulate_result_table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_particulate_result_table.CausesValidation = false;
+            this.richTextBox_particulate_result_table.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_particulate_result_table.DetectUrls = false;
+            this.richTextBox_particulate_result_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_particulate_result_table.Location = new System.Drawing.Point(14, 17);
+            this.richTextBox_particulate_result_table.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_particulate_result_table.Name = "richTextBox_particulate_result_table";
+            this.richTextBox_particulate_result_table.ReadOnly = true;
+            this.richTextBox_particulate_result_table.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_particulate_result_table.ShortcutsEnabled = false;
+            this.richTextBox_particulate_result_table.Size = new System.Drawing.Size(194, 72);
+            this.richTextBox_particulate_result_table.TabIndex = 29;
+            this.richTextBox_particulate_result_table.TabStop = false;
+            this.richTextBox_particulate_result_table.Text = "0.0    - 15.4         Good\n15.5 - 100          Moderate\n101   - 150          Unhe" +
+    "althy for Sensitive Groups\n151   - 200          Unhealthy\n210   +               " +
+    "   Very Unhealthy\n";
+            this.richTextBox_particulate_result_table.WordWrap = false;
+            // 
+            // groupBox_CO2_air_qual_desc
+            // 
+            this.groupBox_CO2_air_qual_desc.Controls.Add(this.richTextBox_Car_mon_air_qual_descriptor);
+            this.groupBox_CO2_air_qual_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_CO2_air_qual_desc.Location = new System.Drawing.Point(4, 231);
+            this.groupBox_CO2_air_qual_desc.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_CO2_air_qual_desc.Name = "groupBox_CO2_air_qual_desc";
+            this.groupBox_CO2_air_qual_desc.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_CO2_air_qual_desc.Size = new System.Drawing.Size(223, 74);
+            this.groupBox_CO2_air_qual_desc.TabIndex = 35;
+            this.groupBox_CO2_air_qual_desc.TabStop = false;
+            this.groupBox_CO2_air_qual_desc.Text = "Carbon Monoxide Air Quality Descriptor";
+            // 
+            // richTextBox_Car_mon_air_qual_descriptor
+            // 
+            this.richTextBox_Car_mon_air_qual_descriptor.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_Car_mon_air_qual_descriptor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_Car_mon_air_qual_descriptor.CausesValidation = false;
+            this.richTextBox_Car_mon_air_qual_descriptor.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_Car_mon_air_qual_descriptor.DetectUrls = false;
+            this.richTextBox_Car_mon_air_qual_descriptor.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_Car_mon_air_qual_descriptor.Location = new System.Drawing.Point(14, 15);
+            this.richTextBox_Car_mon_air_qual_descriptor.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_Car_mon_air_qual_descriptor.Name = "richTextBox_Car_mon_air_qual_descriptor";
+            this.richTextBox_Car_mon_air_qual_descriptor.ReadOnly = true;
+            this.richTextBox_Car_mon_air_qual_descriptor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_Car_mon_air_qual_descriptor.ShortcutsEnabled = false;
+            this.richTextBox_Car_mon_air_qual_descriptor.Size = new System.Drawing.Size(157, 49);
+            this.richTextBox_Car_mon_air_qual_descriptor.TabIndex = 34;
+            this.richTextBox_Car_mon_air_qual_descriptor.TabStop = false;
+            this.richTextBox_Car_mon_air_qual_descriptor.Text = "0                       Good\n1 - 9                Unhealthy\n9 +                  " +
+    " Very Unhealthy\n";
+            this.richTextBox_Car_mon_air_qual_descriptor.WordWrap = false;
+            // 
+            // groupBox_air_test_results
+            // 
+            this.groupBox_air_test_results.Controls.Add(this.textBox_particulates_result);
+            this.groupBox_air_test_results.Controls.Add(this.label_particulate_measurement);
+            this.groupBox_air_test_results.Controls.Add(this.label_CO_measurement);
+            this.groupBox_air_test_results.Controls.Add(this.label_particulate_test_result);
+            this.groupBox_air_test_results.Controls.Add(this.label_carbon_monixide_test_result);
+            this.groupBox_air_test_results.Controls.Add(this.label_lead_test_result);
+            this.groupBox_air_test_results.Controls.Add(this.textBox_carbon_monixide_result);
+            this.groupBox_air_test_results.Controls.Add(this.textBox_lead_result);
+            this.groupBox_air_test_results.Controls.Add(this.label_lead_measurement);
+            this.groupBox_air_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_air_test_results.Location = new System.Drawing.Point(4, 13);
+            this.groupBox_air_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_air_test_results.Name = "groupBox_air_test_results";
+            this.groupBox_air_test_results.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_air_test_results.Size = new System.Drawing.Size(223, 88);
+            this.groupBox_air_test_results.TabIndex = 28;
+            this.groupBox_air_test_results.TabStop = false;
+            // 
+            // textBox_particulates_result
+            // 
+            this.textBox_particulates_result.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_particulates_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_particulates_result.Location = new System.Drawing.Point(111, 17);
+            this.textBox_particulates_result.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_particulates_result.Name = "textBox_particulates_result";
+            this.textBox_particulates_result.ReadOnly = true;
+            this.textBox_particulates_result.Size = new System.Drawing.Size(34, 20);
+            this.textBox_particulates_result.TabIndex = 17;
+            // 
+            // label_particulate_measurement
+            // 
+            this.label_particulate_measurement.AutoSize = true;
+            this.label_particulate_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_particulate_measurement.Location = new System.Drawing.Point(149, 17);
+            this.label_particulate_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_particulate_measurement.Name = "label_particulate_measurement";
+            this.label_particulate_measurement.Size = new System.Drawing.Size(71, 13);
+            this.label_particulate_measurement.TabIndex = 23;
+            this.label_particulate_measurement.Text = "ppm/µm/m3  ";
+            // 
+            // label_CO_measurement
+            // 
+            this.label_CO_measurement.AutoSize = true;
+            this.label_CO_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_CO_measurement.Location = new System.Drawing.Point(149, 43);
+            this.label_CO_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_CO_measurement.Name = "label_CO_measurement";
+            this.label_CO_measurement.Size = new System.Drawing.Size(27, 13);
+            this.label_CO_measurement.TabIndex = 24;
+            this.label_CO_measurement.Text = "ppm";
+            // 
+            // label_particulate_test_result
+            // 
+            this.label_particulate_test_result.AutoSize = true;
+            this.label_particulate_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_particulate_test_result.Location = new System.Drawing.Point(33, 17);
+            this.label_particulate_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_particulate_test_result.Name = "label_particulate_test_result";
+            this.label_particulate_test_result.Size = new System.Drawing.Size(74, 13);
+            this.label_particulate_test_result.TabIndex = 11;
+            this.label_particulate_test_result.Text = "Particulates ->";
+            // 
+            // label_carbon_monixide_test_result
+            // 
+            this.label_carbon_monixide_test_result.AutoSize = true;
+            this.label_carbon_monixide_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_carbon_monixide_test_result.Location = new System.Drawing.Point(5, 39);
+            this.label_carbon_monixide_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_carbon_monixide_test_result.Name = "label_carbon_monixide_test_result";
+            this.label_carbon_monixide_test_result.Size = new System.Drawing.Size(102, 13);
+            this.label_carbon_monixide_test_result.TabIndex = 26;
+            this.label_carbon_monixide_test_result.Text = "Carbon Monoxide ->";
+            // 
+            // label_lead_test_result
+            // 
+            this.label_lead_test_result.AutoSize = true;
+            this.label_lead_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_lead_test_result.Location = new System.Drawing.Point(64, 63);
+            this.label_lead_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_lead_test_result.Name = "label_lead_test_result";
+            this.label_lead_test_result.Size = new System.Drawing.Size(43, 13);
+            this.label_lead_test_result.TabIndex = 27;
+            this.label_lead_test_result.Text = "Lead ->";
+            // 
+            // textBox_carbon_monixide_result
+            // 
+            this.textBox_carbon_monixide_result.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_carbon_monixide_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_carbon_monixide_result.Location = new System.Drawing.Point(111, 39);
+            this.textBox_carbon_monixide_result.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_carbon_monixide_result.Name = "textBox_carbon_monixide_result";
+            this.textBox_carbon_monixide_result.ReadOnly = true;
+            this.textBox_carbon_monixide_result.Size = new System.Drawing.Size(34, 20);
+            this.textBox_carbon_monixide_result.TabIndex = 18;
+            // 
+            // textBox_lead_result
+            // 
+            this.textBox_lead_result.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_lead_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_lead_result.Location = new System.Drawing.Point(111, 63);
+            this.textBox_lead_result.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_lead_result.Name = "textBox_lead_result";
+            this.textBox_lead_result.ReadOnly = true;
+            this.textBox_lead_result.Size = new System.Drawing.Size(34, 20);
+            this.textBox_lead_result.TabIndex = 19;
+            // 
+            // label_lead_measurement
+            // 
+            this.label_lead_measurement.AutoSize = true;
+            this.label_lead_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_lead_measurement.Location = new System.Drawing.Point(149, 66);
+            this.label_lead_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_lead_measurement.Name = "label_lead_measurement";
+            this.label_lead_measurement.Size = new System.Drawing.Size(71, 13);
+            this.label_lead_measurement.TabIndex = 25;
+            this.label_lead_measurement.Text = "ppm/µm/m3  ";
+            // 
+            // groupBox_child_water
+            // 
+            this.groupBox_child_water.Controls.Add(this.groupBox_copper_water_qual_desc);
+            this.groupBox_child_water.Controls.Add(this.groupBox_coliforms_water_qual_desc);
+            this.groupBox_child_water.Controls.Add(this.groupBox_arsenic_water_qual_desc);
+            this.groupBox_child_water.Controls.Add(this.groupBox_turbidity_water_qual_desc);
+            this.groupBox_child_water.Controls.Add(this.groupBox_water_test_results);
+            this.groupBox_child_water.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_child_water.Location = new System.Drawing.Point(498, 85);
+            this.groupBox_child_water.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_child_water.Name = "groupBox_child_water";
+            this.groupBox_child_water.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_child_water.Size = new System.Drawing.Size(378, 394);
+            this.groupBox_child_water.TabIndex = 71;
+            this.groupBox_child_water.TabStop = false;
+            this.groupBox_child_water.Text = "WATER TEST RESULTS";
+            // 
+            // groupBox_copper_water_qual_desc
+            // 
+            this.groupBox_copper_water_qual_desc.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox_copper_water_qual_desc.Controls.Add(this.richTextBox_copper_result_table);
+            this.groupBox_copper_water_qual_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_copper_water_qual_desc.Location = new System.Drawing.Point(200, 222);
+            this.groupBox_copper_water_qual_desc.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_copper_water_qual_desc.Name = "groupBox_copper_water_qual_desc";
+            this.groupBox_copper_water_qual_desc.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_copper_water_qual_desc.Size = new System.Drawing.Size(159, 107);
+            this.groupBox_copper_water_qual_desc.TabIndex = 56;
+            this.groupBox_copper_water_qual_desc.TabStop = false;
+            this.groupBox_copper_water_qual_desc.Text = "Copper Water Quality Descriptor";
+            // 
+            // richTextBox_copper_result_table
+            // 
+            this.richTextBox_copper_result_table.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_copper_result_table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_copper_result_table.CausesValidation = false;
+            this.richTextBox_copper_result_table.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_copper_result_table.DetectUrls = false;
+            this.richTextBox_copper_result_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_copper_result_table.Location = new System.Drawing.Point(27, 33);
+            this.richTextBox_copper_result_table.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_copper_result_table.Name = "richTextBox_copper_result_table";
+            this.richTextBox_copper_result_table.ReadOnly = true;
+            this.richTextBox_copper_result_table.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_copper_result_table.ShortcutsEnabled = false;
+            this.richTextBox_copper_result_table.Size = new System.Drawing.Size(103, 42);
+            this.richTextBox_copper_result_table.TabIndex = 30;
+            this.richTextBox_copper_result_table.TabStop = false;
+            this.richTextBox_copper_result_table.Text = "0.0                Safe\n0.1 - 1.3      Unsafe\n1.4 +            Dangerous";
+            this.richTextBox_copper_result_table.WordWrap = false;
+            // 
+            // groupBox_coliforms_water_qual_desc
+            // 
+            this.groupBox_coliforms_water_qual_desc.Controls.Add(this.richTextBox_coliforms_result_table);
+            this.groupBox_coliforms_water_qual_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_coliforms_water_qual_desc.Location = new System.Drawing.Point(200, 141);
+            this.groupBox_coliforms_water_qual_desc.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_coliforms_water_qual_desc.Name = "groupBox_coliforms_water_qual_desc";
+            this.groupBox_coliforms_water_qual_desc.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_coliforms_water_qual_desc.Size = new System.Drawing.Size(159, 72);
+            this.groupBox_coliforms_water_qual_desc.TabIndex = 53;
+            this.groupBox_coliforms_water_qual_desc.TabStop = false;
+            this.groupBox_coliforms_water_qual_desc.Text = "Coliforms Water Quality Descriptor";
+            // 
+            // richTextBox_coliforms_result_table
+            // 
+            this.richTextBox_coliforms_result_table.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_coliforms_result_table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_coliforms_result_table.CausesValidation = false;
+            this.richTextBox_coliforms_result_table.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_coliforms_result_table.DetectUrls = false;
+            this.richTextBox_coliforms_result_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_coliforms_result_table.Location = new System.Drawing.Point(27, 29);
+            this.richTextBox_coliforms_result_table.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_coliforms_result_table.Name = "richTextBox_coliforms_result_table";
+            this.richTextBox_coliforms_result_table.ReadOnly = true;
+            this.richTextBox_coliforms_result_table.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_coliforms_result_table.ShortcutsEnabled = false;
+            this.richTextBox_coliforms_result_table.Size = new System.Drawing.Size(80, 30);
+            this.richTextBox_coliforms_result_table.TabIndex = 52;
+            this.richTextBox_coliforms_result_table.TabStop = false;
+            this.richTextBox_coliforms_result_table.Text = "          0    Negative \n          1    Positive";
+            this.richTextBox_coliforms_result_table.WordWrap = false;
+            // 
+            // groupBox_arsenic_water_qual_desc
+            // 
+            this.groupBox_arsenic_water_qual_desc.Controls.Add(this.richTextBox_arsenic_result_table);
+            this.groupBox_arsenic_water_qual_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_arsenic_water_qual_desc.Location = new System.Drawing.Point(15, 222);
+            this.groupBox_arsenic_water_qual_desc.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_arsenic_water_qual_desc.Name = "groupBox_arsenic_water_qual_desc";
+            this.groupBox_arsenic_water_qual_desc.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_arsenic_water_qual_desc.Size = new System.Drawing.Size(181, 107);
+            this.groupBox_arsenic_water_qual_desc.TabIndex = 55;
+            this.groupBox_arsenic_water_qual_desc.TabStop = false;
+            this.groupBox_arsenic_water_qual_desc.Text = "Arsenic Water Quality Descriptor";
+            // 
+            // richTextBox_arsenic_result_table
+            // 
+            this.richTextBox_arsenic_result_table.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_arsenic_result_table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_arsenic_result_table.CausesValidation = false;
+            this.richTextBox_arsenic_result_table.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_arsenic_result_table.DetectUrls = false;
+            this.richTextBox_arsenic_result_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_arsenic_result_table.Location = new System.Drawing.Point(23, 33);
+            this.richTextBox_arsenic_result_table.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_arsenic_result_table.Name = "richTextBox_arsenic_result_table";
+            this.richTextBox_arsenic_result_table.ReadOnly = true;
+            this.richTextBox_arsenic_result_table.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_arsenic_result_table.ShortcutsEnabled = false;
+            this.richTextBox_arsenic_result_table.Size = new System.Drawing.Size(131, 40);
+            this.richTextBox_arsenic_result_table.TabIndex = 54;
+            this.richTextBox_arsenic_result_table.TabStop = false;
+            this.richTextBox_arsenic_result_table.Text = "0.00                   Safe\n0.00 - 0.01      Unsafe\n0.011 +            Dangerous";
+            this.richTextBox_arsenic_result_table.WordWrap = false;
+            // 
+            // groupBox_turbidity_water_qual_desc
+            // 
+            this.groupBox_turbidity_water_qual_desc.Controls.Add(this.richTextBox_turbidity_result_table);
+            this.groupBox_turbidity_water_qual_desc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_turbidity_water_qual_desc.Location = new System.Drawing.Point(15, 141);
+            this.groupBox_turbidity_water_qual_desc.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_turbidity_water_qual_desc.Name = "groupBox_turbidity_water_qual_desc";
+            this.groupBox_turbidity_water_qual_desc.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_turbidity_water_qual_desc.Size = new System.Drawing.Size(181, 72);
+            this.groupBox_turbidity_water_qual_desc.TabIndex = 51;
+            this.groupBox_turbidity_water_qual_desc.TabStop = false;
+            this.groupBox_turbidity_water_qual_desc.Text = "Turbidity Water Quality Descriptor";
+            // 
+            // richTextBox_turbidity_result_table
+            // 
+            this.richTextBox_turbidity_result_table.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.richTextBox_turbidity_result_table.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_turbidity_result_table.CausesValidation = false;
+            this.richTextBox_turbidity_result_table.Cursor = System.Windows.Forms.Cursors.No;
+            this.richTextBox_turbidity_result_table.DetectUrls = false;
+            this.richTextBox_turbidity_result_table.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_turbidity_result_table.Location = new System.Drawing.Point(12, 17);
+            this.richTextBox_turbidity_result_table.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox_turbidity_result_table.Name = "richTextBox_turbidity_result_table";
+            this.richTextBox_turbidity_result_table.ReadOnly = true;
+            this.richTextBox_turbidity_result_table.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox_turbidity_result_table.ShortcutsEnabled = false;
+            this.richTextBox_turbidity_result_table.Size = new System.Drawing.Size(131, 42);
+            this.richTextBox_turbidity_result_table.TabIndex = 50;
+            this.richTextBox_turbidity_result_table.TabStop = false;
+            this.richTextBox_turbidity_result_table.Text = "0.0   - 0.3       Safe\n0.31 - 1.0       Acceptable\n1.1 +                Dangerous" +
+    "";
+            this.richTextBox_turbidity_result_table.WordWrap = false;
+            // 
+            // groupBox_water_test_results
+            // 
+            this.groupBox_water_test_results.Controls.Add(this.textBox_turbidity_test_results);
+            this.groupBox_water_test_results.Controls.Add(this.label_copper_measurement);
+            this.groupBox_water_test_results.Controls.Add(this.label_turbidity_test_result);
+            this.groupBox_water_test_results.Controls.Add(this.label_copper_test_result);
+            this.groupBox_water_test_results.Controls.Add(this.textBox_copper_test_results);
+            this.groupBox_water_test_results.Controls.Add(this.label_arsenic_measurement);
+            this.groupBox_water_test_results.Controls.Add(this.label_turbidy_meaurement);
+            this.groupBox_water_test_results.Controls.Add(this.label_arsenic_test_result);
+            this.groupBox_water_test_results.Controls.Add(this.textBox_coliforms_test_results);
+            this.groupBox_water_test_results.Controls.Add(this.label_coliform_measurement);
+            this.groupBox_water_test_results.Controls.Add(this.textBox_arsenic_test_results);
+            this.groupBox_water_test_results.Controls.Add(this.label_coliforms_test_result);
+            this.groupBox_water_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_water_test_results.Location = new System.Drawing.Point(13, 14);
+            this.groupBox_water_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox_water_test_results.Name = "groupBox_water_test_results";
+            this.groupBox_water_test_results.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox_water_test_results.Size = new System.Drawing.Size(346, 123);
+            this.groupBox_water_test_results.TabIndex = 49;
+            this.groupBox_water_test_results.TabStop = false;
+            // 
+            // textBox_turbidity_test_results
+            // 
+            this.textBox_turbidity_test_results.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_turbidity_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_turbidity_test_results.Location = new System.Drawing.Point(169, 14);
+            this.textBox_turbidity_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_turbidity_test_results.Name = "textBox_turbidity_test_results";
+            this.textBox_turbidity_test_results.ReadOnly = true;
+            this.textBox_turbidity_test_results.Size = new System.Drawing.Size(42, 20);
+            this.textBox_turbidity_test_results.TabIndex = 38;
+            // 
+            // label_copper_measurement
+            // 
+            this.label_copper_measurement.AutoSize = true;
+            this.label_copper_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_copper_measurement.Location = new System.Drawing.Point(229, 91);
+            this.label_copper_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_copper_measurement.Name = "label_copper_measurement";
+            this.label_copper_measurement.Size = new System.Drawing.Size(32, 13);
+            this.label_copper_measurement.TabIndex = 48;
+            this.label_copper_measurement.Text = "mg/L";
+            // 
+            // label_turbidity_test_result
+            // 
+            this.label_turbidity_test_result.AutoSize = true;
+            this.label_turbidity_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_turbidity_test_result.Location = new System.Drawing.Point(97, 19);
+            this.label_turbidity_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_turbidity_test_result.Name = "label_turbidity_test_result";
+            this.label_turbidity_test_result.Size = new System.Drawing.Size(59, 13);
+            this.label_turbidity_test_result.TabIndex = 37;
+            this.label_turbidity_test_result.Text = "Turbidity ->";
+            // 
+            // label_copper_test_result
+            // 
+            this.label_copper_test_result.AutoSize = true;
+            this.label_copper_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_copper_test_result.Location = new System.Drawing.Point(103, 95);
+            this.label_copper_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_copper_test_result.Name = "label_copper_test_result";
+            this.label_copper_test_result.Size = new System.Drawing.Size(53, 13);
+            this.label_copper_test_result.TabIndex = 46;
+            this.label_copper_test_result.Text = "Copper ->";
+            // 
+            // textBox_copper_test_results
+            // 
+            this.textBox_copper_test_results.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_copper_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_copper_test_results.Location = new System.Drawing.Point(169, 88);
+            this.textBox_copper_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_copper_test_results.Name = "textBox_copper_test_results";
+            this.textBox_copper_test_results.ReadOnly = true;
+            this.textBox_copper_test_results.Size = new System.Drawing.Size(42, 20);
+            this.textBox_copper_test_results.TabIndex = 47;
+            // 
+            // label_arsenic_measurement
+            // 
+            this.label_arsenic_measurement.AutoSize = true;
+            this.label_arsenic_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_arsenic_measurement.Location = new System.Drawing.Point(229, 69);
+            this.label_arsenic_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_arsenic_measurement.Name = "label_arsenic_measurement";
+            this.label_arsenic_measurement.Size = new System.Drawing.Size(32, 13);
+            this.label_arsenic_measurement.TabIndex = 45;
+            this.label_arsenic_measurement.Text = "mg/L";
+            // 
+            // label_turbidy_meaurement
+            // 
+            this.label_turbidy_meaurement.AutoSize = true;
+            this.label_turbidy_meaurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_turbidy_meaurement.Location = new System.Drawing.Point(229, 19);
+            this.label_turbidy_meaurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_turbidy_meaurement.Name = "label_turbidy_meaurement";
+            this.label_turbidy_meaurement.Size = new System.Drawing.Size(30, 13);
+            this.label_turbidy_meaurement.TabIndex = 39;
+            this.label_turbidy_meaurement.Text = "NTU";
+            // 
+            // label_arsenic_test_result
+            // 
+            this.label_arsenic_test_result.AutoSize = true;
+            this.label_arsenic_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_arsenic_test_result.Location = new System.Drawing.Point(102, 69);
+            this.label_arsenic_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_arsenic_test_result.Name = "label_arsenic_test_result";
+            this.label_arsenic_test_result.Size = new System.Drawing.Size(54, 13);
+            this.label_arsenic_test_result.TabIndex = 43;
+            this.label_arsenic_test_result.Text = "Arsenic ->";
+            // 
+            // textBox_coliforms_test_results
+            // 
+            this.textBox_coliforms_test_results.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_coliforms_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_coliforms_test_results.Location = new System.Drawing.Point(169, 39);
+            this.textBox_coliforms_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_coliforms_test_results.Name = "textBox_coliforms_test_results";
+            this.textBox_coliforms_test_results.ReadOnly = true;
+            this.textBox_coliforms_test_results.Size = new System.Drawing.Size(42, 20);
+            this.textBox_coliforms_test_results.TabIndex = 41;
+            // 
+            // label_coliform_measurement
+            // 
+            this.label_coliform_measurement.AutoSize = true;
+            this.label_coliform_measurement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_coliform_measurement.Location = new System.Drawing.Point(229, 42);
+            this.label_coliform_measurement.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_coliform_measurement.Name = "label_coliform_measurement";
+            this.label_coliform_measurement.Size = new System.Drawing.Size(32, 13);
+            this.label_coliform_measurement.TabIndex = 42;
+            this.label_coliform_measurement.Text = "mg/L";
+            // 
+            // textBox_arsenic_test_results
+            // 
+            this.textBox_arsenic_test_results.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_arsenic_test_results.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_arsenic_test_results.Location = new System.Drawing.Point(169, 64);
+            this.textBox_arsenic_test_results.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_arsenic_test_results.Name = "textBox_arsenic_test_results";
+            this.textBox_arsenic_test_results.ReadOnly = true;
+            this.textBox_arsenic_test_results.Size = new System.Drawing.Size(42, 20);
+            this.textBox_arsenic_test_results.TabIndex = 44;
+            // 
+            // label_coliforms_test_result
+            // 
+            this.label_coliforms_test_result.AutoSize = true;
+            this.label_coliforms_test_result.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_coliforms_test_result.Location = new System.Drawing.Point(68, 45);
+            this.label_coliforms_test_result.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_coliforms_test_result.Name = "label_coliforms_test_result";
+            this.label_coliforms_test_result.Size = new System.Drawing.Size(88, 13);
+            this.label_coliforms_test_result.TabIndex = 40;
+            this.label_coliforms_test_result.Text = "Total Coliforms ->";
+            // 
+            // FormTest
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(911, 494);
+            this.Controls.Add(this.groupBox_child_water);
+            this.Controls.Add(this.groupBox_child_air);
+            this.Controls.Add(this.label_intro);
+            this.Controls.Add(this.Title_Label);
+            this.Controls.Add(this.groupBox_enter_test_data);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormTest";
+            this.Load += new System.EventHandler(this.FormTest_Load_1);
+            this.groupBox_enter_test_data.ResumeLayout(false);
+            this.groupBox_choose_test.ResumeLayout(false);
+            this.groupBox_choose_test.PerformLayout();
+            this.groupBox_date_of_test.ResumeLayout(false);
+            this.groupBox_addr_zip_code.ResumeLayout(false);
+            this.groupBox_addr_zip_code.PerformLayout();
+            this.groupBox_child_air.ResumeLayout(false);
+            this.groupBox_lead_qual_air_descriptor.ResumeLayout(false);
+            this.groupBox_particulate_air_quality_descriptor.ResumeLayout(false);
+            this.groupBox_CO2_air_qual_desc.ResumeLayout(false);
+            this.groupBox_air_test_results.ResumeLayout(false);
+            this.groupBox_air_test_results.PerformLayout();
+            this.groupBox_child_water.ResumeLayout(false);
+            this.groupBox_copper_water_qual_desc.ResumeLayout(false);
+            this.groupBox_coliforms_water_qual_desc.ResumeLayout(false);
+            this.groupBox_arsenic_water_qual_desc.ResumeLayout(false);
+            this.groupBox_turbidity_water_qual_desc.ResumeLayout(false);
+            this.groupBox_water_test_results.ResumeLayout(false);
+            this.groupBox_water_test_results.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox_enter_test_data;
+        private System.Windows.Forms.GroupBox groupBox_choose_test;
+        private System.Windows.Forms.RadioButton radioButton_choose_test_water;
+        private System.Windows.Forms.RadioButton radioButton_choose_test_air;
+        private System.Windows.Forms.GroupBox groupBox_date_of_test;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button button_run_test;
+        private System.Windows.Forms.GroupBox groupBox_addr_zip_code;
+        private System.Windows.Forms.TextBox textBox_address_user_input;
+        private System.Windows.Forms.Label label_zip;
+        private System.Windows.Forms.ComboBox comboBox_zip_code;
+        private System.Windows.Forms.Label label_address;
+        private System.Windows.Forms.Label Title_Label;
+        private System.Windows.Forms.Label label_intro;
+        private System.Windows.Forms.GroupBox groupBox_child_air;
+        private System.Windows.Forms.GroupBox groupBox_lead_qual_air_descriptor;
+        private System.Windows.Forms.RichTextBox richTextBox_lead_air_qaul_descriptor;
+        private System.Windows.Forms.GroupBox groupBox_particulate_air_quality_descriptor;
+        private System.Windows.Forms.RichTextBox richTextBox_particulate_result_table;
+        private System.Windows.Forms.GroupBox groupBox_CO2_air_qual_desc;
+        private System.Windows.Forms.RichTextBox richTextBox_Car_mon_air_qual_descriptor;
+        private System.Windows.Forms.GroupBox groupBox_air_test_results;
+        private System.Windows.Forms.TextBox textBox_particulates_result;
+        private System.Windows.Forms.Label label_particulate_measurement;
+        private System.Windows.Forms.Label label_CO_measurement;
+        private System.Windows.Forms.Label label_particulate_test_result;
+        private System.Windows.Forms.Label label_carbon_monixide_test_result;
+        private System.Windows.Forms.Label label_lead_test_result;
+        private System.Windows.Forms.TextBox textBox_carbon_monixide_result;
+        private System.Windows.Forms.TextBox textBox_lead_result;
+        private System.Windows.Forms.Label label_lead_measurement;
+        private System.Windows.Forms.GroupBox groupBox_child_water;
+        private System.Windows.Forms.GroupBox groupBox_copper_water_qual_desc;
+        private System.Windows.Forms.RichTextBox richTextBox_copper_result_table;
+        private System.Windows.Forms.GroupBox groupBox_coliforms_water_qual_desc;
+        private System.Windows.Forms.RichTextBox richTextBox_coliforms_result_table;
+        private System.Windows.Forms.GroupBox groupBox_arsenic_water_qual_desc;
+        private System.Windows.Forms.RichTextBox richTextBox_arsenic_result_table;
+        private System.Windows.Forms.GroupBox groupBox_turbidity_water_qual_desc;
+        private System.Windows.Forms.RichTextBox richTextBox_turbidity_result_table;
+        private System.Windows.Forms.GroupBox groupBox_water_test_results;
+        private System.Windows.Forms.TextBox textBox_turbidity_test_results;
+        private System.Windows.Forms.Label label_copper_measurement;
+        private System.Windows.Forms.Label label_turbidity_test_result;
+        private System.Windows.Forms.Label label_copper_test_result;
+        private System.Windows.Forms.TextBox textBox_copper_test_results;
+        private System.Windows.Forms.Label label_arsenic_measurement;
+        private System.Windows.Forms.Label label_turbidy_meaurement;
+        private System.Windows.Forms.Label label_arsenic_test_result;
+        private System.Windows.Forms.TextBox textBox_coliforms_test_results;
+        private System.Windows.Forms.Label label_coliform_measurement;
+        private System.Windows.Forms.TextBox textBox_arsenic_test_results;
+        private System.Windows.Forms.Label label_coliforms_test_result;
+    }
+}

@@ -1,0 +1,7 @@
+bugs:  11/13/2015
+
+
+- when the user enters a username, and then enters a password that IS in the 
+   database but is NOT the password for the user, nothing happens
+
+- choosing ALL WATER tests gives an error message

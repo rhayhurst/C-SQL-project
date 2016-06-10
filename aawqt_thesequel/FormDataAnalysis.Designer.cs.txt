@@ -1,0 +1,518 @@
+﻿namespace AAWQT_TheSequel
+{
+    partial class FormDataAnalysis
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDataAnalysis));
+            this.radioButton_choose_address = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_zip = new System.Windows.Forms.RadioButton();
+            this.textBox_address_or_zip_code = new System.Windows.Forms.TextBox();
+            this.label_choose_zip_or_address = new System.Windows.Forms.Label();
+            this.groupBox_choose_location = new System.Windows.Forms.GroupBox();
+            this.label_start_date = new System.Windows.Forms.Label();
+            this.dateTimePicker_start_date = new System.Windows.Forms.DateTimePicker();
+            this.label_end_date = new System.Windows.Forms.Label();
+            this.dateTimePicker_end_date = new System.Windows.Forms.DateTimePicker();
+            this.groupBox_choose_dates = new System.Windows.Forms.GroupBox();
+            this.radioButton_no_date_constraints = new System.Windows.Forms.RadioButton();
+            this.groupBox_multiple_results = new System.Windows.Forms.GroupBox();
+            this.groupBox_first_date = new System.Windows.Forms.GroupBox();
+            this.radioButton_multiple_results = new System.Windows.Forms.RadioButton();
+            this.radioButton_single_date = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_air_test = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_water_test = new System.Windows.Forms.RadioButton();
+            this.groupBox_type_of_test = new System.Windows.Forms.GroupBox();
+            this.radioButton_choose_all_air_tests = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_CO2 = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_particulates = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_lead = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_all_water_tests = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_turbidity = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_coliforms = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_arsenic = new System.Windows.Forms.RadioButton();
+            this.radioButton_choose_copper = new System.Windows.Forms.RadioButton();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button_get_results = new System.Windows.Forms.Button();
+            this.button_clear_boxes = new System.Windows.Forms.Button();
+            this.label_title = new System.Windows.Forms.Label();
+            this.label_intro = new System.Windows.Forms.Label();
+            this.groupBox_specific_test = new System.Windows.Forms.GroupBox();
+            this.label_water_tests = new System.Windows.Forms.Label();
+            this.label_air_tests = new System.Windows.Forms.Label();
+            this.groupBox_choose_location.SuspendLayout();
+            this.groupBox_choose_dates.SuspendLayout();
+            this.groupBox_multiple_results.SuspendLayout();
+            this.groupBox_first_date.SuspendLayout();
+            this.groupBox_type_of_test.SuspendLayout();
+            this.groupBox_specific_test.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // radioButton_choose_address
+            // 
+            this.radioButton_choose_address.AutoSize = true;
+            this.radioButton_choose_address.Location = new System.Drawing.Point(48, 19);
+            this.radioButton_choose_address.Name = "radioButton_choose_address";
+            this.radioButton_choose_address.Size = new System.Drawing.Size(63, 17);
+            this.radioButton_choose_address.TabIndex = 0;
+            this.radioButton_choose_address.TabStop = true;
+            this.radioButton_choose_address.Text = "Address";
+            this.radioButton_choose_address.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_zip
+            // 
+            this.radioButton_choose_zip.AutoSize = true;
+            this.radioButton_choose_zip.Location = new System.Drawing.Point(48, 42);
+            this.radioButton_choose_zip.Name = "radioButton_choose_zip";
+            this.radioButton_choose_zip.Size = new System.Drawing.Size(68, 17);
+            this.radioButton_choose_zip.TabIndex = 1;
+            this.radioButton_choose_zip.TabStop = true;
+            this.radioButton_choose_zip.Text = "Zip Code";
+            this.radioButton_choose_zip.UseVisualStyleBackColor = true;
+            // 
+            // textBox_address_or_zip_code
+            // 
+            this.textBox_address_or_zip_code.Location = new System.Drawing.Point(8, 78);
+            this.textBox_address_or_zip_code.Name = "textBox_address_or_zip_code";
+            this.textBox_address_or_zip_code.Size = new System.Drawing.Size(190, 20);
+            this.textBox_address_or_zip_code.TabIndex = 2;
+            // 
+            // label_choose_zip_or_address
+            // 
+            this.label_choose_zip_or_address.AutoSize = true;
+            this.label_choose_zip_or_address.Location = new System.Drawing.Point(19, 62);
+            this.label_choose_zip_or_address.Name = "label_choose_zip_or_address";
+            this.label_choose_zip_or_address.Size = new System.Drawing.Size(130, 13);
+            this.label_choose_zip_or_address.TabIndex = 3;
+            this.label_choose_zip_or_address.Text = "Enter address or zip code:";
+            // 
+            // groupBox_choose_location
+            // 
+            this.groupBox_choose_location.Controls.Add(this.textBox_address_or_zip_code);
+            this.groupBox_choose_location.Controls.Add(this.label_choose_zip_or_address);
+            this.groupBox_choose_location.Controls.Add(this.radioButton_choose_zip);
+            this.groupBox_choose_location.Controls.Add(this.radioButton_choose_address);
+            this.groupBox_choose_location.Location = new System.Drawing.Point(21, 84);
+            this.groupBox_choose_location.Name = "groupBox_choose_location";
+            this.groupBox_choose_location.Size = new System.Drawing.Size(208, 106);
+            this.groupBox_choose_location.TabIndex = 4;
+            this.groupBox_choose_location.TabStop = false;
+            this.groupBox_choose_location.Text = "Location";
+            // 
+            // label_start_date
+            // 
+            this.label_start_date.AutoSize = true;
+            this.label_start_date.Location = new System.Drawing.Point(6, 16);
+            this.label_start_date.Name = "label_start_date";
+            this.label_start_date.Size = new System.Drawing.Size(126, 13);
+            this.label_start_date.TabIndex = 5;
+            this.label_start_date.Text = "Start Date (or single test):";
+            // 
+            // dateTimePicker_start_date
+            // 
+            this.dateTimePicker_start_date.Location = new System.Drawing.Point(0, 32);
+            this.dateTimePicker_start_date.Name = "dateTimePicker_start_date";
+            this.dateTimePicker_start_date.Size = new System.Drawing.Size(192, 20);
+            this.dateTimePicker_start_date.TabIndex = 6;
+            // 
+            // label_end_date
+            // 
+            this.label_end_date.AutoSize = true;
+            this.label_end_date.Location = new System.Drawing.Point(6, 15);
+            this.label_end_date.Name = "label_end_date";
+            this.label_end_date.Size = new System.Drawing.Size(139, 13);
+            this.label_end_date.TabIndex = 7;
+            this.label_end_date.Text = "End Date (for multiple tests):";
+            // 
+            // dateTimePicker_end_date
+            // 
+            this.dateTimePicker_end_date.Location = new System.Drawing.Point(3, 31);
+            this.dateTimePicker_end_date.Name = "dateTimePicker_end_date";
+            this.dateTimePicker_end_date.Size = new System.Drawing.Size(192, 20);
+            this.dateTimePicker_end_date.TabIndex = 8;
+            // 
+            // groupBox_choose_dates
+            // 
+            this.groupBox_choose_dates.Controls.Add(this.radioButton_no_date_constraints);
+            this.groupBox_choose_dates.Controls.Add(this.groupBox_multiple_results);
+            this.groupBox_choose_dates.Controls.Add(this.groupBox_first_date);
+            this.groupBox_choose_dates.Controls.Add(this.radioButton_multiple_results);
+            this.groupBox_choose_dates.Controls.Add(this.radioButton_single_date);
+            this.groupBox_choose_dates.Location = new System.Drawing.Point(21, 209);
+            this.groupBox_choose_dates.Name = "groupBox_choose_dates";
+            this.groupBox_choose_dates.Size = new System.Drawing.Size(208, 208);
+            this.groupBox_choose_dates.TabIndex = 9;
+            this.groupBox_choose_dates.TabStop = false;
+            this.groupBox_choose_dates.Text = "Date(s)";
+            // 
+            // radioButton_no_date_constraints
+            // 
+            this.radioButton_no_date_constraints.AutoSize = true;
+            this.radioButton_no_date_constraints.Location = new System.Drawing.Point(9, 65);
+            this.radioButton_no_date_constraints.Name = "radioButton_no_date_constraints";
+            this.radioButton_no_date_constraints.Size = new System.Drawing.Size(143, 17);
+            this.radioButton_no_date_constraints.TabIndex = 30;
+            this.radioButton_no_date_constraints.TabStop = true;
+            this.radioButton_no_date_constraints.Text = "show all results, no dates";
+            this.radioButton_no_date_constraints.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_multiple_results
+            // 
+            this.groupBox_multiple_results.Controls.Add(this.label_end_date);
+            this.groupBox_multiple_results.Controls.Add(this.dateTimePicker_end_date);
+            this.groupBox_multiple_results.Location = new System.Drawing.Point(6, 146);
+            this.groupBox_multiple_results.Name = "groupBox_multiple_results";
+            this.groupBox_multiple_results.Size = new System.Drawing.Size(193, 57);
+            this.groupBox_multiple_results.TabIndex = 29;
+            this.groupBox_multiple_results.TabStop = false;
+            // 
+            // groupBox_first_date
+            // 
+            this.groupBox_first_date.Controls.Add(this.label_start_date);
+            this.groupBox_first_date.Controls.Add(this.dateTimePicker_start_date);
+            this.groupBox_first_date.Location = new System.Drawing.Point(6, 88);
+            this.groupBox_first_date.Name = "groupBox_first_date";
+            this.groupBox_first_date.Size = new System.Drawing.Size(193, 57);
+            this.groupBox_first_date.TabIndex = 29;
+            this.groupBox_first_date.TabStop = false;
+            // 
+            // radioButton_multiple_results
+            // 
+            this.radioButton_multiple_results.AutoSize = true;
+            this.radioButton_multiple_results.Location = new System.Drawing.Point(8, 42);
+            this.radioButton_multiple_results.Name = "radioButton_multiple_results";
+            this.radioButton_multiple_results.Size = new System.Drawing.Size(148, 17);
+            this.radioButton_multiple_results.TabIndex = 10;
+            this.radioButton_multiple_results.TabStop = true;
+            this.radioButton_multiple_results.Text = "show tests between dates";
+            this.radioButton_multiple_results.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_single_date
+            // 
+            this.radioButton_single_date.AutoSize = true;
+            this.radioButton_single_date.Location = new System.Drawing.Point(8, 19);
+            this.radioButton_single_date.Name = "radioButton_single_date";
+            this.radioButton_single_date.Size = new System.Drawing.Size(144, 17);
+            this.radioButton_single_date.TabIndex = 9;
+            this.radioButton_single_date.TabStop = true;
+            this.radioButton_single_date.Text = "show test for specific day";
+            this.radioButton_single_date.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_air_test
+            // 
+            this.radioButton_choose_air_test.AutoSize = true;
+            this.radioButton_choose_air_test.Location = new System.Drawing.Point(18, 19);
+            this.radioButton_choose_air_test.Name = "radioButton_choose_air_test";
+            this.radioButton_choose_air_test.Size = new System.Drawing.Size(37, 17);
+            this.radioButton_choose_air_test.TabIndex = 10;
+            this.radioButton_choose_air_test.TabStop = true;
+            this.radioButton_choose_air_test.Text = "Air";
+            this.radioButton_choose_air_test.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_water_test
+            // 
+            this.radioButton_choose_water_test.AutoSize = true;
+            this.radioButton_choose_water_test.Location = new System.Drawing.Point(130, 19);
+            this.radioButton_choose_water_test.Name = "radioButton_choose_water_test";
+            this.radioButton_choose_water_test.Size = new System.Drawing.Size(54, 17);
+            this.radioButton_choose_water_test.TabIndex = 11;
+            this.radioButton_choose_water_test.TabStop = true;
+            this.radioButton_choose_water_test.Text = "Water";
+            this.radioButton_choose_water_test.UseVisualStyleBackColor = true;
+            // 
+            // groupBox_type_of_test
+            // 
+            this.groupBox_type_of_test.Controls.Add(this.radioButton_choose_air_test);
+            this.groupBox_type_of_test.Controls.Add(this.radioButton_choose_water_test);
+            this.groupBox_type_of_test.Location = new System.Drawing.Point(21, 423);
+            this.groupBox_type_of_test.Name = "groupBox_type_of_test";
+            this.groupBox_type_of_test.Size = new System.Drawing.Size(208, 46);
+            this.groupBox_type_of_test.TabIndex = 12;
+            this.groupBox_type_of_test.TabStop = false;
+            this.groupBox_type_of_test.Text = "Type of Test";
+            // 
+            // radioButton_choose_all_air_tests
+            // 
+            this.radioButton_choose_all_air_tests.AutoSize = true;
+            this.radioButton_choose_all_air_tests.Location = new System.Drawing.Point(15, 55);
+            this.radioButton_choose_all_air_tests.Name = "radioButton_choose_all_air_tests";
+            this.radioButton_choose_all_air_tests.Size = new System.Drawing.Size(49, 17);
+            this.radioButton_choose_all_air_tests.TabIndex = 13;
+            this.radioButton_choose_all_air_tests.TabStop = true;
+            this.radioButton_choose_all_air_tests.Text = "all air";
+            this.radioButton_choose_all_air_tests.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_CO2
+            // 
+            this.radioButton_choose_CO2.AutoSize = true;
+            this.radioButton_choose_CO2.Location = new System.Drawing.Point(15, 101);
+            this.radioButton_choose_CO2.Name = "radioButton_choose_CO2";
+            this.radioButton_choose_CO2.Size = new System.Drawing.Size(106, 17);
+            this.radioButton_choose_CO2.TabIndex = 14;
+            this.radioButton_choose_CO2.TabStop = true;
+            this.radioButton_choose_CO2.Text = "carbon monoxide";
+            this.radioButton_choose_CO2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_particulates
+            // 
+            this.radioButton_choose_particulates.AutoSize = true;
+            this.radioButton_choose_particulates.Location = new System.Drawing.Point(15, 78);
+            this.radioButton_choose_particulates.Name = "radioButton_choose_particulates";
+            this.radioButton_choose_particulates.Size = new System.Drawing.Size(79, 17);
+            this.radioButton_choose_particulates.TabIndex = 15;
+            this.radioButton_choose_particulates.TabStop = true;
+            this.radioButton_choose_particulates.Text = "particulates";
+            this.radioButton_choose_particulates.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_lead
+            // 
+            this.radioButton_choose_lead.AutoSize = true;
+            this.radioButton_choose_lead.Location = new System.Drawing.Point(15, 124);
+            this.radioButton_choose_lead.Name = "radioButton_choose_lead";
+            this.radioButton_choose_lead.Size = new System.Drawing.Size(45, 17);
+            this.radioButton_choose_lead.TabIndex = 16;
+            this.radioButton_choose_lead.TabStop = true;
+            this.radioButton_choose_lead.Text = "lead";
+            this.radioButton_choose_lead.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_all_water_tests
+            // 
+            this.radioButton_choose_all_water_tests.AutoSize = true;
+            this.radioButton_choose_all_water_tests.Location = new System.Drawing.Point(130, 55);
+            this.radioButton_choose_all_water_tests.Name = "radioButton_choose_all_water_tests";
+            this.radioButton_choose_all_water_tests.Size = new System.Drawing.Size(64, 17);
+            this.radioButton_choose_all_water_tests.TabIndex = 18;
+            this.radioButton_choose_all_water_tests.TabStop = true;
+            this.radioButton_choose_all_water_tests.Text = "all water";
+            this.radioButton_choose_all_water_tests.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_turbidity
+            // 
+            this.radioButton_choose_turbidity.AutoSize = true;
+            this.radioButton_choose_turbidity.Location = new System.Drawing.Point(130, 78);
+            this.radioButton_choose_turbidity.Name = "radioButton_choose_turbidity";
+            this.radioButton_choose_turbidity.Size = new System.Drawing.Size(61, 17);
+            this.radioButton_choose_turbidity.TabIndex = 19;
+            this.radioButton_choose_turbidity.TabStop = true;
+            this.radioButton_choose_turbidity.Text = "turbidity";
+            this.radioButton_choose_turbidity.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_coliforms
+            // 
+            this.radioButton_choose_coliforms.AutoSize = true;
+            this.radioButton_choose_coliforms.Location = new System.Drawing.Point(130, 101);
+            this.radioButton_choose_coliforms.Name = "radioButton_choose_coliforms";
+            this.radioButton_choose_coliforms.Size = new System.Drawing.Size(66, 17);
+            this.radioButton_choose_coliforms.TabIndex = 20;
+            this.radioButton_choose_coliforms.TabStop = true;
+            this.radioButton_choose_coliforms.Text = "coliforms";
+            this.radioButton_choose_coliforms.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_arsenic
+            // 
+            this.radioButton_choose_arsenic.AutoSize = true;
+            this.radioButton_choose_arsenic.Location = new System.Drawing.Point(130, 124);
+            this.radioButton_choose_arsenic.Name = "radioButton_choose_arsenic";
+            this.radioButton_choose_arsenic.Size = new System.Drawing.Size(59, 17);
+            this.radioButton_choose_arsenic.TabIndex = 21;
+            this.radioButton_choose_arsenic.TabStop = true;
+            this.radioButton_choose_arsenic.Text = "arsenic";
+            this.radioButton_choose_arsenic.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_choose_copper
+            // 
+            this.radioButton_choose_copper.AutoSize = true;
+            this.radioButton_choose_copper.Location = new System.Drawing.Point(130, 147);
+            this.radioButton_choose_copper.Name = "radioButton_choose_copper";
+            this.radioButton_choose_copper.Size = new System.Drawing.Size(58, 17);
+            this.radioButton_choose_copper.TabIndex = 22;
+            this.radioButton_choose_copper.TabStop = true;
+            this.radioButton_choose_copper.Text = "copper";
+            this.radioButton_choose_copper.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(249, 113);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(354, 511);
+            this.listBox1.TabIndex = 24;
+            // 
+            // button_get_results
+            // 
+            this.button_get_results.Location = new System.Drawing.Point(249, 84);
+            this.button_get_results.Name = "button_get_results";
+            this.button_get_results.Size = new System.Drawing.Size(354, 23);
+            this.button_get_results.TabIndex = 25;
+            this.button_get_results.Text = "Get Test Results";
+            this.button_get_results.UseVisualStyleBackColor = true;
+            this.button_get_results.Click += new System.EventHandler(this.button_get_results_Click);
+            // 
+            // button_clear_boxes
+            // 
+            this.button_clear_boxes.Location = new System.Drawing.Point(249, 630);
+            this.button_clear_boxes.Name = "button_clear_boxes";
+            this.button_clear_boxes.Size = new System.Drawing.Size(354, 23);
+            this.button_clear_boxes.TabIndex = 26;
+            this.button_clear_boxes.Text = "Clear Fields";
+            this.button_clear_boxes.UseVisualStyleBackColor = true;
+            this.button_clear_boxes.Click += new System.EventHandler(this.button_clear_boxes_Click);
+            // 
+            // label_title
+            // 
+            this.label_title.AutoSize = true;
+            this.label_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_title.Location = new System.Drawing.Point(196, 9);
+            this.label_title.Name = "label_title";
+            this.label_title.Size = new System.Drawing.Size(272, 24);
+            this.label_title.TabIndex = 27;
+            this.label_title.Text = "Air and Water Quality Tester";
+            // 
+            // label_intro
+            // 
+            this.label_intro.AutoSize = true;
+            this.label_intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_intro.Location = new System.Drawing.Point(276, 33);
+            this.label_intro.Name = "label_intro";
+            this.label_intro.Size = new System.Drawing.Size(119, 13);
+            this.label_intro.TabIndex = 28;
+            this.label_intro.Text = "giving you a sixth sense";
+            // 
+            // groupBox_specific_test
+            // 
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_copper);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_lead);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_arsenic);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_all_water_tests);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_coliforms);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_turbidity);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_CO2);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_particulates);
+            this.groupBox_specific_test.Controls.Add(this.radioButton_choose_all_air_tests);
+            this.groupBox_specific_test.Controls.Add(this.label_water_tests);
+            this.groupBox_specific_test.Controls.Add(this.label_air_tests);
+            this.groupBox_specific_test.Location = new System.Drawing.Point(21, 475);
+            this.groupBox_specific_test.Name = "groupBox_specific_test";
+            this.groupBox_specific_test.Size = new System.Drawing.Size(208, 181);
+            this.groupBox_specific_test.TabIndex = 32;
+            this.groupBox_specific_test.TabStop = false;
+            this.groupBox_specific_test.Text = "Choose Specific Test(s)";
+            // 
+            // label_water_tests
+            // 
+            this.label_water_tests.AutoSize = true;
+            this.label_water_tests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_water_tests.Location = new System.Drawing.Point(129, 25);
+            this.label_water_tests.Name = "label_water_tests";
+            this.label_water_tests.Size = new System.Drawing.Size(65, 13);
+            this.label_water_tests.TabIndex = 1;
+            this.label_water_tests.Text = "Water Tests";
+            // 
+            // label_air_tests
+            // 
+            this.label_air_tests.AutoSize = true;
+            this.label_air_tests.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_air_tests.Location = new System.Drawing.Point(16, 25);
+            this.label_air_tests.Name = "label_air_tests";
+            this.label_air_tests.Size = new System.Drawing.Size(48, 13);
+            this.label_air_tests.TabIndex = 0;
+            this.label_air_tests.Text = "Air Tests";
+            // 
+            // FormDataAnalysis
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(640, 668);
+            this.Controls.Add(this.groupBox_specific_test);
+            this.Controls.Add(this.label_intro);
+            this.Controls.Add(this.label_title);
+            this.Controls.Add(this.button_clear_boxes);
+            this.Controls.Add(this.button_get_results);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.groupBox_type_of_test);
+            this.Controls.Add(this.groupBox_choose_dates);
+            this.Controls.Add(this.groupBox_choose_location);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormDataAnalysis";
+            this.Load += new System.EventHandler(this.FormDataAnalysis_Load);
+            this.groupBox_choose_location.ResumeLayout(false);
+            this.groupBox_choose_location.PerformLayout();
+            this.groupBox_choose_dates.ResumeLayout(false);
+            this.groupBox_choose_dates.PerformLayout();
+            this.groupBox_multiple_results.ResumeLayout(false);
+            this.groupBox_multiple_results.PerformLayout();
+            this.groupBox_first_date.ResumeLayout(false);
+            this.groupBox_first_date.PerformLayout();
+            this.groupBox_type_of_test.ResumeLayout(false);
+            this.groupBox_type_of_test.PerformLayout();
+            this.groupBox_specific_test.ResumeLayout(false);
+            this.groupBox_specific_test.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.RadioButton radioButton_choose_address;
+        private System.Windows.Forms.RadioButton radioButton_choose_zip;
+        private System.Windows.Forms.TextBox textBox_address_or_zip_code;
+        private System.Windows.Forms.Label label_choose_zip_or_address;
+        private System.Windows.Forms.GroupBox groupBox_choose_location;
+        private System.Windows.Forms.Label label_start_date;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start_date;
+        private System.Windows.Forms.Label label_end_date;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_end_date;
+        private System.Windows.Forms.GroupBox groupBox_choose_dates;
+        private System.Windows.Forms.RadioButton radioButton_choose_air_test;
+        private System.Windows.Forms.RadioButton radioButton_choose_water_test;
+        private System.Windows.Forms.GroupBox groupBox_type_of_test;
+        private System.Windows.Forms.RadioButton radioButton_choose_all_air_tests;
+        private System.Windows.Forms.RadioButton radioButton_choose_CO2;
+        private System.Windows.Forms.RadioButton radioButton_choose_particulates;
+        private System.Windows.Forms.RadioButton radioButton_choose_lead;
+        private System.Windows.Forms.RadioButton radioButton_choose_all_water_tests;
+        private System.Windows.Forms.RadioButton radioButton_choose_turbidity;
+        private System.Windows.Forms.RadioButton radioButton_choose_coliforms;
+        private System.Windows.Forms.RadioButton radioButton_choose_arsenic;
+        private System.Windows.Forms.RadioButton radioButton_choose_copper;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button_get_results;
+        private System.Windows.Forms.Button button_clear_boxes;
+        private System.Windows.Forms.Label label_title;
+        private System.Windows.Forms.Label label_intro;
+        private System.Windows.Forms.GroupBox groupBox_multiple_results;
+        private System.Windows.Forms.GroupBox groupBox_first_date;
+        private System.Windows.Forms.RadioButton radioButton_multiple_results;
+        private System.Windows.Forms.RadioButton radioButton_single_date;
+        private System.Windows.Forms.RadioButton radioButton_no_date_constraints;
+        private System.Windows.Forms.GroupBox groupBox_specific_test;
+        private System.Windows.Forms.Label label_water_tests;
+        private System.Windows.Forms.Label label_air_tests;
+    }
+}
